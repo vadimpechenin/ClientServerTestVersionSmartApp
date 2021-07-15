@@ -3,6 +3,8 @@
 WindowManager:
     MainWindow:
     CameraClick:
+    QRWindow:
+    LoadDialog:
 
 #: import TextInput kivy.uix.textinput.TextInput
 
@@ -77,9 +79,15 @@ WindowManager:
                     #Переход окна вправо (текущее уходит влево)
                     root.manager.transition.direction = "left"
 
-
-
-
+            ItemButton:
+                background_normal: '6.jpg'
+                background_down: '6_1.jpg'
+                #Обработчик
+                on_release:
+                    #Переход на второе окно
+                    app.root.current = "camera_for_QR_scanning"
+                    #Переход окна вправо (текущее уходит влево)
+                    root.manager.transition.direction = "left"
 
 <CameraClick>:
     name: "cameraclick"
@@ -119,3 +127,121 @@ WindowManager:
                 app.root.current = "main"
                 #Переход окна влево (текущее уходит вправо)
                 root.manager.transition.direction = "right"
+
+<QRWindow>:
+    name: "camera_for_QR_scanning"
+    text_input: text_input
+    BoxLayout:
+        orientation: 'vertical'
+        rows: 5
+        canvas:
+            Rectangle:
+                source: '4.jpg'
+                size: self.size
+                pos: self.pos
+
+        BoxLayout:
+            size_hint : 0.5, 0.15
+            Image:
+                padding: 30, 0, 0, 0
+                source: '1.jpg'
+                size_hint : 1, 1
+                pos_hint: {"right": 1, "center_y": 0.2}
+
+            Image:
+                #left, top, right, bottom
+                padding: 0, 0, 30, 0
+                source: '3.jpg'
+                size: self.texture_size
+                size_hint : 1.5, 1.5
+                pos_hint: {"x": 0.5, "top": 1}
+        BoxLayout:
+            id: ImageBoxId
+            padding: 30, 30, 30, 30
+
+        GridLayout:
+            orientation: 'vertical'
+            cols: 2
+            Button:
+                text: 'Загрузить из папки'
+                size_hint_y: None
+                pos_hint: {"center_x": 0.5, "y": 0.5}
+                height: '96dp'
+                width: '420dp'
+                #Обработчик
+                on_release:
+                    #Функция загрузки фотографии
+                    #root.ImageLoad()
+                    root.show_load()
+            Button:
+                text: 'Переснять'
+                size_hint_y: None
+                pos_hint: {"center_x": 0.5, "y": 0.5}
+                height: '96dp'
+                width: '420dp'
+                #Обработчик
+                on_release:
+                    #Возвращение в первое окно съемки
+                    app.root.current = "camera_for_classification"
+                    #Переход окна влево (текущее уходит вправо)
+                    root.manager.transition.direction = "left"
+            Button:
+                text: 'Сброс'
+                size_hint_y: None
+                pos_hint: {"center_x": 0.5, "y": 0.5}
+                height: '96dp'
+                width: '420dp'
+                #Обработчик
+                on_release:
+                    #Функция стереть фотографию
+                    root.ImageDel()
+            Button:
+                text: 'Отправить данные'
+                size_hint_y: None
+                pos_hint: {"center_x": 0.5, "y": 0.5}
+                height: '96dp'
+                width: '420dp'
+                #Обработчик
+                on_release:
+                    #Функция стереть фотографию
+                    root.ImageSent()
+
+        BoxLayout:
+            TextInput:
+                id: text_input
+                text: ''
+
+            RstDocument:
+                text: text_input.text
+                show_errors: True
+
+        Button:
+            text: 'Вернуться назад'
+            size_hint_y: None
+            height: '48dp'
+            width: '420dp'
+            #Обработчик
+            on_release:
+                #Возвращение в первое окно
+                app.root.current = "main"
+                #Переход окна влево (текущее уходит вправо)
+                root.manager.transition.direction = "right"
+
+<LoadDialog>:
+    BoxLayout:
+        size: root.size
+        pos: root.pos
+        orientation: "vertical"
+        FileChooserListView:
+            id: filechooser
+
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            Button:
+                text: "Cancel"
+                on_release: root.cancel()
+
+            Button:
+                text: "Load"
+                on_release: root.load(filechooser.path, filechooser.selection)
