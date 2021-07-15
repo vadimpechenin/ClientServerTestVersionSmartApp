@@ -1,0 +1,121 @@
+# -*- coding: Windows-1251 -*-
+
+WindowManager:
+    MainWindow:
+    CameraClick:
+
+#: import TextInput kivy.uix.textinput.TextInput
+
+# Одинаковая часть кода
+<Itemlabel@Label>:
+    font_size: '25sp' #scalabel pixels, одинаковые для разных расширений
+    halign: 'left' #Горизонтальное выравнивание
+    valign: 'middle' #Вертикальное выравнивание
+    # Чтобы заработали свойства halign и valign нужно text_size растянуть по размерам самой метки
+    text_size: self.size
+
+<ItemImage@Image>:
+    #size: self.texture_size
+    #size_hint_x: 0.5
+    #size_hint_y: 0.5
+    size_hint : 0.8, 0.8
+    pos_hint: {"right": 1, "center_y": .5}
+
+<ItemButton@Button>:
+    size_hint_y: None
+    height: '90dp'
+    size_hint_x: None
+    width: '250dp'
+    pos_hint: {"center_x": .5, "center_y": .5}
+    #pos_hint: {"x":0.35, "y":0.3}
+
+<ItemBoxLayout@BoxLayout>:
+    padding:50
+
+
+<MainWindow>:
+    name: "main"
+    GridLayout:
+        canvas:
+            Rectangle:
+                source: '4.jpg'
+                size: self.size
+                pos: self.pos
+
+
+        rows: 5
+        BoxLayout:
+
+            size_hint : 1, 0.8
+            Image:
+                padding: 30, 0, 0, 0
+                source: '1.jpg'
+                size_hint : 0.8, 0.8
+                pos_hint: {"right": 1, "center_y": 0.2}
+
+            Image:
+                #left, top, right, bottom
+                padding: 0, 0, 30, 0
+                source: '3.jpg'
+                size: self.texture_size
+                size_hint : 1.5, 1.5
+                pos_hint: {"x": 0, "top": 1}
+
+        # 2 ряд
+        ItemBoxLayout:
+
+            ItemImage:
+                source: '2.jpg'
+
+            ItemButton:
+                background_normal: '5.jpg'
+                background_down: '5_1.jpg'
+                #Обработчик
+                on_release:
+                    #Переход на второе окно
+                    app.root.current = "cameraclick"
+                    #Переход окна вправо (текущее уходит влево)
+                    root.manager.transition.direction = "left"
+
+
+
+
+
+<CameraClick>:
+    name: "cameraclick"
+    BoxLayout:
+        orientation: 'vertical'
+        Camera:
+            id: camera
+            size_hint: (1, 0.8)
+            pos_hint: {"center_x": 0.5, "top": 0.95}
+            canvas.before:
+                PushMatrix
+                Rotate:
+                    angle: -90
+                    origin: self.center
+            canvas.after:
+                PopMatrix
+            #play: False
+
+        ToggleButton:
+            text: 'Начало работы по распознаванию'
+            on_press:
+                camera.play = not camera.play
+            size_hint_y: None
+            height: '48dp'
+        Button:
+            text: 'Захват изображения для работы'
+            size_hint_y: None
+            height: '48dp'
+            on_press: root.capturePhoto()
+        Button:
+            text: 'Вернуться назад'
+            size_hint_y: None
+            height: '48dp'
+            #Обработчик
+            on_release:
+                #Возвращение в первое окно
+                app.root.current = "main"
+                #Переход окна влево (текущее уходит вправо)
+                root.manager.transition.direction = "right"
