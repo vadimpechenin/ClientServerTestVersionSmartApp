@@ -39,7 +39,66 @@ print("got a connection from %s" % str(addr))
 while True:
     try:
         data = clientsocket.recv(2048)
-        time.sleep(0.5)
+        code_request = data.decode()
+        k=0
+        for i in code_request:
+            if k<1:
+                code_request0 = int(i)
+            else:
+                code_request1 = int(i)
+            k+=1
+
+
+        print("Код от клиента, основной:" + str(code_request0) + ", дополнительный:" + str(code_request1))
+        time.sleep(0.3)
+        # Принимаю картинку
+        if code_request0==1 or code_request0==2:
+            if (code_request1 == 1):
+                for j in range(3):
+                    data = clientsocket.recv(2048)
+                    sizeOfImage = int(data.decode())
+                    print("Размер принятого изображения:", sizeOfImage)
+                    time.sleep(0.3)
+                    file = open('image_server' +str(j) + '.jpg', mode="wb")  # открыть для записи принимаемой картинки файл
+
+                    while sizeOfImage > 0:
+                        data = clientsocket.recv(2048)
+                        file.write(data)
+                        sizeOfImage = sizeOfImage - 2048
+                    """
+                    while True:
+                        data = clientsocket.recv(2048)
+    
+                        if not data:
+                            continue
+                        file.write(data)
+                    """
+                    file.close()
+                    print('Изображение принято')
+
+
+            else:
+                data = clientsocket.recv(2048)
+                sizeOfImage = int(data.decode())
+                print("Размер принятого изображения:", sizeOfImage)
+                time.sleep(0.3)
+                file = open('image_server1.jpg', mode="wb")  # открыть для записи принимаемой картинки файл
+
+
+                while sizeOfImage > 0:
+                    data = clientsocket.recv(2048)
+                    file.write(data)
+                    sizeOfImage = sizeOfImage - 2048
+                """
+                while True:
+                    data = clientsocket.recv(2048)
+        
+                    if not data:
+                        continue
+                    file.write(data)
+                """
+                file.close()
+                print('Изображение принято')
         
         parameters = None
         operation_type = None

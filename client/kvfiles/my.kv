@@ -130,10 +130,10 @@ WindowManager:
 
 <QRWindow>:
     name: "camera_for_QR_scanning"
-    text_input: text_input
+
     BoxLayout:
         orientation: 'vertical'
-        rows: 5
+        rows: 4
         canvas:
             Rectangle:
                 source: '4.jpg'
@@ -172,7 +172,7 @@ WindowManager:
                 on_release:
                     #Функция загрузки фотографии
                     #root.ImageLoad()
-                    root.show_load()
+                    root.show_load_main()
             Button:
                 text: 'Переснять'
                 size_hint_y: None
@@ -205,15 +205,6 @@ WindowManager:
                 on_release:
                     #Функция стереть фотографию
                     root.ImageSent()
-
-        BoxLayout:
-            TextInput:
-                id: text_input
-                text: ''
-
-            RstDocument:
-                text: text_input.text
-                show_errors: True
 
         Button:
             text: 'Вернуться назад'

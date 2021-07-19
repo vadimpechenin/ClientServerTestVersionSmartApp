@@ -24,8 +24,27 @@ from kivy.uix.floatlayout import FloatLayout
 from kivy.properties import ObjectProperty
 from kivy.factory import Factory
 
+# Для всплывающих окон
+from kivy.uix.button import Button
+from kivy.uix.gridlayout import GridLayout
+
+# Для размера окна
+from kivy.core.window import Window
+
 send_data=0
+server_code = '00' #Специальный код, опеределяющий действия на сервере
 filename_g = None
+koef = 1
+triggerPhoto1 = 1
+ifTriggerPhotio1 = 3
+triggerPhoto2 = 1
+
+booleanPhoto = True
+
+if (koef == 1):
+    Window.size = (420, 800)
+else:
+    Window.size = (1100, 2300)
 
 # Классы для окон
 class WindowManager(ScreenManager):
@@ -48,13 +67,21 @@ class QRWindow(Screen):
         super(QRWindow, self).__init__(*args, **kwargs)
         self.sock = MySocket()
         Thread(target=self.get_data).start()
+        self.popup = None
+        self.popup1 = None
 
     def ImageLoad(self,path, filename):
-        global filename_g
+        global filename_g, triggerPhoto1, ifTriggerPhotio1
         data = io.BytesIO(open(filename[0], "rb").read())
-        #data = io.BytesIO(open("IMAGE.jpg", "rb").read())
+        # data = io.BytesIO(open("IMAGE.jpg", "rb").read())
         im = CoreImage(data, ext="png")
-        filename_g = filename[0]
+        if ifTriggerPhotio1==1:
+
+            filename_g = filename[0]
+        else:
+
+            filename_g.append(filename[0])
+
         self.ids.ImageBoxId.add_widget(Image(texture=im.texture))
 
 
@@ -67,35 +94,120 @@ class QRWindow(Screen):
         # Отправляет картинку
         global send_data
         global filename_g
+        global server_code
         send_data = 1
+        #server_code = '10'
 
-
-    #Для загрузки файлов
+    # Функции для загрузки файлов
 
     def dismiss_popup(self):
         self._popup.dismiss()
 
+    def show_load_main(self):
+        global triggerPhoto1, ifTriggerPhotio1, booleanForPopup
+
+        self.btn()
+
     def show_load(self):
+        global filename_g, booleanPhoto, triggerPhoto1
+        if booleanPhoto==True:
+            if (ifTriggerPhotio1==1):
+                filename_g = None
+            elif (ifTriggerPhotio1==3):
+                filename_g = []
+                triggerPhoto1 = 2
+            booleanPhoto = False
+        print(triggerPhoto1)
         content = LoadDialog(load=self.load, cancel=self.dismiss_popup)
         self._popup = Popup(title="Load file", content=content,
                             size_hint=(0.9, 0.9))
         self._popup.open()
 
     def load(self, path, filename):
+        global ifTriggerPhotio1, triggerPhoto1, triggerPhoto2
         #with open(join(path, filename[0])) as stream:
         #    self.text_input.text = stream.read()
 
         self.dismiss_popup()
         self.ImageLoad(path, filename)
+        if (ifTriggerPhotio1 == 3) and (triggerPhoto1>0):
+            triggerPhoto1 -=1
+            triggerPhoto2 +=1
+            self.imgPress()
+
 
     def get_data(self):
         global send_data
         global filename_g
+        global server_code
         while True:
             time.sleep(0.1)
             if (send_data==1):
-                self.sock.get_data(filename_g)
+                self.sock.get_data(filename_g,server_code)
                 send_data=0
+
+    # Блок с всплывающими окнами
+    # Включение всплывающего окна
+    def btn(self, *args):
+        # create content and add to the popup
+        global booleanPhoto
+        booleanPhoto = True
+        PopupGrid = GridLayout(cols=2, size_hint_y=None)
+        content2 = Button(text='QR', halign='left', size_hint=(0.4, 0.1), pos_hint={'x': 0.1, 'top': 0.1})
+        PopupGrid.add_widget(content2)
+        content3 = Button(text='Изображение', halign='left', size_hint=(0.4, 0.1), pos_hint={'x': 0.1, 'top': 0.1})
+        PopupGrid.add_widget(content3)
+
+        self.popup = Popup(title='Сделайте выбор', title_align='center', content=PopupGrid, auto_dismiss=False,
+                           size_hint=(None, None), size=(int(300 * koef), int(200 * koef)))
+        # bind the on_press event of the button to the dismiss function
+        #
+        content2.bind(on_press=self.QRPress)  # self.QRPress()
+        content3.bind(on_press=self.imgPress)
+        # open the popup
+        self.popup.open()
+
+    def QRPress(self, *args):
+        global ifTriggerPhotio1
+        global server_code
+        print("QR")
+        server_code = '10'
+        self.popup.dismiss()
+        ifTriggerPhotio1 = 1
+        PopupGrid = GridLayout(cols=1, pos_hint={'center_x': 0.6, 'center_y': 0.32})
+        content4 = Button(text='Закрыть', halign='center', size= (int(200 * koef), int(50 * koef)),
+                          size_hint=(None, None), pos = (int(50 * koef), int(50 * koef)), pos_hint=(None, None))
+        PopupGrid.add_widget(content4)
+        self.popup1 = Popup(title='Считайте QR', title_align='center', content =PopupGrid, auto_dismiss=False,
+                            size_hint=(None, None), pos_hint={"center_x": 0.5, "top": 0.32},
+                            size=(int(300 * koef), int(120 * koef)))
+        content4.bind(on_press=self.closePopup)
+        self.popup1.open()
+
+
+    def imgPress(self, *args):
+        global ifTriggerPhotio1, triggerPhoto1, triggerPhoto2
+        global server_code
+        print("Изображение")
+        server_code = '11'
+        self.popup.dismiss()
+        ifTriggerPhotio1 = 3
+        PopupGrid = GridLayout(cols=1, pos_hint={'center_x': 0.6, 'center_y': 0.32})
+        content4 = Button(text='Закрыть', halign='center', size= (int(200 * koef), int(50 * koef)),
+                          size_hint=(None, None), pos = (int(50 * koef), int(50 * koef)), pos_hint=(None, None))
+        PopupGrid.add_widget(content4)
+        self.popup1 = Popup(title='Выберите фото с ' + str(triggerPhoto2) + ' ракурса', title_align='center', content =PopupGrid, auto_dismiss=False,
+                            size_hint=(None, None), pos_hint={"center_x": 0.5, "top": 0.32},
+                            size=(int(300 * koef), int(120 * koef)))
+        #content4.bind(on_press=self.popup1.dismiss)
+        content4.bind(on_press=self.closePopup)
+        self.popup1.open()
+
+    def closePopup(self, *args):
+        self.popup1.dismiss()
+        self.show_load()
+
+
 class CameraClick(Screen):
 
     def __init__(self, **kwargs):

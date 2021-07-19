@@ -16,17 +16,33 @@ class MySocket:
         self.sock.connect((host, port))
 
 
-    def get_data(self,filename):
+    def get_data(self,filename,server_code):
 
         # считывает и отправляет картинку
         #file = open('image.jpg', mode="rb")  # считываем картинку
+        self.sock.send(str(server_code).encode())
+        time.sleep(0.5)
+
+        for i in server_code:
+            code_request1 = int(i)
+
+        print(code_request1)
+
+        if (code_request1==0):
+           self.send_image(filename)
+        else:
+            for file in filename:
+                self.send_image(file)
+
+    def send_image(self,filename):
         file = open(filename, mode="rb")
 
-        #imageSize = os.path.getsize('image.jpg')
+        # imageSize = os.path.getsize('image.jpg')
         imageSize = os.path.getsize(filename)
-        print("Size of image:", imageSize)
+        print("Размер отсылаемого изображения:", imageSize)
+
         self.sock.send(str(imageSize).encode())
-        time.sleep(0.1)
+        time.sleep(0.5)
 
         while imageSize > 0:
             data = file.read(2048)
