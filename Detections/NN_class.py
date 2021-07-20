@@ -48,10 +48,10 @@ class NN_detector():
         return class_result
 
     def load_image(self,image):
-        # Загрузка и сохранение изображений
+        # Загрузка и сохранение изображений (сохранено в виде словаря)
         features = []
         for i in range(3):
-            f = image[i,:,:,:]
+            f = image[i]
             gray = cv2.cvtColor(f, cv2.COLOR_BGR2GRAY)
             fr = cv2.resize(gray, self.size_of_image)
             features.append(fr)

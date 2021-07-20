@@ -205,6 +205,16 @@ WindowManager:
                 on_release:
                     #Функция стереть фотографию
                     root.ImageSent()
+            Button:
+                text: 'All_request'
+                size_hint_y: None
+                pos_hint: {"center_x": 0.5, "y": 0.5}
+                height: '96dp'
+                width: '420dp'
+                #Обработчик
+                on_release:
+                    #Функция стереть фотографию
+                    root.allRequest()
 
         Button:
             text: 'Вернуться назад'

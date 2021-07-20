@@ -32,7 +32,8 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.core.window import Window
 
 send_data=0
-server_code = '00' #Специальный код, опеределяющий действия на сервере
+code_request0 = 0 #Специальный код, опеределяющий действия на сервере
+code_request1 = 0 #Специальный код, опеределяющий QR или NN
 filename_g = None
 koef = 1
 triggerPhoto1 = 1
@@ -70,6 +71,33 @@ class QRWindow(Screen):
         self.popup = None
         self.popup1 = None
 
+
+    def allRequest(self):
+        global filename_g, send_data, ifTriggerPhotio1, code_request0, code_request1
+        ifTriggerPhotio1 = 3
+        code_request0 = 1
+        code_request1 = 1
+        filename=[]
+        #filename.append('D:\\2014 осень\\6_im.jpg')
+        filename.append('D:\\2014 осень\\1\\6_1.jpg')
+
+
+        path = ''
+
+
+        filename_g = []
+        self.ImageLoad(path, filename)
+        filename = []
+        filename.append('D:\\2014 осень\\1\\6_2.jpg')
+        self.ImageLoad(path, filename)
+        filename = []
+        filename.append('D:\\2014 осень\\1\\6_3.jpg')
+        self.ImageLoad(path, filename)
+        #filename_g = filename[0]
+
+        send_data = 1
+
+
     def ImageLoad(self,path, filename):
         global filename_g, triggerPhoto1, ifTriggerPhotio1
         data = io.BytesIO(open(filename[0], "rb").read())
@@ -96,6 +124,7 @@ class QRWindow(Screen):
         global filename_g
         global server_code
         send_data = 1
+        #self.get_data()
         #server_code = '10'
 
     # Функции для загрузки файлов
@@ -139,19 +168,30 @@ class QRWindow(Screen):
     def get_data(self):
         global send_data
         global filename_g
-        global server_code
+        global code_request0, code_request1
         while True:
-            time.sleep(0.1)
+            time.sleep(0.2)
             if (send_data==1):
-                self.sock.get_data(filename_g,server_code)
-                send_data=0
+                print('Зашел в отправку изображения')
+                self.sock.get_data(filename_g,code_request0, code_request1)
+                send_data = 0
+    """
 
+    def get_data(self):
+        global send_data
+        global filename_g
+        global code_request0, code_request1
+        print('Зашел в отправку изображения')
+
+        self.sock.get_data(filename_g, code_request0, code_request1)
+    """
     # Блок с всплывающими окнами
     # Включение всплывающего окна
     def btn(self, *args):
         # create content and add to the popup
-        global booleanPhoto
+        global booleanPhoto, triggerPhoto2
         booleanPhoto = True
+        triggerPhoto2 = 1
         PopupGrid = GridLayout(cols=2, size_hint_y=None)
         content2 = Button(text='QR', halign='left', size_hint=(0.4, 0.1), pos_hint={'x': 0.1, 'top': 0.1})
         PopupGrid.add_widget(content2)
@@ -169,9 +209,10 @@ class QRWindow(Screen):
 
     def QRPress(self, *args):
         global ifTriggerPhotio1
-        global server_code
+        global code_request0, code_request1
         print("QR")
-        server_code = '10'
+        code_request0 = 1
+        code_request1 = 0
         self.popup.dismiss()
         ifTriggerPhotio1 = 1
         PopupGrid = GridLayout(cols=1, pos_hint={'center_x': 0.6, 'center_y': 0.32})
@@ -187,9 +228,10 @@ class QRWindow(Screen):
 
     def imgPress(self, *args):
         global ifTriggerPhotio1, triggerPhoto1, triggerPhoto2
-        global server_code
+        global code_request0, code_request1
         print("Изображение")
-        server_code = '11'
+        code_request0 = 1
+        code_request1 = 1
         self.popup.dismiss()
         ifTriggerPhotio1 = 3
         PopupGrid = GridLayout(cols=1, pos_hint={'center_x': 0.6, 'center_y': 0.32})
@@ -215,8 +257,6 @@ class CameraClick(Screen):
         super(CameraClick, self).__init__(**kwargs)
         self.fileName = None
         self.camera = None
-        #self.sock = MySocket()
-        #Thread(target=self.get_data).start()
 
     def initCamera(self):
         self.camera = self.ids.camera
