@@ -33,3 +33,9 @@ class MessageStructure:
         parameter.Images = []
         parameter.sizeOfImages = []
         return parameter
+
+    @staticmethod
+    def ClearObjectResponce(parameter):
+        parameter.message = ''
+        parameter.responce = []
+        return parameter

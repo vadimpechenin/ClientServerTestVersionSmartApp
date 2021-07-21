@@ -36,6 +36,8 @@ import cv2
 # Библиотеки для формирования структуры пересылаемого сообщения
 from message.messageStructure import MessageStructure
 from message.messageStructureParameter import MessageStructureParameter
+from message.messageResponceParameter import MessageResponceParameter
+
 
 send_data=0
 code_request0 = 0 #Специальный код, опеределяющий действия на сервере
@@ -46,7 +48,10 @@ triggerPhoto1 = 1
 ifTriggerPhotio1 = 3
 triggerPhoto2 = 1
 
+# Объект - запрос на сервер
 messageParameter = MessageStructureParameter()
+#Объект - ответ с сервера
+messageResponce = MessageResponceParameter()
 
 booleanPhoto = True
 
@@ -191,9 +196,11 @@ class QRWindow(Screen):
             time.sleep(0.2)
             if (send_data==1):
                 print('Зашел в отправку сообщения')
-
-                self.sock.get_data(messageParameter)
+                self.sock.send_data(messageParameter)
                 messageParameter = MessageStructure.ClearObject(messageParameter)
+                send_data = 2
+            if (send_data == 2):
+                messageResponce = self.sock.get_data()
                 send_data = 0
 
     """

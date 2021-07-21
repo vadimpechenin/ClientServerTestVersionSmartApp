@@ -22,8 +22,13 @@ from common.socketHelper import SocketHelper
 
 from message.messageStructure import MessageStructure
 from message.messageStructureParameter import MessageStructureParameter
+from message.messageResponceParameter import MessageResponceParameter
 
+# Объект - запрос на сервер
 messageParameter = MessageStructureParameter()
+#Объект - ответ с сервера
+messageResponce = MessageResponceParameter()
+
 
 #БЛОК КОНСТАНТ
 host = 'localhost'
@@ -63,8 +68,6 @@ def save_image(messageParameter):
 while True:
     try:
 
-
-
         sizeOfRequest = helper.readInt()
         print("Размер принимаемого сообщения: " + str(sizeOfRequest))
         messageParameterAsBytes = helper.readBytesArray(sizeOfRequest)
@@ -75,6 +78,15 @@ while True:
         # Принимаю картинку
         if messageParameter.code_request0 == 1 or messageParameter.code_request0 == 2:
             save_image(messageParameter)
+        if messageParameter.code_request0 == 1:
+            messageResponce.message = 'Изображение пришло'
+            messageResponceAsBytes = MessageStructure.SaveToBytes(messageResponce)
+
+            helper.writeInt(len(messageResponceAsBytes))
+            print("Размер отсылаемого ответа:", len(messageResponceAsBytes))
+
+            helper.writeBytesArray(messageResponceAsBytes)
+            print("Ответ отправлен")
         
         parameters = None
         operation_type = None
