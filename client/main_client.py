@@ -5,7 +5,7 @@ from kivy.uix.boxlayout import BoxLayout
 
 import time
 from client.clientModule import MySocket
-from os.path import dirname, join, basename, isfile
+from os.path import dirname, join, basename, isfile, getsize
 from os import listdir
 from threading import Thread
 
@@ -31,6 +31,12 @@ from kivy.uix.gridlayout import GridLayout
 # Для размера окна
 from kivy.core.window import Window
 
+import cv2
+
+# Библиотеки для формирования структуры пересылаемого сообщения
+from message.messageStructure import MessageStructure
+from message.messageStructureParameter import MessageStructureParameter
+
 send_data=0
 code_request0 = 0 #Специальный код, опеределяющий действия на сервере
 code_request1 = 0 #Специальный код, опеределяющий QR или NN
@@ -39,6 +45,8 @@ koef = 1
 triggerPhoto1 = 1
 ifTriggerPhotio1 = 3
 triggerPhoto2 = 1
+
+messageParameter = MessageStructureParameter()
 
 booleanPhoto = True
 
@@ -70,16 +78,18 @@ class QRWindow(Screen):
         Thread(target=self.get_data).start()
         self.popup = None
         self.popup1 = None
+        self.popup2 = None
 
 
     def allRequest(self):
-        global filename_g, send_data, ifTriggerPhotio1, code_request0, code_request1
+        global filename_g, send_data, ifTriggerPhotio1, messageParameter
         ifTriggerPhotio1 = 3
-        code_request0 = 1
-        code_request1 = 1
+        messageParameter.code_request0 = 1
+        messageParameter.code_request1 = 1
+
         filename=[]
         #filename.append('D:\\2014 осень\\6_im.jpg')
-        filename.append('D:\\2014 осень\\1\\6_1.jpg')
+        filename.append('D:\\2014spring\\1\\6_1.jpg')
 
 
         path = ''
@@ -88,10 +98,10 @@ class QRWindow(Screen):
         filename_g = []
         self.ImageLoad(path, filename)
         filename = []
-        filename.append('D:\\2014 осень\\1\\6_2.jpg')
+        filename.append('D:\\2014spring\\1\\6_2.jpg')
         self.ImageLoad(path, filename)
         filename = []
-        filename.append('D:\\2014 осень\\1\\6_3.jpg')
+        filename.append('D:\\2014spring\\1\\6_3.jpg')
         self.ImageLoad(path, filename)
         #filename_g = filename[0]
 
@@ -99,16 +109,25 @@ class QRWindow(Screen):
 
 
     def ImageLoad(self,path, filename):
-        global filename_g, triggerPhoto1, ifTriggerPhotio1
+        global filename_g, triggerPhoto1, ifTriggerPhotio1, messageParameter
         data = io.BytesIO(open(filename[0], "rb").read())
         # data = io.BytesIO(open("IMAGE.jpg", "rb").read())
         im = CoreImage(data, ext="png")
         if ifTriggerPhotio1==1:
 
             filename_g = filename[0]
+
         else:
 
             filename_g.append(filename[0])
+
+        file = cv2.imread(filename[0])
+
+        sizeOfImage = getsize(filename[0])
+
+        messageParameter.Images.append(file)
+        messageParameter.sizeOfImages.append(sizeOfImage)
+
 
         self.ids.ImageBoxId.add_widget(Image(texture=im.texture))
 
@@ -167,14 +186,16 @@ class QRWindow(Screen):
 
     def get_data(self):
         global send_data
-        global filename_g
-        global code_request0, code_request1
+        global messageParameter
         while True:
             time.sleep(0.2)
             if (send_data==1):
-                print('Зашел в отправку изображения')
-                self.sock.get_data(filename_g,code_request0, code_request1)
+                print('Зашел в отправку сообщения')
+
+                self.sock.get_data(messageParameter)
+                messageParameter = MessageStructure.ClearObject(messageParameter)
                 send_data = 0
+
     """
 
     def get_data(self):
@@ -192,6 +213,7 @@ class QRWindow(Screen):
         global booleanPhoto, triggerPhoto2
         booleanPhoto = True
         triggerPhoto2 = 1
+        self.ImageDel()
         PopupGrid = GridLayout(cols=2, size_hint_y=None)
         content2 = Button(text='QR', halign='left', size_hint=(0.4, 0.1), pos_hint={'x': 0.1, 'top': 0.1})
         PopupGrid.add_widget(content2)
@@ -202,18 +224,38 @@ class QRWindow(Screen):
                            size_hint=(None, None), size=(int(300 * koef), int(200 * koef)))
         # bind the on_press event of the button to the dismiss function
         #
-        content2.bind(on_press=self.QRPress)  # self.QRPress()
+        content2.bind(on_press=self.QRPress_main)  # self.QRPress()
         content3.bind(on_press=self.imgPress)
         # open the popup
         self.popup.open()
 
-    def QRPress(self, *args):
+    def QRPress_main(self, *args):
         global ifTriggerPhotio1
-        global code_request0, code_request1
+        global code_request0, code_request1, messageParameter
         print("QR")
-        code_request0 = 1
-        code_request1 = 0
         self.popup.dismiss()
+        PopupGrid = GridLayout(cols=2, size_hint_y=None)
+        content2 = Button(text='Тип детали', halign='left', size_hint=(0.4, 0.1), pos_hint={'x': 0.1, 'top': 0.1})
+        PopupGrid.add_widget(content2)
+        content3 = Button(text='Запись в базу', halign='left', size_hint=(0.4, 0.1), pos_hint={'x': 0.1, 'top': 0.1})
+        PopupGrid.add_widget(content3)
+
+        self.popup2 = Popup(title='Сделайте выбор', title_align='center', content=PopupGrid, auto_dismiss=False,
+                           size_hint=(None, None), size=(int(300 * koef), int(200 * koef)))
+        # bind the on_press event of the button to the dismiss function
+        #
+        content2.bind(on_press=self.QRPress_type)  # self.QRPress()
+        content3.bind(on_press=self.QRPress_base)
+        # open the popup
+        self.popup2.open()
+
+    def QRPress_type(self, *args):
+        global ifTriggerPhotio1
+        global code_request0, code_request1, messageParameter
+        print("QR type")
+        messageParameter.code_request0 = 1
+        messageParameter.code_request1 = 0
+        self.popup2.dismiss()
         ifTriggerPhotio1 = 1
         PopupGrid = GridLayout(cols=1, pos_hint={'center_x': 0.6, 'center_y': 0.32})
         content4 = Button(text='Закрыть', halign='center', size= (int(200 * koef), int(50 * koef)),
@@ -225,13 +267,31 @@ class QRWindow(Screen):
         content4.bind(on_press=self.closePopup)
         self.popup1.open()
 
+    def QRPress_base(self, *args):
+        global ifTriggerPhotio1
+        global code_request0, code_request1, messageParameter
+        print("QR base")
+        messageParameter.code_request0 = 2
+        messageParameter.code_request1 = 0
+        self.popup2.dismiss()
+        ifTriggerPhotio1 = 1
+        PopupGrid = GridLayout(cols=1, pos_hint={'center_x': 0.6, 'center_y': 0.32})
+        content4 = Button(text='Закрыть', halign='center', size=(int(200 * koef), int(50 * koef)),
+                          size_hint=(None, None), pos=(int(50 * koef), int(50 * koef)), pos_hint=(None, None))
+        PopupGrid.add_widget(content4)
+        self.popup1 = Popup(title='Считайте QR', title_align='center', content=PopupGrid, auto_dismiss=False,
+                            size_hint=(None, None), pos_hint={"center_x": 0.5, "top": 0.32},
+                            size=(int(300 * koef), int(120 * koef)))
+        content4.bind(on_press=self.closePopup)
+        self.popup1.open()
+
 
     def imgPress(self, *args):
         global ifTriggerPhotio1, triggerPhoto1, triggerPhoto2
         global code_request0, code_request1
         print("Изображение")
-        code_request0 = 1
-        code_request1 = 1
+        messageParameter.code_request0 = 1
+        messageParameter.code_request1 = 1
         self.popup.dismiss()
         ifTriggerPhotio1 = 3
         PopupGrid = GridLayout(cols=1, pos_hint={'center_x': 0.6, 'center_y': 0.32})

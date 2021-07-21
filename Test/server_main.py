@@ -14,13 +14,16 @@ from Handlers.CheckIn.CheckInCommandHandlerParameter import CheckInCommandHandle
 from Handlers.NomRequest.NomRequestCommandHandlerParameter import NomRequestCommandHandlerParameter
 from Handlers.PartIdentification.PartIdentificationCommandHandlerParameter import PartIdentificationCommandHandlerParameter
 
-serversmartapp = ServerSmartApp()
+#serversmartapp = ServerSmartApp()
 
 import socket
 import time
 from common.socketHelper import SocketHelper
 
+from message.messageStructure import MessageStructure
+from message.messageStructureParameter import MessageStructureParameter
 
+messageParameter = MessageStructureParameter()
 
 #БЛОК КОНСТАНТ
 host = 'localhost'
@@ -45,47 +48,38 @@ helper = SocketHelper(clientsocket)
 print("got a connection from %s" % str(addr))
 
 
-def take_image(code_request1, helper):
+def save_image(messageParameter):
 
     global BUFFER_LENGTH
-    imageCount = 1
-    if (code_request1 == 1):
-        imageCount = 3
-
-    for j in range(imageCount):
-
-        sizeOfImage = helper.readInt()
-
-        print("Размер принятого изображения:", sizeOfImage)
+    k = 1
+    for j in range(len(messageParameter.Images)):
+        cv2.imwrite('image_server' + str(k) + '.jpg',messageParameter.Images[j])
+        print("Размер принятого изображения: ", messageParameter.sizeOfImages[k-1])
         #time.sleep(0.3)
-        file = open('image_server' + str(j+1) + '.jpg', mode="wb")  # открыть для записи принимаемой картинки файл
-
-        while sizeOfImage > 0:
-            partSize = min(sizeOfImage, BUFFER_LENGTH)
-            data = helper.readBytesArray(partSize)
-            file.write(data)
-            sizeOfImage = sizeOfImage - partSize
-
-        file.close()
-        print('Изображение принято')
+        k+=1
+    k = 0
 
 # Имитатор основного цикла
 while True:
     try:
 
-        code_request0 = helper.readInt()
-        code_request1 = helper.readInt()
 
-        print("Код от клиента, основной:" + str(code_request0) + ", дополнительный:" + str(code_request1))
+
+        sizeOfRequest = helper.readInt()
+        print("Размер принимаемого сообщения: " + str(sizeOfRequest))
+        messageParameterAsBytes = helper.readBytesArray(sizeOfRequest)
+        messageParameter = MessageStructure.RestoreFromBytes(messageParameterAsBytes)
+
+        print("Код от клиента, основной:" + str(messageParameter.code_request0) + ", дополнительный:" + str(messageParameter.code_request1))
         #time.sleep(0.3)
         # Принимаю картинку
-        if code_request0 == 1 or code_request0 == 2:
-            take_image(code_request1, helper)
+        if messageParameter.code_request0 == 1 or messageParameter.code_request0 == 2:
+            save_image(messageParameter)
         
         parameters = None
         operation_type = None
         # Основной выбор
-        #"""
+        """
         #code_request0 = int(input("Получение отчета (0), или идентификация (1), или запись в базу (2) или выйти из цикла (3): "))
         if (code_request0==0):
             operation_type = 0
@@ -124,7 +118,7 @@ while True:
 
         result_request = serversmartapp.initFunction(code_request0, parameters)
         print(result_request)
-        #"""
+        """
 
     except Exception as err:
         print(str(err), '\n')
