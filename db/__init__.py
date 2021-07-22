@@ -5,6 +5,7 @@
 каждый раз при загрузке модуля, или указать подмодули, которые будут экспортированы.
 """
 
+__all__ = ["base", "characteristic", "location", "passport", "sql_data_base", "support_functions"]
 from .base import Session, current_session
 from .characteristic import Characteristic
 from .type import Type

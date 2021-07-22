@@ -139,3 +139,16 @@ class SQL_data_base():
             #print(a1)
             ciphers.append(a1['type_name'])
         return ciphers
+
+    def list_of_workshop_lot(self):
+        # Вызов списка возможных мест расположений деталей
+        request_str = "SELECT workshop_number, lot_number \
+                                      FROM \
+                                      location;"
+        s4 = self.session.execute(request_str)
+        result_of_query = resultproxy_to_dict(s4)
+        ciphers = []
+        for a1 in result_of_query:
+            #print(a1)
+            ciphers.append([a1['workshop_number'], a1['lot_number']])
+        return ciphers

@@ -13,8 +13,11 @@ from Handlers.Server_class import MainCommandHandler as ServerSmartApp
 from Handlers.CheckIn.CheckInCommandHandlerParameter import CheckInCommandHandlerParameter
 from Handlers.NomRequest.NomRequestCommandHandlerParameter import NomRequestCommandHandlerParameter
 from Handlers.PartIdentification.PartIdentificationCommandHandlerParameter import PartIdentificationCommandHandlerParameter
+from Handlers.loadDictLocation.loadDictLocationHandlerParameter import LoadDictLocationHandlerParameter
+from Handlers.loadDictType.loadDictTypeHandlerParameter import LoadDictTypeHandlerParameter
 
-#serversmartapp = ServerSmartApp()
+#Подключение всего функционала по работе с изображениями и базой данных
+serversmartapp = ServerSmartApp()
 
 import socket
 import time
@@ -76,37 +79,32 @@ while True:
         print("Код от клиента, основной:" + str(messageParameter.code_request0) + ", дополнительный:" + str(messageParameter.code_request1))
         #time.sleep(0.3)
         # Принимаю картинку
-        if messageParameter.code_request0 == 1 or messageParameter.code_request0 == 2:
-            save_image(messageParameter)
         if messageParameter.code_request0 == 1:
-            messageResponce.message = 'Изображение пришло'
-            messageResponceAsBytes = MessageStructure.SaveToBytes(messageResponce)
+            save_image(messageParameter)
+        if messageParameter.code_request0 == 3 and messageParameter.code_request1 == 0:
+            operation_type = 3
+            parameters = LoadDictLocationHandlerParameter(operation_type)
+            g = 0
+        if messageParameter.code_request0 == 2 and messageParameter.code_request1 == 0:
+            save_image(messageParameter)
 
-            helper.writeInt(len(messageResponceAsBytes))
-            print("Размер отсылаемого ответа:", len(messageResponceAsBytes))
-
-            helper.writeBytesArray(messageResponceAsBytes)
-            print("Ответ отправлен")
-        
-        parameters = None
-        operation_type = None
         # Основной выбор
-        """
+
         #code_request0 = int(input("Получение отчета (0), или идентификация (1), или запись в базу (2) или выйти из цикла (3): "))
-        if (code_request0==0):
+        if (messageParameter.code_request0==0):
             operation_type = 0
             parameters = NomRequestCommandHandlerParameter(operation_type)
-        elif (code_request0==1):
+        elif (messageParameter.code_request0==1):
             #code_request1 = int(input("Введите QR (0) или NN (1): "))
-            operation_type = code_request1
+            operation_type = messageParameter.code_request1
 
 
-            if (code_request1 == 0):
+            if (messageParameter.code_request1 == 0):
                 name_image = 'image_server1.jpg'
                 # Блок загрузки изображения
                 image = cv2.imread(path + name_image)
 
-            elif (code_request1 == 1):
+            elif (messageParameter.code_request1 == 1):
                 image=[]
                 for i in range(3):
                     name_image = 'image_server' + str(i+1) + '.jpg'
@@ -117,21 +115,46 @@ while True:
                     image[i] = f
                     #image[i, :, :, :] = f
             parameters = PartIdentificationCommandHandlerParameter(image, operation_type)
-        elif (code_request0==2):
+        elif (messageParameter.code_request0==2):
             # Блок загрузки изображения
             name_image = 'image_server1.jpg'
             # Блок загрузки изображения
             image = cv2.imread(path + name_image)
             operation_type = 0
             parameters = CheckInCommandHandlerParameter(image, operation_type)
-        else:
+        elif (messageParameter.code_request0==6):
             print('Выход')
             break
 
-        result_request = serversmartapp.initFunction(code_request0, parameters)
+        result_request = serversmartapp.initFunction(messageParameter.code_request0, parameters)
         print(result_request)
-        """
 
+
+        if messageParameter.code_request0 == 1:
+            messageResponce.message = 'Изображение пришло'
+            detail_name_responce_dict = result_request.pop(0)
+            detail_name_responce = detail_name_responce_dict['type_name']
+            messageResponce.responce.append(detail_name_responce)
+            messageResponceAsBytes = MessageStructure.SaveToBytes(messageResponce)
+
+            helper.writeInt(len(messageResponceAsBytes))
+            print("Размер отсылаемого ответа:", len(messageResponceAsBytes))
+
+            helper.writeBytesArray(messageResponceAsBytes)
+            print("Ответ отправлен")
+
+        if messageParameter.code_request0 == 3:
+            messageResponce.message = 'Список месторасположений детали'
+            detail_name_responce_dict = result_request.pop(0)
+            detail_name_responce = detail_name_responce_dict['type_name']
+            messageResponce.responce.append(detail_name_responce)
+            messageResponceAsBytes = MessageStructure.SaveToBytes(messageResponce)
+
+            helper.writeInt(len(messageResponceAsBytes))
+            print("Размер отсылаемого ответа:", len(messageResponceAsBytes))
+
+            helper.writeBytesArray(messageResponceAsBytes)
+            print("Ответ отправлен")
     except Exception as err:
         print(str(err), '\n')
         break

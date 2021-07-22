@@ -15,6 +15,8 @@ from Handlers.BaseCommandHandler import BaseCommandHandler
 from Handlers.NomRequest.NomRequestCommandHandler import NomRequestCommandHandler
 from Handlers.PartIdentification.PartIdentificationCommandHandler import PartIdentificationCommandHandler
 from Handlers.CheckIn.CheckInCommandHandler import CheckInCommandHandler
+from Handlers.loadDictLocation.loadDictLocationHandler import LoadDictLocationHandler
+from Handlers.loadDictType.loadDictTypeHandler import LoadDictTypeHandler
 
 class MainCommandHandler(BaseCommandHandler):
     def __init__(self):
@@ -31,6 +33,8 @@ class MainCommandHandler(BaseCommandHandler):
         self.dict[0] = NomRequestCommandHandler(self.data_base)
         self.dict[1] = PartIdentificationCommandHandler(self.data_base,self.qrdet)
         self.dict[2] = CheckInCommandHandler(self.data_base, self.qrdet)
+        self.dict[3] = LoadDictLocationHandler(self.data_base)
+        self.dict[4] = LoadDictTypeHandler(self.data_base)
 
     def initFunction(self,code_request, parameter):
         result = None

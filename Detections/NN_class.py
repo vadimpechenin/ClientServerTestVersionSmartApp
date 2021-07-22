@@ -19,7 +19,7 @@ class NN_detector():
 
     def load_NN_model(self):
         global net_file_name
-        from keras.models import model_from_json
+        from tensorflow.keras.models import model_from_json
 
         print("Загружаю сеть из файлов")
         # Загружаем данные об архитектуре сети

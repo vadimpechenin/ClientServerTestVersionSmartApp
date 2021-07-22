@@ -84,6 +84,7 @@ class QRWindow(Screen):
         self.popup = None
         self.popup1 = None
         self.popup2 = None
+        self.popup3 = None
 
 
     def allRequest(self):
@@ -121,10 +122,21 @@ class QRWindow(Screen):
         if ifTriggerPhotio1==1:
 
             filename_g = filename[0]
-
+            #Запись информации о дате для детали
+            if (messageParameter.code_request0) == 2:
+                reversed_name_of_data = ''
+                reversed_string = ''
+                if (len(filename[0]) >= 17):
+                    for i in range(17):
+                        reversed_name_of_data = reversed_name_of_data + filename[0][-i - 5]
+                    reversed_string = reversed_name_of_data[::-1]
+                messageParameter.nameOfImage = reversed_string
         else:
 
             filename_g.append(filename[0])
+
+
+
 
         file = cv2.imread(filename[0])
 
@@ -191,7 +203,7 @@ class QRWindow(Screen):
 
     def get_data(self):
         global send_data
-        global messageParameter
+        global messageParameter, messageResponce
         while True:
             time.sleep(0.2)
             if (send_data==1):
@@ -202,6 +214,7 @@ class QRWindow(Screen):
             if (send_data == 2):
                 messageResponce = self.sock.get_data()
                 send_data = 0
+                self.Responce_popup()
 
     """
 
@@ -275,12 +288,16 @@ class QRWindow(Screen):
         self.popup1.open()
 
     def QRPress_base(self, *args):
-        global ifTriggerPhotio1
+        global ifTriggerPhotio1, send_data
         global code_request0, code_request1, messageParameter
         print("QR base")
+        messageParameter.code_request0 = 3
+        messageParameter.code_request1 = 0
+        send_data = 1
+        self.popup2.dismiss()
+        time.sleep(1)
         messageParameter.code_request0 = 2
         messageParameter.code_request1 = 0
-        self.popup2.dismiss()
         ifTriggerPhotio1 = 1
         PopupGrid = GridLayout(cols=1, pos_hint={'center_x': 0.6, 'center_y': 0.32})
         content4 = Button(text='Закрыть', halign='center', size=(int(200 * koef), int(50 * koef)),
@@ -312,9 +329,31 @@ class QRWindow(Screen):
         content4.bind(on_press=self.closePopup)
         self.popup1.open()
 
+
+    def Responce_popup(self, *args):
+        global messageResponce
+        print("Ответ с сервера по типу детали")
+        ifTriggerPhotio1 = 3
+        PopupGrid = GridLayout(cols=1, pos_hint={'center_x': 0.6, 'center_y': 0.32})
+        content4 = Button(text='Закрыть', halign='center', size=(int(200 * koef), int(50 * koef)),
+                          size_hint=(None, None), pos=(int(50 * koef), int(50 * koef)), pos_hint=(None, None))
+        PopupGrid.add_widget(content4)
+        self.popup3 = Popup(title='Тип детали: ' + messageResponce.responce[0], title_align='center',
+                            content=PopupGrid, auto_dismiss=False,
+                            size_hint=(None, None), pos_hint={"center_x": 0.5, "top": 0.32},
+                            size=(int(300 * koef), int(120 * koef)))
+        # content4.bind(on_press=self.popup1.dismiss)
+        content4.bind(on_press=self.closePopupResponce)
+        self.popup3.open()
+
     def closePopup(self, *args):
         self.popup1.dismiss()
         self.show_load()
+
+    def closePopupResponce(self, *args):
+        global messageResponce
+        self.popup3.dismiss()
+        messageResponce = MessageStructure.ClearObjectResponce(messageResponce)
 
 
 class CameraClick(Screen):
@@ -342,7 +381,8 @@ class CameraClick(Screen):
         according to their captured time and date.
         '''
         camera = self.ids['camera']
-        timestr = time.strftime("%Y%m%d_%H%M%S")
+        #timestr = time.strftime("%Y%m%d_%H%M%S")
+        timestr = time.strftime("%m%d%Y_%I_%M_%p")
         # Изменение для сохранения в папку
         b = basename('IMG_{}.png')
         #b = basename('image.jpg')
