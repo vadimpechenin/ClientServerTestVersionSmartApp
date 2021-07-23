@@ -114,17 +114,42 @@ class SQL_data_base():
         result_of_query = resultproxy_to_dict(s2)
         return result_of_query
 
-    def updata_for_id(self, id):
+    def updata_for_id(self, id, datetime_noSQL, workshop, lot):
         # Функция для подачи запроса на поиск
-        request_str = "SELECT passport.passport_id, type_name, workshop_number, receipt_date, lot_number \
-                              FROM \
-                              type INNER JOIN passport \
-                              ON type.type_id=passport.type_id \
-                              INNER JOIN location \
-                              ON passport.location_id=location.location_id \
-                              WHERE passport.passport_id=" + str(id)
+        from datetime import datetime
+        d1 = datetime.strptime('1/1/2020 1:30 PM', '%m/%d/%Y %I:%M %p')
+        data_time = ''
+        k = 0
+        for j in datetime_noSQL:
+            if (j == '_') and (k <2):
+                data_time = data_time + '/'
+                k+=1
+            elif (j == '_') and ((k ==2) or (k ==4)):
+                data_time = data_time + ' '
+                k+=1
+            elif (j == '_') and (k ==3):
+                data_time = data_time + ':'
+                k+=1
+            else:
+                data_time = data_time + j
+
+        data_time_for_recording = datetime.strptime(data_time, '%m/%d/%Y %I:%M %p')
+        #r = str(data_time_for_recording)
+        # Поиск id расположения детали
+        request_str = "SELECT location_id \
+                        FROM location \
+                        WHERE workshop_number = " + workshop + " AND lot_number = " + lot
         s2 = self.session.execute(request_str)
-        result_of_query = resultproxy_to_dict(s2)
+        result_id_location = resultproxy_to_dict(s2)
+
+        request_str = "UPDATE passport \
+                        SET receipt_date = '" + str(data_time_for_recording) + "',\
+                        location_id = " + str(result_id_location[0]['location_id']) + "\
+                        WHERE passport.passport_id=" + str(id)
+        self.session.execute(request_str)
+
+        result_of_query = 'Запись по детале с id =' + str(id) + ' изменена'
+        #result_of_query = resultproxy_to_dict(s2)
         return result_of_query
 
     def list_of_parts(self):

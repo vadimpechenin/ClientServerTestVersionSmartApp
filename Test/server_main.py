@@ -42,6 +42,16 @@ BUFFER_LENGTH = 2048
 
 path = 'D:\\PYTHON\\Programms\\Smart_app_UMNIK\\Client_server_version_1\\Test\\'
 
+"""
+image = cv2.imread('D:\\2014spring\\IMG_07_23_2021_10_15_AM.jpg')
+operation_type = 0
+parameters = CheckInCommandHandlerParameter(image, operation_type, '07_23_2021_10_15_AM',
+                                            '6', '3')
+
+result_request = serversmartapp.initFunction(2, parameters)
+print(result_request)
+"""
+
 serversocket = socket.socket()
 
 serversocket.bind((host, port))
@@ -67,9 +77,11 @@ def save_image(messageParameter):
         k+=1
     k = 0
 
+
 # Имитатор основного цикла
 while True:
     try:
+
 
         sizeOfRequest = helper.readInt()
         print("Размер принимаемого сообщения: " + str(sizeOfRequest))
@@ -121,7 +133,7 @@ while True:
             # Блок загрузки изображения
             image = cv2.imread(path + name_image)
             operation_type = 0
-            parameters = CheckInCommandHandlerParameter(image, operation_type)
+            parameters = CheckInCommandHandlerParameter(image, operation_type, messageParameter.nameOfImage, messageParameter.workshopNumber, messageParameter.lotNumber)
         elif (messageParameter.code_request0==6):
             print('Выход')
             break
@@ -144,10 +156,30 @@ while True:
             print("Ответ отправлен")
 
         if messageParameter.code_request0 == 3:
-            messageResponce.message = 'Список месторасположений детали'
-            detail_name_responce_dict = result_request.pop(0)
-            detail_name_responce = detail_name_responce_dict['type_name']
-            messageResponce.responce.append(detail_name_responce)
+            messageResponce.message = 'Список возможных месторасположений детали'
+            workshop_list = []
+            lot_list =[]
+            for workshop_count, lot_count in result_request:
+                if workshop_count not in workshop_list:
+                    workshop_list.append(workshop_count)
+                if lot_count not in lot_list:
+                    lot_list.append(lot_count)
+
+            messageResponce.workshop_number_list=workshop_list
+            messageResponce.lot_number_list=lot_list
+            messageResponceAsBytes = MessageStructure.SaveToBytes(messageResponce)
+
+            helper.writeInt(len(messageResponceAsBytes))
+            print("Размер отсылаемого ответа:", len(messageResponceAsBytes))
+
+            helper.writeBytesArray(messageResponceAsBytes)
+            print("Ответ отправлен")
+
+        if messageParameter.code_request0 == 2:
+            messageResponce.message = 'Изменения внесены'
+            workshop_list = []
+            lot_list = []
+            messageResponce.responce.append(result_request)
             messageResponceAsBytes = MessageStructure.SaveToBytes(messageResponce)
 
             helper.writeInt(len(messageResponceAsBytes))

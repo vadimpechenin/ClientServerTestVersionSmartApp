@@ -27,6 +27,7 @@ from kivy.factory import Factory
 # Для всплывающих окон
 from kivy.uix.button import Button
 from kivy.uix.gridlayout import GridLayout
+from kivy.uix.togglebutton import ToggleButton
 
 # Для размера окна
 from kivy.core.window import Window
@@ -47,6 +48,9 @@ koef = 1
 triggerPhoto1 = 1
 ifTriggerPhotio1 = 3
 triggerPhoto2 = 1
+workshop_number_list = []
+lot_number_list = []
+type_list = []
 
 # Объект - запрос на сервер
 messageParameter = MessageStructureParameter()
@@ -54,6 +58,7 @@ messageParameter = MessageStructureParameter()
 messageResponce = MessageResponceParameter()
 
 booleanPhoto = True
+boolWorkchopLot = True
 
 if (koef == 1):
     Window.size = (420, 800)
@@ -126,17 +131,14 @@ class QRWindow(Screen):
             if (messageParameter.code_request0) == 2:
                 reversed_name_of_data = ''
                 reversed_string = ''
-                if (len(filename[0]) >= 17):
-                    for i in range(17):
+                if (len(filename[0]) >= 19):
+                    for i in range(19):
                         reversed_name_of_data = reversed_name_of_data + filename[0][-i - 5]
                     reversed_string = reversed_name_of_data[::-1]
                 messageParameter.nameOfImage = reversed_string
         else:
 
             filename_g.append(filename[0])
-
-
-
 
         file = cv2.imread(filename[0])
 
@@ -205,7 +207,7 @@ class QRWindow(Screen):
         global send_data
         global messageParameter, messageResponce
         while True:
-            time.sleep(0.2)
+            time.sleep(0.3)
             if (send_data==1):
                 print('Зашел в отправку сообщения')
                 self.sock.send_data(messageParameter)
@@ -214,7 +216,12 @@ class QRWindow(Screen):
             if (send_data == 2):
                 messageResponce = self.sock.get_data()
                 send_data = 0
-                self.Responce_popup()
+                if (messageResponce.message=='Изображение пришло'):
+                    self.Responce_name_detail_popup()
+                elif (messageResponce.message=='Список возможных месторасположений детали'):
+                    self.Responce_location_popup()
+                elif (messageResponce.message == 'Изменения внесены'):
+                    self.Responce_name_detail_popup()
 
     """
 
@@ -265,7 +272,7 @@ class QRWindow(Screen):
         # bind the on_press event of the button to the dismiss function
         #
         content2.bind(on_press=self.QRPress_type)  # self.QRPress()
-        content3.bind(on_press=self.QRPress_base)
+        content3.bind(on_press=self.QRPress_base_location_list)
         # open the popup
         self.popup2.open()
 
@@ -287,15 +294,21 @@ class QRWindow(Screen):
         content4.bind(on_press=self.closePopup)
         self.popup1.open()
 
-    def QRPress_base(self, *args):
+    def QRPress_base_location_list(self, *args):
         global ifTriggerPhotio1, send_data
         global code_request0, code_request1, messageParameter
         print("QR base")
         messageParameter.code_request0 = 3
         messageParameter.code_request1 = 0
+        time.sleep(0.2)
         send_data = 1
         self.popup2.dismiss()
-        time.sleep(1)
+
+
+    def QRPress_base(self, *args):
+        global ifTriggerPhotio1, send_data
+        global code_request0, code_request1, messageParameter
+        print("QR base")
         messageParameter.code_request0 = 2
         messageParameter.code_request1 = 0
         ifTriggerPhotio1 = 1
@@ -308,7 +321,6 @@ class QRWindow(Screen):
                             size=(int(300 * koef), int(120 * koef)))
         content4.bind(on_press=self.closePopup)
         self.popup1.open()
-
 
     def imgPress(self, *args):
         global ifTriggerPhotio1, triggerPhoto1, triggerPhoto2
@@ -330,7 +342,7 @@ class QRWindow(Screen):
         self.popup1.open()
 
 
-    def Responce_popup(self, *args):
+    def Responce_name_detail_popup(self, *args):
         global messageResponce
         print("Ответ с сервера по типу детали")
         ifTriggerPhotio1 = 3
@@ -346,6 +358,83 @@ class QRWindow(Screen):
         content4.bind(on_press=self.closePopupResponce)
         self.popup3.open()
 
+    def Responce_check_in_popup(self, *args):
+        global messageResponce
+        print("Ответ с сервера по изменению данных по детали")
+        ifTriggerPhotio1 = 3
+        PopupGrid = GridLayout(cols=1, pos_hint={'center_x': 0.6, 'center_y': 0.32})
+        content4 = Button(text='Закрыть', halign='center', size=(int(200 * koef), int(50 * koef)),
+                          size_hint=(None, None), pos=(int(50 * koef), int(50 * koef)), pos_hint=(None, None))
+        PopupGrid.add_widget(content4)
+        self.popup3 = Popup(title=messageResponce.responce[0], title_align='center',
+                            content=PopupGrid, auto_dismiss=False,
+                            size_hint=(None, None), pos_hint={"center_x": 0.5, "top": 0.32},
+                            size=(int(300 * koef), int(120 * koef)))
+        # content4.bind(on_press=self.popup1.dismiss)
+        content4.bind(on_press=self.closePopupResponce)
+        self.popup3.open()
+
+    def Responce_location_popup(self, *args):
+        global messageResponce, workshop_number_list, lot_number_list, boolWorkchopLot
+        print("Ответ с сервера по спискам расположения деталей пришли")
+        if boolWorkchopLot == True:
+            workshop_number_list = []
+            lot_number_list = []
+            workshop_number_list = messageResponce.workshop_number_list
+            lot_number_list = messageResponce.lot_number_list
+            PopupGrid = GridLayout(cols=1, size_hint_y=None)
+            # Убедимся, что высота такая, чтобы было что прокручивать.
+            PopupGrid.bind(minimum_height=PopupGrid.setter('height'))
+            self.toggle = [0 for _ in range(len(workshop_number_list))]
+
+            for index in range(len(workshop_number_list)):
+                self.toggle[index] = ToggleButton(
+                    text=workshop_number_list[index], size_hint_y=None,
+                    group='cipher', height=30 * koef,
+                )
+                self.toggle[index].bind(on_press=self.changer)
+                PopupGrid.add_widget(self.toggle[index])
+        else:
+            PopupGrid = GridLayout(cols=1, size_hint_y=None)
+            # Убедимся, что высота такая, чтобы было что прокручивать.
+            PopupGrid.bind(minimum_height=PopupGrid.setter('height'))
+            self.toggle = [0 for _ in range(len(lot_number_list))]
+
+            for index in range(len(lot_number_list)):
+                self.toggle[index] = ToggleButton(
+                    text=lot_number_list[index], size_hint_y=None,
+                    group='cipher', height=30 * koef,
+                )
+                self.toggle[index].bind(on_press=self.changer)
+                PopupGrid.add_widget(self.toggle[index])
+
+        self.popup3 = Popup(title='Выберите месторасположение детали', title_align='center',
+                            content=PopupGrid, auto_dismiss=False,
+                            size_hint=(None, None), pos_hint={"center_x": 0.5, "top": 0.32},
+                            size=(int(300 * koef), int(120 * koef)))
+        # content4.bind(on_press=self.popup1.dismiss)
+        #content4.bind(on_press=self.closePopupResponceLocation)
+        self.popup3.open()
+
+    def changer(self, *args):
+        global messageParameter, workshop_number_list, lot_number_list, boolWorkchopLot
+        if boolWorkchopLot == True:
+            for i in range(len(workshop_number_list)):
+                if self.toggle[i].state == 'down':
+                    messageParameter.workshopNumber = workshop_number_list[i]
+
+            boolWorkchopLot = False
+            self.popup3.dismiss()
+            self.Responce_location_popup()
+        else:
+            for i in range(len(lot_number_list)):
+                if self.toggle[i].state == 'down':
+                    messageParameter.lotNumber = lot_number_list[i]
+            boolWorkchopLot = True
+            self.popup3.dismiss()
+            self.closePopupResponceLocation()
+
+
     def closePopup(self, *args):
         self.popup1.dismiss()
         self.show_load()
@@ -354,6 +443,12 @@ class QRWindow(Screen):
         global messageResponce
         self.popup3.dismiss()
         messageResponce = MessageStructure.ClearObjectResponce(messageResponce)
+
+    def closePopupResponceLocation(self, *args):
+        global messageResponce
+        self.popup3.dismiss()
+        messageResponce = MessageStructure.ClearObjectResponce(messageResponce)
+        self.QRPress_base()
 
 
 class CameraClick(Screen):
@@ -382,7 +477,7 @@ class CameraClick(Screen):
         '''
         camera = self.ids['camera']
         #timestr = time.strftime("%Y%m%d_%H%M%S")
-        timestr = time.strftime("%m%d%Y_%I_%M_%p")
+        timestr = time.strftime("%m_%d_%Y_%I_%M_%p")
         # Изменение для сохранения в папку
         b = basename('IMG_{}.png')
         #b = basename('image.jpg')

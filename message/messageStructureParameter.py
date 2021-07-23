@@ -6,5 +6,5 @@ class MessageStructureParameter:
         self.Images = []
         self.sizeOfImages = []
         self.nameOfImage = ''
-        self.workshopNumber = 0
-        self.lot_number = 0
+        self.workshopNumber = ''
+        self.lotNumber = ''

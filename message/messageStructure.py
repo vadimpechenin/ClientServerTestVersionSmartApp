@@ -32,10 +32,16 @@ class MessageStructure:
         parameter.code_request0 = 0
         parameter.Images = []
         parameter.sizeOfImages = []
+        parameter.nameOfImage = ''
+        parameter.workshopNumber = ''
+        parameter.lotNumber = ''
         return parameter
 
     @staticmethod
     def ClearObjectResponce(parameter):
         parameter.message = ''
         parameter.responce = []
+        parameter.type_name_list = []
+        parameter.workshop_number_list = []
+        parameter.lot_number_list = []
         return parameter
