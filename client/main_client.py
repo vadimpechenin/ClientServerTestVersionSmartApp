@@ -70,7 +70,7 @@ if (koef == 1):
 else:
     Window.size = (1100, 2300)
 
-ciphers=[]
+#ciphers=[]
 comments=[]
 titleOfItems=['№','Дата изготовления','Месторасположение']
 itemsOfDetails = [[1, '10.02.2021', 'Цех №1'], [3, '25.02.2021', 'Цех сбороки'],
@@ -104,9 +104,12 @@ itemsOfDetails = [[1, '10.02.2021', 'Цех №1'], [3, '25.02.2021', 'Цех с
 #print(t[1][1])
 for j in range(20):
     string_line = str(j+1) + '. Деталь ' + str(j+1)
-    ciphers.append(string_line)
+    #ciphers.append(string_line)
     string_line1= "### "+ str(j+1) + " ###"
     comments.append(string_line1)
+
+fourthTrigger = 0 #Для работы с разделом "Номенклатура"
+
 listOfItems=True
 
 resText = ''
@@ -126,6 +129,12 @@ class MainWindow(Screen):
         global listOfItemsView
         # Метод для изменения переменных, отвечающих за запуск потока общения с сервером
         listOfItemsView = 2
+        time.sleep(0.3)
+
+    def triggerForServerFourth(self):
+        global fourthTrigger
+        # Метод для изменения переменных, отвечающих за запуск потока общения с сервером
+        fourthTrigger = 1
         time.sleep(0.3)
 
 
@@ -606,14 +615,59 @@ class FourthWindow(Screen):
     #Окно для просмотра номенклатуры деталей
     def __init__(self, *args, **kwargs):
         super(FourthWindow, self).__init__(*args, **kwargs)
-        self.listOfItems=True
+        self.listOfItems = True
+        Thread(target=self.textInInputFourth).start()
+
+
+    def textInInputFourth(self):
+        global messageParameter, messageResponce
+        global fourthTrigger
+        global sock
+        while True:
+            time.sleep(0.4)
+            if (fourthTrigger == 1):
+                # Отправка запроса на сервер и получения ответа, заполняющего список номенклатуры деталей
+                messageParameter.code_request0 = 0
+                messageParameter.code_request1 = 0
+
+                print('Зашел в отправку сообщения')
+                # self.sock.send_data(messageParameter)
+                sock.send_data(messageParameter)
+
+                messageParameter = MessageStructure.ClearObject(messageParameter)
+                fourthTrigger = 2
+
+            if (fourthTrigger == 2):
+                messageResponce = sock.get_data()
+                if (messageResponce.message == 'Список номенклатуры деталей'):
+                    fourthTrigger = 0
+
+            if (fourthTrigger == 3):
+                # Отправка запроса на сервер и получения ответа, заполняющего отчет для выбранного вида детали
+                messageParameter.code_request0 = 7
+                messageParameter.code_request1 = 0
+
+                print('Зашел в отправку сообщения')
+                # self.sock.send_data(messageParameter)
+                sock.send_data(messageParameter)
+
+                messageParameter = MessageStructure.ClearObject(messageParameter)
+                fourthTrigger = 4
+
+            if (fourthTrigger == 4):
+                messageResponce = sock.get_data()
+                if (messageResponce.message == 'Отчет по номенклатуре деталей'):
+                    fourthTrigger = 0
+
     def ScrollWindow(self):
+        global messageResponce
         if (self.listOfItems==True):
             #self.ids.ScrollWindowid.add_widget(ScrollView(size_hint=[1, 1]))
             self.ids.Scrollbuttonid.text = "Список номенклатуры выведен"
             leftGrid = GridLayout(cols=1, size_hint_y=None)
             #Убедимся, что высота такая, чтобы было что прокручивать.
             leftGrid.bind(minimum_height=leftGrid.setter('height'))
+            ciphers = messageResponce.type_name_list
 
             self.toggle = [0 for _ in range(len(ciphers))]
 
@@ -636,9 +690,16 @@ class FourthWindow(Screen):
 
     def changer(self, *args):
         global resText
+        global fourthTrigger
+        global messageResponce, messageParameter
+        ciphers = messageResponce.type_name_list
         for i in range(len(ciphers)):
             if self.toggle[i].state == 'down':
-                resText = comments[i]
+                resText = ciphers[i]
+
+        messageParameter.message = resText
+        fourthTrigger = 3
+        time.sleep(0.4)
         #Переход в конкретное описание детали
         self.manager.current = 'reportOfItem'
         #Переход окна вправо (текущее уходит влево)
@@ -648,20 +709,22 @@ class ReportsWindowDetail(Screen):
     def __init__(self, *args, **kwargs):
         super(ReportsWindowDetail, self).__init__(*args, **kwargs)
         self.listOfItems = True
+
     def windowDraw(self):
+        global messageResponce
         if (self.listOfItems == True):
             self.ids.ButtonScrollWindowReportid.text = resText
-            leftGrid1 = GridLayout(cols=len(titleOfItems), spacing=10, size_hint_y=None)#, size_hint_y=10, size_hint_x=10)
+            leftGrid1 = GridLayout(cols=len(messageResponce.report_list[0]), spacing=10, size_hint_y=None)#, size_hint_y=10, size_hint_x=10)
             # Убедимся, что высота такая, чтобы было что прокручивать.
             leftGrid1.bind(minimum_height=leftGrid1.setter('height'), minimum_width=leftGrid1.setter('width'))#
             self.toggle = []
-            for i in range(len(itemsOfDetails)+1):
+            for i in range(len(messageResponce.report_list)):
                 nasted = []
                 self.toggle.append(nasted)
-                for j in range(len(itemsOfDetails[0])):
+                for j in range(len(messageResponce.report_list[0])):
                     nasted.append('')
 
-            for index in range(len(titleOfItems)):
+            for index in range(len(messageResponce.report_list[0])):
                 if (index == 0):
                     width = 50*koef
                 else:
@@ -674,17 +737,17 @@ class ReportsWindowDetail(Screen):
                 width=width,
                 #,
                 padding=(10*koef, 10*koef),
-                    text=str(titleOfItems[index]),
-                    color=(1, 1, 1, 1)
+                    text=str(messageResponce.report_list[0][index]),
+                    #color=(1, 1, 1, 1)
                     #text_size=(self.width, None)
                 )
-                with self.toggle[0][index].canvas.before:
-                    Color(0, 1, 0, 0.25)
-                    Rectangle(pos=self.toggle[0][index].pos, size=self.toggle[0][index].size)
+                #with self.toggle[0][index].canvas.before:
+                    #Color(0, 1, 0, 0.25)
+                    #Rectangle(pos=self.toggle[0][index].pos, size=self.toggle[0][index].size)
                 leftGrid1.add_widget(self.toggle[0][index])
 
-            for index in range(1,len(itemsOfDetails)+1):
-                for index1 in range(len(itemsOfDetails[0])):
+            for index in range(1,len(messageResponce.report_list)):
+                for index1 in range(len(messageResponce.report_list[0])):
                     if (index1 == 0):
                         width = 50*koef
                     else:
@@ -697,7 +760,7 @@ class ReportsWindowDetail(Screen):
                         width=width,
                         #text_size=(self.width, None),
                         padding=(10*koef, 10*koef),
-                        text=str(itemsOfDetails[index-1][index1]),
+                        text=str(messageResponce.report_list[index][index1]),
                         #text_size=(self.width, None)
                     )
                     leftGrid1.add_widget(self.toggle[index][index1])
@@ -993,12 +1056,12 @@ class MainReport(Screen):
                 # ,
                 padding=(10 * koef, 10 * koef),
                 text=str(messageResponce.report_list[0][index]),
-                color=(1, 1, 1, 1)
+                #color=(1, 1, 1, 1)
                 # text_size=(self.width, None)
             )
-            with self.toggle[0][index].canvas.before:
-                Color(0, 1, 0, 0.25)
-                Rectangle(pos=self.toggle[0][index].pos, size=self.toggle[0][index].size)
+            #with self.toggle[0][index].canvas.before:
+                #Color(0, 1, 0, 0.25)
+                #Rectangle(pos=self.toggle[0][index].pos, size=self.toggle[0][index].size)
             leftGrid1.add_widget(self.toggle[0][index])
 
         for index in range(1, len(messageResponce.report_list)):

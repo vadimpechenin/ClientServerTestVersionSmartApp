@@ -237,3 +237,21 @@ class SQL_data_base():
             # print(a1)
             ciphers.append([a1['passport_id'], a1['type_name'], a1['receipt_date'], a1['workshop_number'], a1['lot_number'], a1['imbalance'], a1['diameter']])
         return ciphers
+
+    def data_for_report_nomenclature(self,parameters):
+        # Финальный список для определенного наименования деталей
+        # Текст запроса
+        request_str = "SELECT passport.passport_id,passport.receipt_date, location.workshop_number, \
+                                       location.lot_number \
+                               FROM type \
+                               INNER JOIN passport USING(type_id) \
+                               INNER JOIN location USING(location_id)\
+                               WHERE type.type_name IN ('" + str(parameters.type_name) + "');"
+        s4 = self.session.execute(request_str)
+        result_of_query = resultproxy_to_dict(s4)
+        ciphers = []
+        for a1 in result_of_query:
+            # print(a1)
+            ciphers.append(
+                [a1['passport_id'], a1['receipt_date'], a1['workshop_number'], a1['lot_number']])
+        return ciphers

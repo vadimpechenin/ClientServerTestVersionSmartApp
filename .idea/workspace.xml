@@ -5,14 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="987b7179-efd0-465c-8918-da7deb0820c1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Handlers/Server_class.py" beforeDir="false" afterPath="$PROJECT_DIR$/Handlers/Server_class.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Test/server_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Test/server_main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/kvfiles/my.kv" beforeDir="false" afterPath="$PROJECT_DIR$/client/kvfiles/my.kv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/main_client.py" beforeDir="false" afterPath="$PROJECT_DIR$/client/main_client.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db/sql_data_base.py" beforeDir="false" afterPath="$PROJECT_DIR$/db/sql_data_base.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/message/messageResponceParameter.py" beforeDir="false" afterPath="$PROJECT_DIR$/message/messageResponceParameter.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/message/messageStructureParameter.py" beforeDir="false" afterPath="$PROJECT_DIR$/message/messageStructureParameter.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -25,8 +22,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Test/server_main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="310">
-              <caret line="198" column="39" selection-start-line="198" selection-start-column="39" selection-end-line="198" selection-end-column="39" />
+            <state relative-caret-position="-2087">
+              <caret line="113" column="88" selection-start-line="113" selection-start-column="88" selection-end-line="113" selection-end-column="88" />
               <folding>
                 <element signature="e#88#98#0" expanded="true" />
               </folding>
@@ -35,19 +32,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/message/messageStructure.py">
+        <entry file="file://$PROJECT_DIR$/Handlers/NomRequest/NomRequestCommandHandler.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="680">
-              <caret line="40" column="27" selection-start-line="40" selection-start-column="8" selection-end-line="40" selection-end-column="27" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/kvfiles/my.kv">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2210">
-              <caret line="130" column="41" selection-start-line="130" selection-start-column="25" selection-end-line="130" selection-end-column="41" />
+            <state relative-caret-position="153">
+              <caret line="9" column="46" selection-start-line="9" selection-start-column="33" selection-end-line="9" selection-end-column="46" />
             </state>
           </provider>
         </entry>
@@ -55,23 +43,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Handlers/Server_class.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="40" column="40" selection-start-line="40" selection-start-column="40" selection-end-line="40" selection-end-column="40" />
-              <folding>
-                <element signature="e#298#344#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/clientModule.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="24" column="39" selection-start-line="24" selection-start-column="39" selection-end-line="24" selection-end-column="39" />
-              <folding>
-                <element signature="e#64#73#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="293">
+              <caret line="21" selection-start-line="21" selection-end-line="21" selection-end-column="103" />
             </state>
           </provider>
         </entry>
@@ -79,8 +52,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/main_client.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="222">
-              <caret line="737" column="26" selection-start-line="737" selection-start-column="26" selection-end-line="737" selection-end-column="26" />
+            <state relative-caret-position="290">
+              <caret line="774" column="28" selection-start-line="774" selection-start-column="17" selection-end-line="774" selection-end-column="28" />
               <folding>
                 <element signature="e#17#41#0" expanded="true" />
               </folding>
@@ -89,10 +62,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/common/socketHelper.py">
+        <entry file="file://$PROJECT_DIR$/message/messageResponceParameter.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="14" selection-start-line="14" selection-end-line="14" />
+            <state relative-caret-position="51">
+              <caret line="3" column="13" lean-forward="true" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="25" />
             </state>
           </provider>
         </entry>
@@ -100,8 +73,26 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Handlers/loadReport/loadReportHandler.py">
           <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret selection-end-line="9" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Handlers/loadReportNomenclature/loadReportNomenclatureHandler.py">
+          <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="136">
-              <caret line="8" column="59" selection-start-line="8" selection-start-column="49" selection-end-line="8" selection-end-column="59" />
+              <caret line="8" column="61" selection-start-line="8" selection-start-column="33" selection-end-line="8" selection-end-column="61" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Handlers/loadReportNomenclature/loadReportNomenclatureHandlerParameter.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="4" column="33" selection-start-line="4" selection-start-column="24" selection-end-line="4" selection-end-column="33" />
             </state>
           </provider>
         </entry>
@@ -109,8 +100,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Handlers/loadReport/loadReportHandlerParameter.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="3" column="106" selection-start-line="3" selection-start-column="93" selection-end-line="3" selection-end-column="106" />
+            <state>
+              <caret selection-end-line="8" selection-end-column="42" />
             </state>
           </provider>
         </entry>
@@ -118,8 +109,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/db/sql_data_base.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3842">
-              <caret line="235" column="33" selection-start-line="235" selection-start-column="18" selection-end-line="235" selection-end-column="33" />
+            <state relative-caret-position="327">
+              <caret line="251" column="20" lean-forward="true" selection-start-line="251" selection-start-column="20" selection-end-line="251" selection-end-column="20" />
               <folding>
                 <element signature="e#41#77#0" expanded="true" />
               </folding>
@@ -156,6 +147,7 @@
       <find>ClearObject</find>
       <find>listOfItemsView = 1</find>
       <find>triggerForServer</find>
+      <find>ciphers</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -179,15 +171,17 @@
         <option value="$PROJECT_DIR$/Handlers/CheckIn/CheckInCommandHandler.py" />
         <option value="$PROJECT_DIR$/message/messageResponceParameter.py" />
         <option value="$PROJECT_DIR$/message/messageStructureParameter.py" />
-        <option value="$PROJECT_DIR$/client/kvfiles/my.kv" />
         <option value="$PROJECT_DIR$/Handlers/loadAllCharacteristics/loadAllcharacteristicsHandler.py" />
         <option value="$PROJECT_DIR$/Handlers/loadAllCharacteristics/loadAllCharacteristicsHandlerParameter.py" />
         <option value="$PROJECT_DIR$/Handlers/loadAllCharacteristics/loadAllCharacteristicsHandler.py" />
         <option value="$PROJECT_DIR$/Handlers/loadReport/loadReportHandler.py" />
         <option value="$PROJECT_DIR$/Handlers/loadReport/loadReportHandlerParameter.py" />
+        <option value="$PROJECT_DIR$/client/kvfiles/my.kv" />
+        <option value="$PROJECT_DIR$/Handlers/loadReportNomenclature/loadReportNomenclatureHandlerParameter.py" />
+        <option value="$PROJECT_DIR$/Handlers/loadReportNomenclature/loadReportNomenclatureHandler.py" />
         <option value="$PROJECT_DIR$/Handlers/Server_class.py" />
-        <option value="$PROJECT_DIR$/db/sql_data_base.py" />
         <option value="$PROJECT_DIR$/Test/server_main.py" />
+        <option value="$PROJECT_DIR$/db/sql_data_base.py" />
         <option value="$PROJECT_DIR$/client/main_client.py" />
       </list>
     </option>
@@ -203,7 +197,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -270,6 +263,12 @@
               <item name="Client_server_version_1" type="b2602c69:ProjectViewProjectNode" />
               <item name="Client_server_version_1" type="462c0819:PsiDirectoryNode" />
               <item name="Handlers" type="462c0819:PsiDirectoryNode" />
+              <item name="loadReportNomenclature" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Client_server_version_1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Client_server_version_1" type="462c0819:PsiDirectoryNode" />
+              <item name="Handlers" type="462c0819:PsiDirectoryNode" />
               <item name="NomRequest" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -286,6 +285,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -394,7 +394,7 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32900432" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.3625541" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.38852814" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.38852814" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32900432" />
@@ -428,14 +428,23 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/client/main_client.py</url>
-          <line>971</line>
-          <option name="timeStamp" value="218" />
-        </line-breakpoint>
-      </breakpoints>
+      <default-breakpoints>
+        <breakpoint type="python-exception">
+          <properties notifyOnTerminate="true" exception="BaseException">
+            <option name="notifyOnTerminate" value="true" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="debuggerHistoryManager">
+    <expressions id="setValue">
+      <expression>
+        <expression-string>'SELECT passport.passport_id,passport.receipt_date, location.workshop_number,                                        location.lot_number                                FROM type                                INNER JOIN passport USING(type_id)                                INNER JOIN location USING(location_id)                               WHERE type.type_name IN (Деталь 4);'</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$USER_HOME$/Anaconda3/Lib/site-packages/kivy/clock.py">
@@ -603,24 +612,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/message/messageResponceParameter.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="27" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Handlers/loadAllCharacteristics/loadAllCharacteristicsHandler.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
           <caret line="10" selection-start-line="10" selection-end-line="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Handlers/NomRequest/NomRequestCommandHandler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="22" lean-forward="true" selection-start-line="3" selection-start-column="3" selection-end-line="10" selection-end-column="22" />
         </state>
       </provider>
     </entry>
@@ -661,53 +656,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/kvfiles/my.kv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2210">
-          <caret line="130" column="41" selection-start-line="130" selection-start-column="25" selection-end-line="130" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Handlers/Server_class.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="40" column="40" selection-start-line="40" selection-start-column="40" selection-end-line="40" selection-end-column="40" />
-          <folding>
-            <element signature="e#298#344#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/client/clientModule.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
+        <state relative-caret-position="408">
           <caret line="24" column="39" selection-start-line="24" selection-start-column="39" selection-end-line="24" selection-end-column="39" />
           <folding>
             <element signature="e#64#73#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Handlers/loadReport/loadReportHandler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="59" selection-start-line="8" selection-start-column="49" selection-end-line="8" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Handlers/loadReport/loadReportHandlerParameter.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="106" selection-start-line="3" selection-start-column="93" selection-end-line="3" selection-end-column="106" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/db/sql_data_base.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3842">
-          <caret line="235" column="33" selection-start-line="235" selection-start-column="18" selection-end-line="235" selection-end-column="33" />
-          <folding>
-            <element signature="e#41#77#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -719,10 +673,76 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/client/kvfiles/my.kv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="115" column="47" selection-start-line="115" selection-start-column="25" selection-end-line="115" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/message/messageResponceParameter.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="13" lean-forward="true" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Handlers/loadReport/loadReportHandler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="9" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Handlers/NomRequest/NomRequestCommandHandler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="46" selection-start-line="9" selection-start-column="33" selection-end-line="9" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Handlers/loadReport/loadReportHandlerParameter.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="8" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Handlers/loadReportNomenclature/loadReportNomenclatureHandler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="61" selection-start-line="8" selection-start-column="33" selection-end-line="8" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Handlers/loadReportNomenclature/loadReportNomenclatureHandlerParameter.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="33" selection-start-line="4" selection-start-column="24" selection-end-line="4" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Handlers/Server_class.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="293">
+          <caret line="21" selection-start-line="21" selection-end-line="21" selection-end-column="103" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/sql_data_base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="327">
+          <caret line="251" column="20" lean-forward="true" selection-start-line="251" selection-start-column="20" selection-end-line="251" selection-end-column="20" />
+          <folding>
+            <element signature="e#41#77#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Test/server_main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
-          <caret line="198" column="39" selection-start-line="198" selection-start-column="39" selection-end-line="198" selection-end-column="39" />
+        <state relative-caret-position="-2087">
+          <caret line="113" column="88" selection-start-line="113" selection-start-column="88" selection-end-line="113" selection-end-column="88" />
           <folding>
             <element signature="e#88#98#0" expanded="true" />
           </folding>
@@ -731,8 +751,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/client/main_client.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="222">
-          <caret line="737" column="26" selection-start-line="737" selection-start-column="26" selection-end-line="737" selection-end-column="26" />
+        <state relative-caret-position="290">
+          <caret line="774" column="28" selection-start-line="774" selection-start-column="17" selection-end-line="774" selection-end-column="28" />
           <folding>
             <element signature="e#17#41#0" expanded="true" />
           </folding>

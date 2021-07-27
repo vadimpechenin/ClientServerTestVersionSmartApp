@@ -112,6 +112,8 @@ WindowManager:
                 background_down: '9_1.jpg'
                 #Обработчик
                 on_release:
+                    #Запуск потока
+                    root.triggerForServerFourth()
                     #Переход на второе окно
                     app.root.current = "fourth"
                     #Переход окна вправо (текущее уходит влево)

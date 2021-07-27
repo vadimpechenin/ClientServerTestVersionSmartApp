@@ -19,6 +19,7 @@ from Handlers.loadDictLocation.loadDictLocationHandler import LoadDictLocationHa
 from Handlers.loadDictType.loadDictTypeHandler import LoadDictTypeHandler
 from Handlers.loadAllCharacteristics.loadAllCharacteristicsHandler import LoadAllCharacteristicsHandler
 from Handlers.loadReport.loadReportHandler import LoadReportHandler
+from Handlers.loadReportNomenclature.loadReportNomenclatureHandler import LoadReportNomenclatureHandler
 
 class MainCommandHandler(BaseCommandHandler):
     def __init__(self):
@@ -39,6 +40,7 @@ class MainCommandHandler(BaseCommandHandler):
         self.dict[4] = LoadDictTypeHandler(self.data_base)
         self.dict[5] = LoadAllCharacteristicsHandler(self.data_base)
         self.dict[6] = LoadReportHandler(self.data_base)
+        self.dict[7] = LoadReportNomenclatureHandler(self.data_base)
 
     def initFunction(self,code_request, parameter):
         result = None

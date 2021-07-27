@@ -17,6 +17,7 @@ from Handlers.loadDictLocation.loadDictLocationHandlerParameter import LoadDictL
 from Handlers.loadDictType.loadDictTypeHandlerParameter import LoadDictTypeHandlerParameter
 from Handlers.loadAllCharacteristics.loadAllCharacteristicsHandlerParameter import LoadAllCharacteristicsHandlerParameter
 from Handlers.loadReport.loadReportHandlerParameter import LoadReportHandlerParameter
+from Handlers.loadReportNomenclature.loadReportNomenclatureHandlerParameter import LoadReportHandlerNomenclatureParameter
 
 #Подключение всего функционала по работе с изображениями и базой данных
 serversmartapp = ServerSmartApp()
@@ -106,17 +107,19 @@ while True:
 
         #code_request0 = int(input("Получение отчета (0), или идентификация (1), или запись в базу (2) или выйти из цикла (3): "))
         if (messageParameter.code_request0==0):
-            if (messageParameter.code_request1==1):
-                operation_type = 0
-                parameters = NomRequestCommandHandlerParameter(operation_type)
+            operation_type = 0
+            parameters = NomRequestCommandHandlerParameter(operation_type)
+        elif (messageParameter.code_request0 == 7):
+
+            parameters = LoadReportHandlerNomenclatureParameter(messageParameter.message)
         elif (messageParameter.code_request0==5):
-                operation_type = 5
-                parameters = LoadAllCharacteristicsHandlerParameter(operation_type)
+            operation_type = 5
+            parameters = LoadAllCharacteristicsHandlerParameter(operation_type)
         elif (messageParameter.code_request0==6):
 
-                parameters = LoadReportHandlerParameter(messageParameter.type_name_list, messageParameter.workshop_number_list,
-                                                        messageParameter.lot_number_list, messageParameter.imbalance_list,
-                                                        messageParameter.diameter_list)
+            parameters = LoadReportHandlerParameter(messageParameter.type_name_list, messageParameter.workshop_number_list,
+                                                    messageParameter.lot_number_list, messageParameter.imbalance_list,
+                                                    messageParameter.diameter_list)
         elif (messageParameter.code_request0==1):
             #code_request1 = int(input("Введите QR (0) или NN (1): "))
             operation_type = messageParameter.code_request1
@@ -154,8 +157,31 @@ while True:
 
         MessageStructure.ClearObjectResponce(messageResponce)
         if messageParameter.code_request0 == 0:
-            # Данные запроса по номенклатуре
-            pass
+            messageResponce.message = 'Список номенклатуры деталей'
+            messageResponce.type_name_list = result_request
+
+            messageResponceAsBytes = MessageStructure.SaveToBytes(messageResponce)
+
+            helper.writeInt(len(messageResponceAsBytes))
+            print("Размер отсылаемого ответа:", len(messageResponceAsBytes))
+
+            helper.writeBytesArray(messageResponceAsBytes)
+            print("Ответ отправлен")
+
+        if messageParameter.code_request0 == 7:
+            messageResponce.message = 'Отчет по номенклатуре деталей'
+            messageResponce.report_list.append(['ID', 'Дата', 'Цех', 'Участок'])
+            for item in result_request:
+                messageResponce.report_list.append(item)
+
+            messageResponceAsBytes = MessageStructure.SaveToBytes(messageResponce)
+
+            helper.writeInt(len(messageResponceAsBytes))
+            print("Размер отсылаемого ответа:", len(messageResponceAsBytes))
+
+            helper.writeBytesArray(messageResponceAsBytes)
+            print("Ответ отправлен")
+
         if messageParameter.code_request0 == 5:
             messageResponce.message = 'Пределы для фильтров'
 
