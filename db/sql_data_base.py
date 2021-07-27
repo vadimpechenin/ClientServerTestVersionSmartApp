@@ -177,3 +177,63 @@ class SQL_data_base():
             #print(a1)
             ciphers.append([a1['workshop_number'], a1['lot_number']])
         return ciphers
+
+    def list_of_characteristics(self):
+        #Список геометрических параметров из базы данных
+        request_str = "SELECT imbalance, diameter \
+                                             FROM \
+                                             characteristic;"
+        s4 = self.session.execute(request_str)
+        result_of_query = resultproxy_to_dict(s4)
+        ciphers = []
+        for a1 in result_of_query:
+            # print(a1)
+            ciphers.append([a1['imbalance'], a1['diameter']])
+        return ciphers
+
+    def all_lists_for_filter(self):
+        #Последовательный вызов всех списков характеристик из базы данных
+        result_request=[]
+        r = self.list_of_parts()
+        result_request.append(self.list_of_parts())
+        result_request.append(self.list_of_workshop_lot())
+        result_request.append(self.list_of_characteristics())
+        return result_request
+
+    def data_for_report(self,parameters):
+        # Финальный список для отчета по результатам фильтров
+
+        #Формирование ограничений
+        textstrType = ''
+        for item in parameters.type_name_list:
+            textstrType = textstrType + "'" +  item + "', "
+        textstrType = textstrType.rstrip(', ')
+
+        textstrWorkshop = ''
+        for item in parameters.workshop_number_list:
+            textstrWorkshop = textstrWorkshop + "'" + item + "', "
+        textstrWorkshop = textstrWorkshop.rstrip(', ')
+        textstrLot = ''
+        for item in parameters.lot_number_list:
+            textstrLot = textstrLot + "'" + item + "', "
+        textstrLot = textstrLot.rstrip(', ')
+        #Текст запроса
+        request_str = "SELECT passport.passport_id, type.type_name, passport.receipt_date, location.workshop_number, \
+                                location.lot_number, characteristic.imbalance, characteristic.diameter \
+                        FROM type \
+                        INNER JOIN passport USING(type_id) \
+                        INNER JOIN location USING(location_id)\
+                        LEFT JOIN characteristic on passport.passport_id=characteristic.passport_id\
+                        WHERE type.type_name IN (" + str(textstrType) + ") AND  \
+                              location.workshop_number IN (" + str(textstrWorkshop) + ") AND  \
+                              location.lot_number IN (" + str(textstrLot) + ") AND  \
+                              characteristic.imbalance>" + str(parameters.imbalance_list[0]) + " AND characteristic.imbalance<" + str(parameters.imbalance_list[1]) + " AND  \
+                              characteristic.diameter > " + str(parameters.diameter_list[0]) + " AND characteristic.diameter < " + str(parameters.diameter_list[1]) + "\
+                        ;"
+        s4 = self.session.execute(request_str)
+        result_of_query = resultproxy_to_dict(s4)
+        ciphers = []
+        for a1 in result_of_query:
+            # print(a1)
+            ciphers.append([a1['passport_id'], a1['type_name'], a1['receipt_date'], a1['workshop_number'], a1['lot_number'], a1['imbalance'], a1['diameter']])
+        return ciphers

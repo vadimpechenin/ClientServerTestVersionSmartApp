@@ -15,6 +15,8 @@ from Handlers.NomRequest.NomRequestCommandHandlerParameter import NomRequestComm
 from Handlers.PartIdentification.PartIdentificationCommandHandlerParameter import PartIdentificationCommandHandlerParameter
 from Handlers.loadDictLocation.loadDictLocationHandlerParameter import LoadDictLocationHandlerParameter
 from Handlers.loadDictType.loadDictTypeHandlerParameter import LoadDictTypeHandlerParameter
+from Handlers.loadAllCharacteristics.loadAllCharacteristicsHandlerParameter import LoadAllCharacteristicsHandlerParameter
+from Handlers.loadReport.loadReportHandlerParameter import LoadReportHandlerParameter
 
 #Подключение всего функционала по работе с изображениями и базой данных
 serversmartapp = ServerSmartApp()
@@ -104,8 +106,17 @@ while True:
 
         #code_request0 = int(input("Получение отчета (0), или идентификация (1), или запись в базу (2) или выйти из цикла (3): "))
         if (messageParameter.code_request0==0):
-            operation_type = 0
-            parameters = NomRequestCommandHandlerParameter(operation_type)
+            if (messageParameter.code_request1==1):
+                operation_type = 0
+                parameters = NomRequestCommandHandlerParameter(operation_type)
+        elif (messageParameter.code_request0==5):
+                operation_type = 5
+                parameters = LoadAllCharacteristicsHandlerParameter(operation_type)
+        elif (messageParameter.code_request0==6):
+
+                parameters = LoadReportHandlerParameter(messageParameter.type_name_list, messageParameter.workshop_number_list,
+                                                        messageParameter.lot_number_list, messageParameter.imbalance_list,
+                                                        messageParameter.diameter_list)
         elif (messageParameter.code_request0==1):
             #code_request1 = int(input("Введите QR (0) или NN (1): "))
             operation_type = messageParameter.code_request1
@@ -140,6 +151,60 @@ while True:
 
         result_request = serversmartapp.initFunction(messageParameter.code_request0, parameters)
         print(result_request)
+
+        MessageStructure.ClearObjectResponce(messageResponce)
+        if messageParameter.code_request0 == 0:
+            # Данные запроса по номенклатуре
+            pass
+        if messageParameter.code_request0 == 5:
+            messageResponce.message = 'Пределы для фильтров'
+
+            messageResponce.type_name_list = result_request.pop(0)
+            workshop_list = []
+            lot_list =[]
+            for workshop_count, lot_count in result_request[0]:
+                if workshop_count not in workshop_list:
+                    workshop_list.append(workshop_count)
+                if lot_count not in lot_list:
+                    lot_list.append(lot_count)
+
+            messageResponce.workshop_number_list = workshop_list
+            messageResponce.lot_number_list = lot_list
+
+            imbalance_list = []
+            diameter_list = []
+            for imbalance_count, diameter_count in result_request[1]:
+                if imbalance_count not in imbalance_list:
+                    imbalance_list.append(imbalance_count)
+                if diameter_count not in diameter_list:
+                    diameter_list.append(diameter_count)
+
+            messageResponce.imbalance_list.append(round(min(imbalance_list),2))
+            messageResponce.imbalance_list.append(round(max(imbalance_list),2))
+            messageResponce.diameter_list.append(round(min(diameter_list),2))
+            messageResponce.diameter_list.append(round(max(diameter_list),2))
+
+            messageResponceAsBytes = MessageStructure.SaveToBytes(messageResponce)
+
+            helper.writeInt(len(messageResponceAsBytes))
+            print("Размер отсылаемого ответа:", len(messageResponceAsBytes))
+
+            helper.writeBytesArray(messageResponceAsBytes)
+            print("Ответ отправлен")
+
+        if messageParameter.code_request0 == 6:
+            # Данные запроса по отчету
+            messageResponce.message = 'Отчет с учетом фильтров'
+            messageResponce.report_list.append(['ID', 'Тип', 'Дата', 'Цех', 'Участок', 'Дисбаланс', 'Диаметр'])
+            for item in result_request:
+                messageResponce.report_list.append(item)
+
+            messageResponceAsBytes = MessageStructure.SaveToBytes(messageResponce)
+            helper.writeInt(len(messageResponceAsBytes))
+            print("Размер отсылаемого ответа:", len(messageResponceAsBytes))
+
+            helper.writeBytesArray(messageResponceAsBytes)
+            print("Ответ отправлен")
 
 
         if messageParameter.code_request0 == 1:

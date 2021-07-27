@@ -17,6 +17,8 @@ from Handlers.PartIdentification.PartIdentificationCommandHandler import PartIde
 from Handlers.CheckIn.CheckInCommandHandler import CheckInCommandHandler
 from Handlers.loadDictLocation.loadDictLocationHandler import LoadDictLocationHandler
 from Handlers.loadDictType.loadDictTypeHandler import LoadDictTypeHandler
+from Handlers.loadAllCharacteristics.loadAllCharacteristicsHandler import LoadAllCharacteristicsHandler
+from Handlers.loadReport.loadReportHandler import LoadReportHandler
 
 class MainCommandHandler(BaseCommandHandler):
     def __init__(self):
@@ -35,6 +37,8 @@ class MainCommandHandler(BaseCommandHandler):
         self.dict[2] = CheckInCommandHandler(self.data_base, self.qrdet)
         self.dict[3] = LoadDictLocationHandler(self.data_base)
         self.dict[4] = LoadDictTypeHandler(self.data_base)
+        self.dict[5] = LoadAllCharacteristicsHandler(self.data_base)
+        self.dict[6] = LoadReportHandler(self.data_base)
 
     def initFunction(self,code_request, parameter):
         result = None
