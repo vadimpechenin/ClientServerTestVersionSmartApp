@@ -9,7 +9,7 @@ from client.windowClasses.fourthWindow import FourthWindow
 from client.windowClasses.neiroClassWindow import NeiroClassWindow
 from client.windowClasses.funcThread import FuncThread
 from client.windowClasses.reportsWindowDetail import ReportsWindowDetail
-
+from client.windowClasses.qrWindow import QRWindow
 
 class Bootstrap():
 
