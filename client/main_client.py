@@ -1,7 +1,5 @@
 #kivy-приложение
-from kivy.app import App
-from kivy.lang import Builder
-from kivy.uix.boxlayout import BoxLayout
+
 
 import time
 from client.clientModule import MySocket
@@ -38,11 +36,9 @@ import cv2
 
 #Импорт классов, отвечающих за бизнес-логику окон
 #from client.windowClasses import *
+from client.bootstrap import Bootstrap
 from client.windowClasses.loadDialog import LoadDialog
-from client.windowClasses.neiroClassWindow import NeiroClassWindow
-from client.windowClasses.funcThread import FuncThread
-from client.windowClasses.reportsWindowDetail import ReportsWindowDetail
-from client.windowClasses.smartAppClient import SmartAppClient
+
 
 from client.applicationEnvironment import appEnvironment
 
@@ -80,11 +76,6 @@ else:
     Window.size = (1100, 2300)
 
 
-fourthTrigger = 0 #Для работы с разделом "Номенклатура"
-
-listOfItems=True
-
-resText = ''
 
 #Искусственное заполнение ответа с сервера, нужно для формирования данных для фильтров
 listOfItemsView = 0 #Переменная для обмена сообщениями с сервером в части отчетов
@@ -92,7 +83,7 @@ param_for_filter = 1  #С каким атрибутом работаем
 ifTriggerReport = 0 #Прорисовка и обновление отчета по результатам запроса
 
 #Подключение к серверу (1 точка для подключения)
-sock = MySocket()
+#sock = MySocket()
 # Классы для окон
 
 class MainWindow(Screen):
@@ -109,9 +100,10 @@ class MainWindow(Screen):
 
     def triggerForServerFourth(self):
         global fourthTrigger
-        # Метод для изменения переменных, отвечающих за запуск потока общения с сервером
+        # Метод для загрузки списка номенклатуры в окне Номенклатура
         fourthTrigger = 1
-        time.sleep(0.3)
+        appEnvironment.FourthWindowObj.fillData(fourthTrigger)
+        #time.sleep(0.3)
 
 
 class QRWindow(Screen):
@@ -128,6 +120,7 @@ class QRWindow(Screen):
         self.popup1 = None
         self.popup2 = None
         self.popup3 = None
+        self.sock = appEnvironment.sock
 
 
     def allRequest(self):
@@ -244,19 +237,16 @@ class QRWindow(Screen):
     def get_data(self):
         global send_data
         global messageParameter, messageResponce
-        global sock
         while True:
             time.sleep(0.3)
             if (send_data==1):
                 print('Зашел в отправку сообщения')
-                #self.sock.send_data(messageParameter)
-                sock.send_data(messageParameter)
+                self.sock.send_data(messageParameter)
                 messageParameter = MessageStructure.ClearObject(messageParameter)
                 send_data = 2
             if (send_data == 2):
-                #messageResponce = self.sock.get_data()
 
-                messageResponce = sock.get_data()
+                messageResponce = self.sock.get_data()
                 send_data = 0
                 if (messageResponce.message=='Изображение пришло'):
                     self.Responce_name_detail_popup()
@@ -482,106 +472,10 @@ class QRWindow(Screen):
         messageResponce = MessageStructure.ClearObjectResponce(messageResponce)
         self.QRPress_base()
 
-class FourthWindow(Screen):
-    #Окно для просмотра номенклатуры деталей
-    def __init__(self, *args, **kwargs):
-        super(FourthWindow, self).__init__(*args, **kwargs)
-        self.listOfItems = True
-        Thread(target=self.textInInputFourth).start()
-
-
-    def textInInputFourth(self):
-        global messageParameter, messageResponce
-        global fourthTrigger
-        global sock
-        while True:
-            time.sleep(0.4)
-            if (fourthTrigger == 1):
-                # Отправка запроса на сервер и получения ответа, заполняющего список номенклатуры деталей
-                messageParameter.code_request0 = 0
-                messageParameter.code_request1 = 0
-
-                print('Зашел в отправку сообщения')
-                # self.sock.send_data(messageParameter)
-                sock.send_data(messageParameter)
-
-                messageParameter = MessageStructure.ClearObject(messageParameter)
-                fourthTrigger = 2
-
-            if (fourthTrigger == 2):
-                messageResponce = sock.get_data()
-                if (messageResponce.message == 'Список номенклатуры деталей'):
-                    fourthTrigger = 0
-
-            if (fourthTrigger == 3):
-                # Отправка запроса на сервер и получения ответа, заполняющего отчет для выбранного вида детали
-                messageParameter.code_request0 = 7
-                messageParameter.code_request1 = 0
-
-                print('Зашел в отправку сообщения')
-                # self.sock.send_data(messageParameter)
-                sock.send_data(messageParameter)
-
-                messageParameter = MessageStructure.ClearObject(messageParameter)
-                fourthTrigger = 4
-
-            if (fourthTrigger == 4):
-                messageResponce = sock.get_data()
-
-                if (messageResponce.message == 'Отчет по номенклатуре деталей'):
-                    appEnvironment.ReportsWindowDetailObj.fillData(resText, messageResponce)
-                    fourthTrigger = 0
-
-    def ScrollWindow(self):
-        global messageResponce
-        if (self.listOfItems==True):
-            #self.ids.ScrollWindowid.add_widget(ScrollView(size_hint=[1, 1]))
-            self.ids.Scrollbuttonid.text = "Список номенклатуры выведен"
-            leftGrid = GridLayout(cols=1, size_hint_y=None)
-            #Убедимся, что высота такая, чтобы было что прокручивать.
-            leftGrid.bind(minimum_height=leftGrid.setter('height'))
-            ciphers = messageResponce.type_name_list
-
-            self.toggle = [0 for _ in range(len(ciphers))]
-
-            for index in range(len(ciphers)):
-                self.toggle[index] = ToggleButton(
-                    text=ciphers[index],  size_hint_y=None,
-                    group='cipher', height=30*koef,
-                    )
-                self.toggle[index].bind(on_press=self.changer)
-                leftGrid.add_widget(self.toggle[index])
-
-            self.ids.ScrollWindowid.add_widget(leftGrid)
-            self.listOfItems = False
-        else:
-            # удаляет все виджеты, которые находяться в another_box
-            for i in range(len(self.ids.ScrollWindowid.children)):
-                self.ids.ScrollWindowid.remove_widget(self.ids.ScrollWindowid.children[-1])
-            self.listOfItems = True
-            self.ids.Scrollbuttonid.text = "Просмотреть номенклатуру"
-
-    def changer(self, *args):
-        global resText
-        global fourthTrigger
-        global messageResponce, messageParameter
-        ciphers = messageResponce.type_name_list
-        for i in range(len(ciphers)):
-            if self.toggle[i].state == 'down':
-                resText = ciphers[i]
-
-        messageParameter.message = resText
-        fourthTrigger = 3
-        time.sleep(0.4)
-        #Переход в конкретное описание детали
-        self.manager.current = 'reportOfItem'
-        #Переход окна вправо (текущее уходит влево)
-        self.manager.transition.direction = "left"
-
 class ReportsWindow(Screen):
     def __init__(self, *args, **kwargs):
         super(ReportsWindow, self).__init__(*args, **kwargs)
-        #self.sock = MySocket()
+        self.sock = appEnvironment.sock
         self.ciphers_filter = []
         Thread(target=self.textInInput).start()
         # self.textInInput()
@@ -590,7 +484,6 @@ class ReportsWindow(Screen):
         # Функция для вывода информации в текстовые окна приложения
         global messageParameter, messageResponce
         global listOfItemsView, ifTriggerReport
-        global sock
         while True:
             time.sleep(0.4)
             if (listOfItemsView == 2):
@@ -599,14 +492,13 @@ class ReportsWindow(Screen):
                 messageParameter.code_request1 = 0
 
                 print('Зашел в отправку сообщения')
-                #self.sock.send_data(messageParameter)
-                sock.send_data(messageParameter)
+                self.sock.send_data(messageParameter)
 
                 messageParameter = MessageStructure.ClearObject(messageParameter)
                 listOfItemsView = 4
             if (listOfItemsView == 4):
-                #messageResponce = self.sock.get_data()
-                messageResponce = sock.get_data()
+
+                messageResponce =  self.sock.get_data()
                 if (messageResponce.message == 'Пределы для фильтров'):
                     listOfItemsView = 1
                     #pass
@@ -668,7 +560,7 @@ class ReportsWindow(Screen):
                 # Отправка запроса на сервер для получения ответа для формирования отчета
                 messageParameter.code_request0 = 6
                 messageParameter.code_request1 = 0
-                sock.send_data(messageParameter)
+                self.sock.send_data(messageParameter)
 
                 messageParameter = MessageStructure.ClearObject(messageParameter)
 
@@ -676,7 +568,7 @@ class ReportsWindow(Screen):
 
             if (listOfItemsView == 5):
                 # Получение ответа для формирования отчета
-                messageResponce = sock.get_data()
+                messageResponce =  self.sock.get_data()
                 if (messageResponce.message == 'Отчет с учетом фильтров'):
                     """
                     messageResponce.report_list = [['ID', 'Тип', 'Дата', 'Цех', 'Участок', 'Дисбаланс', 'Диаметр'],
@@ -940,12 +832,10 @@ class CameraClick(Screen):
         #send_data = 1
 
 
-
-
-#if __name__ == '__main__':
-
-appEnvironment.kv = Builder.load_file("kvfiles/my.kv")
-Factory.register('LoadDialog', cls=LoadDialog)
-directory_kv_files = 'kvfiles'
-#SmartAppClient().load_all_kv_files(directory_kv_files)
-SmartAppClient().run()
+if __name__ == '__main__':
+    Bootstrap.initEnviroment()
+    #Factory.register('LoadDialog', cls=LoadDialog)
+    #directory_kv_files = 'kvfiles'
+    Bootstrap.run()
+    #SmartAppClient().load_all_kv_files(directory_kv_files)
+    #SmartAppClient().run()

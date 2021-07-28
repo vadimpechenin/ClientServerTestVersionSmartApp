@@ -1,31 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/client/main_client.py" description="from message.messageStructure import MessageStruct..." line="49" />
+    <bookmark url="file://$PROJECT_DIR$/client/main_client.py" description="from message.messageStructure import MessageStruct..." line="45" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="987b7179-efd0-465c-8918-da7deb0820c1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Test/image_server1.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/Test/image_server1.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Test/image_server2.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/Test/image_server2.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Test/image_server3.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/Test/image_server3.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Test/smart_warehouse.db-journal" beforeDir="false" afterPath="$PROJECT_DIR$/Test/smart_warehouse.db-journal" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/3.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/4.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/5.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/5_1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/6.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/6_1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/7.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/7_1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/8.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/8_1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/9.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/9_1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/clientModule.py" beforeDir="false" afterPath="$PROJECT_DIR$/client/clientModule.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/kvfiles/my.kv" beforeDir="false" afterPath="$PROJECT_DIR$/client/kvfiles/my.kv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/applicationEnvironment/appEnvironment.py" beforeDir="false" afterPath="$PROJECT_DIR$/client/applicationEnvironment/appEnvironment.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/main_client.py" beforeDir="false" afterPath="$PROJECT_DIR$/client/main_client.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -39,10 +19,35 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/main_client.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="256">
-              <caret line="491" lean-forward="true" selection-start-line="491" selection-end-line="491" />
+            <state relative-caret-position="171">
+              <caret line="40" lean-forward="true" selection-start-line="40" selection-end-line="40" />
               <folding>
-                <element signature="e#17#41#0" expanded="true" />
+                <element signature="e#2626#3176#0" />
+                <element signature="e#26181#33382#0" />
+                <element signature="e#33416#36916#0" />
+                <element signature="e#36948#40282#0" />
+                <element signature="e#40470#40606#0" />
+                <element signature="e#40640#41691#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/bootstrap.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="10" column="67" lean-forward="true" selection-start-line="10" selection-start-column="67" selection-end-line="10" selection-end-column="67" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/windowClasses/loadDialog.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <folding>
+                <element signature="e#31#72#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -51,8 +56,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/windowClasses/smartAppClient.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" selection-start-line="9" selection-end-line="9" />
+            <state relative-caret-position="119">
+              <caret line="7" column="20" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="20" />
               <folding>
                 <element signature="e#0#24#0" expanded="true" />
               </folding>
@@ -61,10 +66,31 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/kvfiles/my.kv">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-2465">
+              <caret line="514" column="46" selection-start-line="514" selection-start-column="36" selection-end-line="514" selection-end-column="46" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/windowClasses/fourthWindow.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="394">
+              <caret line="30" column="8" lean-forward="true" selection-start-line="30" selection-start-column="8" selection-end-line="30" selection-end-column="39" />
+              <folding>
+                <element signature="e#0#29#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/windowClasses/reportsWindowDetail.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="190">
-              <caret line="18" column="16" selection-start-line="18" selection-start-column="8" selection-end-line="18" selection-end-column="16" />
+            <state relative-caret-position="323">
+              <caret line="19" column="8" lean-forward="true" selection-start-line="19" selection-start-column="8" selection-end-line="19" selection-end-column="32" />
               <folding>
                 <element signature="e#54#96#0" expanded="true" />
               </folding>
@@ -75,47 +101,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/applicationEnvironment/appEnvironment.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="9" selection-start-column="9" selection-end-column="9" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/windowClasses/__init__.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="34" selection-start-line="5" selection-start-column="34" selection-end-line="5" selection-end-column="34" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/message/messageStructureParameter.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" selection-start-line="10" selection-end-line="14" selection-end-column="31" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/windowClasses/funcThread.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="6" column="36" selection-start-line="6" selection-start-column="32" selection-end-line="6" selection-end-column="36" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/clientModule.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="538">
-              <caret line="46" selection-start-line="46" selection-end-line="46" />
-              <folding>
-                <element signature="e#64#73#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="68">
+              <caret line="4" column="13" selection-start-line="4" selection-end-line="4" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -123,20 +110,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/client/windowClasses/neiroClassWindow.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" selection-start-line="1" selection-end-line="9" selection-end-column="56" />
+            <state relative-caret-position="187">
+              <caret line="11" column="16" lean-forward="true" selection-start-line="11" selection-start-column="16" selection-end-line="11" selection-end-column="16" />
               <folding>
                 <element signature="e#32#73#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/client/kvfiles/my.kv">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="648" selection-start-line="648" selection-end-line="648" />
             </state>
           </provider>
         </entry>
@@ -152,12 +130,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>booleanPhoto</find>
-      <find>INT_VALUE_SIZE_IN_BYTES</find>
-      <find>get_</find>
-      <find>BUFFER_LENGTH</find>
-      <find>writeInt</find>
-      <find>serversmartapp</find>
       <find>get_data</find>
       <find>Thread</find>
       <find>Изображение</find>
@@ -176,11 +148,18 @@
       <find>MainWindow</find>
       <find>NeiroClassWindow</find>
       <find>3.j</find>
-      <find>MySocket</find>
       <find>ReportsWindowDetail</find>
       <find>App</find>
       <find>resText</find>
       <find>fillData</find>
+      <find>messageResponce</find>
+      <find>reste</find>
+      <find>fourthTrigger</find>
+      <find>MySocket</find>
+      <find>factory</find>
+      <find>listOfItems</find>
+      <find>sock</find>
+      <find>LoadDialog</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -219,9 +198,12 @@
         <option value="$PROJECT_DIR$/client/windowClasses/funcThread.py" />
         <option value="$PROJECT_DIR$/client/clientModule.py" />
         <option value="$PROJECT_DIR$/client/windowClasses/neiroClassWindow.py" />
-        <option value="$PROJECT_DIR$/client/applicationEnvironment/appEnvironment.py" />
         <option value="$PROJECT_DIR$/client/windowClasses/smartAppClient.py" />
         <option value="$PROJECT_DIR$/client/windowClasses/reportsWindowDetail.py" />
+        <option value="$PROJECT_DIR$/client/kvfiles/fourthWindow.py" />
+        <option value="$PROJECT_DIR$/client/applicationEnvironment/appEnvironment.py" />
+        <option value="$PROJECT_DIR$/client/windowClasses/fourthWindow.py" />
+        <option value="$PROJECT_DIR$/client/bootstrap.py" />
         <option value="$PROJECT_DIR$/client/main_client.py" />
       </list>
     </option>
@@ -253,85 +235,7 @@
               <item name="Client_server_version_1" type="b2602c69:ProjectViewProjectNode" />
               <item name="Client_server_version_1" type="462c0819:PsiDirectoryNode" />
               <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="applicationEnvironment" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Client_server_version_1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Client_server_version_1" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
-              <item name="kvfiles" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Client_server_version_1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Client_server_version_1" type="462c0819:PsiDirectoryNode" />
-              <item name="client" type="462c0819:PsiDirectoryNode" />
               <item name="windowClasses" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Client_server_version_1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Client_server_version_1" type="462c0819:PsiDirectoryNode" />
-              <item name="common" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Client_server_version_1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Client_server_version_1" type="462c0819:PsiDirectoryNode" />
-              <item name="db" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Client_server_version_1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Client_server_version_1" type="462c0819:PsiDirectoryNode" />
-              <item name="Detections" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Client_server_version_1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Client_server_version_1" type="462c0819:PsiDirectoryNode" />
-              <item name="Handlers" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Client_server_version_1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Client_server_version_1" type="462c0819:PsiDirectoryNode" />
-              <item name="Handlers" type="462c0819:PsiDirectoryNode" />
-              <item name="CheckIn" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Client_server_version_1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Client_server_version_1" type="462c0819:PsiDirectoryNode" />
-              <item name="Handlers" type="462c0819:PsiDirectoryNode" />
-              <item name="loadAllCharacteristics" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Client_server_version_1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Client_server_version_1" type="462c0819:PsiDirectoryNode" />
-              <item name="Handlers" type="462c0819:PsiDirectoryNode" />
-              <item name="loadDictLocation" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Client_server_version_1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Client_server_version_1" type="462c0819:PsiDirectoryNode" />
-              <item name="Handlers" type="462c0819:PsiDirectoryNode" />
-              <item name="loadReport" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Client_server_version_1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Client_server_version_1" type="462c0819:PsiDirectoryNode" />
-              <item name="Handlers" type="462c0819:PsiDirectoryNode" />
-              <item name="loadReportNomenclature" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Client_server_version_1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Client_server_version_1" type="462c0819:PsiDirectoryNode" />
-              <item name="Handlers" type="462c0819:PsiDirectoryNode" />
-              <item name="NomRequest" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Client_server_version_1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Client_server_version_1" type="462c0819:PsiDirectoryNode" />
-              <item name="message" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Client_server_version_1" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Client_server_version_1" type="462c0819:PsiDirectoryNode" />
-              <item name="Test" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -346,6 +250,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\PYTHON\Programms\Smart_app_UMNIK\Client_server_version_1\client\windowClasses" />
       <recent name="D:\PYTHON\Programms\Smart_app_UMNIK\Client_server_version_1\Handlers\loadDictLocation" />
     </key>
   </component>
@@ -440,12 +345,12 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24973656" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24973656" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32900432" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.3625541" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3625541" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.38852814" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -492,26 +397,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/db/base.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="12" lean-forward="true" selection-start-line="17" selection-start-column="12" selection-end-line="17" selection-end-column="12" />
-          <folding>
-            <element signature="e#116#162#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Detections/NN_class.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="32" column="31" selection-start-line="32" selection-start-column="20" selection-end-line="32" selection-end-column="31" />
-          <folding>
-            <element signature="e#94#112#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Handlers/PartIdentification/PartIdentificationCommandHandler.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
@@ -732,15 +617,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/windowClasses/loadDialog.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#31#72#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/Anaconda3/Lib/threading.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
@@ -769,13 +645,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/kvfiles/my.kv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="648" selection-start-line="648" selection-end-line="648" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/message/messageStructureParameter.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
@@ -800,12 +669,63 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/client/windowClasses/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="34" selection-start-line="5" selection-start-column="34" selection-end-line="5" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/client/windowClasses/neiroClassWindow.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" selection-start-line="1" selection-end-line="9" selection-end-column="56" />
+        <state relative-caret-position="187">
+          <caret line="11" column="16" lean-forward="true" selection-start-line="11" selection-start-column="16" selection-end-line="11" selection-end-column="16" />
           <folding>
             <element signature="e#32#73#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/windowClasses/reportsWindowDetail.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="8" lean-forward="true" selection-start-line="19" selection-start-column="8" selection-end-line="19" selection-end-column="32" />
+          <folding>
+            <element signature="e#54#96#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/kvfiles/my.kv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2465">
+          <caret line="514" column="46" selection-start-line="514" selection-start-column="36" selection-end-line="514" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/windowClasses/smartAppClient.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="20" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="20" />
+          <folding>
+            <element signature="e#0#24#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/applicationEnvironment/appEnvironment.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="13" selection-start-line="4" selection-end-line="4" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/windowClasses/fourthWindow.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="394">
+          <caret line="30" column="8" lean-forward="true" selection-start-line="30" selection-start-column="8" selection-end-line="30" selection-end-column="39" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -817,46 +737,33 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/windowClasses/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="34" selection-start-line="5" selection-start-column="34" selection-end-line="5" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/applicationEnvironment/appEnvironment.py">
+    <entry file="file://$PROJECT_DIR$/client/windowClasses/loadDialog.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
-          <caret column="9" selection-start-column="9" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/windowClasses/smartAppClient.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" selection-start-line="9" selection-end-line="9" />
           <folding>
-            <element signature="e#0#24#0" expanded="true" />
+            <element signature="e#31#72#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/windowClasses/reportsWindowDetail.py">
+    <entry file="file://$PROJECT_DIR$/client/bootstrap.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="18" column="16" selection-start-line="18" selection-start-column="8" selection-end-line="18" selection-end-column="16" />
-          <folding>
-            <element signature="e#54#96#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="170">
+          <caret line="10" column="67" lean-forward="true" selection-start-line="10" selection-start-column="67" selection-end-line="10" selection-end-column="67" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/main_client.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="256">
-          <caret line="491" lean-forward="true" selection-start-line="491" selection-end-line="491" />
+        <state relative-caret-position="171">
+          <caret line="40" lean-forward="true" selection-start-line="40" selection-end-line="40" />
           <folding>
-            <element signature="e#17#41#0" expanded="true" />
+            <element signature="e#2626#3176#0" />
+            <element signature="e#26181#33382#0" />
+            <element signature="e#33416#36916#0" />
+            <element signature="e#36948#40282#0" />
+            <element signature="e#40470#40606#0" />
+            <element signature="e#40640#41691#0" />
           </folding>
         </state>
       </provider>
