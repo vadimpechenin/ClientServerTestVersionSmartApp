@@ -1,15 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/client/main_client.py" description="from message.messageStructure import MessageStruct..." line="39" />
+    <bookmark url="file://$PROJECT_DIR$/client/main_client.py" description="from message.messageStructure import MessageStruct..." line="49" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="987b7179-efd0-465c-8918-da7deb0820c1" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/Handlers/Server_class.py" beforeDir="false" afterPath="$PROJECT_DIR$/Handlers/Server_class.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Test/server_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Test/server_main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test/image_server1.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/Test/image_server1.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test/image_server2.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/Test/image_server2.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test/image_server3.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/Test/image_server3.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test/smart_warehouse.db-journal" beforeDir="false" afterPath="$PROJECT_DIR$/Test/smart_warehouse.db-journal" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/4.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/5.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/5_1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/6.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/6_1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/7.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/7_1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/8.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/8_1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/9.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/9_1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/clientModule.py" beforeDir="false" afterPath="$PROJECT_DIR$/client/clientModule.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/kvfiles/my.kv" beforeDir="false" afterPath="$PROJECT_DIR$/client/kvfiles/my.kv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/main_client.py" beforeDir="false" afterPath="$PROJECT_DIR$/client/main_client.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/sql_data_base.py" beforeDir="false" afterPath="$PROJECT_DIR$/db/sql_data_base.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -19,41 +36,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Test/server_main.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2087">
-              <caret line="113" column="88" selection-start-line="113" selection-start-column="88" selection-end-line="113" selection-end-column="88" />
-              <folding>
-                <element signature="e#88#98#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Handlers/NomRequest/NomRequestCommandHandler.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" column="46" selection-start-line="9" selection-start-column="33" selection-end-line="9" selection-end-column="46" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Handlers/Server_class.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="293">
-              <caret line="21" selection-start-line="21" selection-end-line="21" selection-end-column="103" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/client/main_client.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="290">
-              <caret line="774" column="28" selection-start-line="774" selection-start-column="17" selection-end-line="774" selection-end-column="28" />
+            <state relative-caret-position="256">
+              <caret line="491" lean-forward="true" selection-start-line="491" selection-end-line="491" />
               <folding>
                 <element signature="e#17#41#0" expanded="true" />
               </folding>
@@ -62,58 +49,94 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/message/messageResponceParameter.py">
+        <entry file="file://$PROJECT_DIR$/client/windowClasses/smartAppClient.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="3" column="13" lean-forward="true" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="25" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Handlers/loadReport/loadReportHandler.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret selection-end-line="9" selection-end-column="22" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Handlers/loadReportNomenclature/loadReportNomenclatureHandler.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="61" selection-start-line="8" selection-start-column="33" selection-end-line="8" selection-end-column="61" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Handlers/loadReportNomenclature/loadReportNomenclatureHandlerParameter.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="33" selection-start-line="4" selection-start-column="24" selection-end-line="4" selection-end-column="33" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Handlers/loadReport/loadReportHandlerParameter.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret selection-end-line="8" selection-end-column="42" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/db/sql_data_base.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="327">
-              <caret line="251" column="20" lean-forward="true" selection-start-line="251" selection-start-column="20" selection-end-line="251" selection-end-column="20" />
+            <state relative-caret-position="153">
+              <caret line="9" selection-start-line="9" selection-end-line="9" />
               <folding>
-                <element signature="e#41#77#0" expanded="true" />
+                <element signature="e#0#24#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/windowClasses/reportsWindowDetail.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="190">
+              <caret line="18" column="16" selection-start-line="18" selection-start-column="8" selection-end-line="18" selection-end-column="16" />
+              <folding>
+                <element signature="e#54#96#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/applicationEnvironment/appEnvironment.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="9" selection-start-column="9" selection-end-column="9" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/windowClasses/__init__.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="85">
+              <caret line="5" column="34" selection-start-line="5" selection-start-column="34" selection-end-line="5" selection-end-column="34" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/message/messageStructureParameter.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="10" selection-start-line="10" selection-end-line="14" selection-end-column="31" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/windowClasses/funcThread.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="102">
+              <caret line="6" column="36" selection-start-line="6" selection-start-column="32" selection-end-line="6" selection-end-column="36" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/clientModule.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="538">
+              <caret line="46" selection-start-line="46" selection-end-line="46" />
+              <folding>
+                <element signature="e#64#73#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/windowClasses/neiroClassWindow.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="1" selection-start-line="1" selection-end-line="9" selection-end-column="56" />
+              <folding>
+                <element signature="e#32#73#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/client/kvfiles/my.kv">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="648" selection-start-line="648" selection-end-line="648" />
             </state>
           </provider>
         </entry>
@@ -148,6 +171,16 @@
       <find>listOfItemsView = 1</find>
       <find>triggerForServer</find>
       <find>ciphers</find>
+      <find>ObjectProperty</find>
+      <find>text_input</find>
+      <find>MainWindow</find>
+      <find>NeiroClassWindow</find>
+      <find>3.j</find>
+      <find>MySocket</find>
+      <find>ReportsWindowDetail</find>
+      <find>App</find>
+      <find>resText</find>
+      <find>fillData</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -157,7 +190,6 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/common/socketHelper.py" />
-        <option value="$PROJECT_DIR$/client/clientModule.py" />
         <option value="$PROJECT_DIR$/Detections/NN_class.py" />
         <option value="$PROJECT_DIR$/db/support_functions.py" />
         <option value="$PROJECT_DIR$/db/__init__.py" />
@@ -176,12 +208,20 @@
         <option value="$PROJECT_DIR$/Handlers/loadAllCharacteristics/loadAllCharacteristicsHandler.py" />
         <option value="$PROJECT_DIR$/Handlers/loadReport/loadReportHandler.py" />
         <option value="$PROJECT_DIR$/Handlers/loadReport/loadReportHandlerParameter.py" />
-        <option value="$PROJECT_DIR$/client/kvfiles/my.kv" />
         <option value="$PROJECT_DIR$/Handlers/loadReportNomenclature/loadReportNomenclatureHandlerParameter.py" />
         <option value="$PROJECT_DIR$/Handlers/loadReportNomenclature/loadReportNomenclatureHandler.py" />
         <option value="$PROJECT_DIR$/Handlers/Server_class.py" />
         <option value="$PROJECT_DIR$/Test/server_main.py" />
         <option value="$PROJECT_DIR$/db/sql_data_base.py" />
+        <option value="$PROJECT_DIR$/client/windowClasses/loadDialog.py" />
+        <option value="$PROJECT_DIR$/client/windowClasses/__init__.py" />
+        <option value="$PROJECT_DIR$/client/kvfiles/my.kv" />
+        <option value="$PROJECT_DIR$/client/windowClasses/funcThread.py" />
+        <option value="$PROJECT_DIR$/client/clientModule.py" />
+        <option value="$PROJECT_DIR$/client/windowClasses/neiroClassWindow.py" />
+        <option value="$PROJECT_DIR$/client/applicationEnvironment/appEnvironment.py" />
+        <option value="$PROJECT_DIR$/client/windowClasses/smartAppClient.py" />
+        <option value="$PROJECT_DIR$/client/windowClasses/reportsWindowDetail.py" />
         <option value="$PROJECT_DIR$/client/main_client.py" />
       </list>
     </option>
@@ -213,7 +253,19 @@
               <item name="Client_server_version_1" type="b2602c69:ProjectViewProjectNode" />
               <item name="Client_server_version_1" type="462c0819:PsiDirectoryNode" />
               <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="applicationEnvironment" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Client_server_version_1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Client_server_version_1" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
               <item name="kvfiles" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Client_server_version_1" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Client_server_version_1" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="windowClasses" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Client_server_version_1" type="b2602c69:ProjectViewProjectNode" />
@@ -289,7 +341,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Kivy_13082020/Lessons_molchanov/Lesson5" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Multiply_app_in_packages" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
@@ -388,31 +440,12 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24973656" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32900432" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3625541" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.38852814" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.32900432" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Terminal" order="8" />
-      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Python Console" order="10" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-    </layout>
-    <layout-to-restore>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24973656" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32900432" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.34848484" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.3625541" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.38852814" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -424,10 +457,17 @@
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-    </layout-to-restore>
+    </layout>
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/client/windowClasses/reportsWindowDetail.py</url>
+          <line>24</line>
+          <option name="timeStamp" value="262" />
+        </line-breakpoint>
+      </breakpoints>
       <default-breakpoints>
         <breakpoint type="python-exception">
           <properties notifyOnTerminate="true" exception="BaseException">
@@ -436,6 +476,11 @@
         </breakpoint>
       </default-breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="PythonConfigurationType">
+        <watch expression="appEnvironment" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="setValue">
@@ -447,34 +492,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$USER_HOME$/Anaconda3/Lib/site-packages/kivy/clock.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
-          <caret line="553" lean-forward="true" selection-start-line="553" selection-end-line="553" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Anaconda3/Lib/genericpath.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="183">
-          <caret line="49" selection-start-line="49" selection-end-line="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Anaconda3/Lib/site-packages/keras/initializers/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="81" selection-start-line="81" selection-end-line="81" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Anaconda3/Lib/site-packages/kivy/lang/builder.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
-          <caret line="305" selection-start-line="305" selection-end-line="305" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/db/base.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
@@ -501,16 +518,6 @@
           <caret line="19" column="22" selection-start-line="19" selection-start-column="22" selection-end-line="19" selection-end-column="22" />
           <folding>
             <element signature="e#0#58#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/db/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="96" selection-start-line="7" selection-start-column="96" selection-end-line="7" selection-end-column="96" />
-          <folding>
-            <element signature="e#313#355#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -642,27 +649,10 @@
     <entry file="file://$PROJECT_DIR$/Handlers/loadAllCharacteristics/__init__.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/message/messageStructureParameter.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" selection-start-line="10" selection-end-line="14" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/message/messageStructure.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="680">
           <caret line="40" column="27" selection-start-line="40" selection-start-column="8" selection-end-line="40" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/client/clientModule.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="24" column="39" selection-start-line="24" selection-start-column="39" selection-end-line="24" selection-end-column="39" />
-          <folding>
-            <element signature="e#64#73#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -673,24 +663,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/client/kvfiles/my.kv">
+    <entry file="file://$PROJECT_DIR$/Test/server_main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="115" column="47" selection-start-line="115" selection-start-column="25" selection-end-line="115" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/message/messageResponceParameter.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="13" lean-forward="true" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Handlers/loadReport/loadReportHandler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-line="9" selection-end-column="22" />
+        <state relative-caret-position="1683">
+          <caret line="113" column="88" selection-start-line="113" selection-start-column="88" selection-end-line="113" selection-end-column="88" />
+          <folding>
+            <element signature="e#88#98#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -701,10 +680,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Handlers/loadReport/loadReportHandlerParameter.py">
+    <entry file="file://$PROJECT_DIR$/Handlers/Server_class.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="21" selection-start-line="21" selection-end-line="21" selection-end-column="103" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" selection-start-line="9" selection-end-line="9" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Handlers/loadReport/loadReportHandler.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
-          <caret selection-end-line="8" selection-end-column="42" />
+          <caret selection-end-line="9" selection-end-column="22" />
         </state>
       </provider>
     </entry>
@@ -722,37 +715,146 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Handlers/Server_class.py">
+    <entry file="file://$PROJECT_DIR$/Handlers/loadReport/loadReportHandlerParameter.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="293">
-          <caret line="21" selection-start-line="21" selection-end-line="21" selection-end-column="103" />
+        <state>
+          <caret selection-end-line="8" selection-end-column="42" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/db/sql_data_base.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="327">
-          <caret line="251" column="20" lean-forward="true" selection-start-line="251" selection-start-column="20" selection-end-line="251" selection-end-column="20" />
+        <state relative-caret-position="4114">
+          <caret line="251" column="20" selection-start-line="251" selection-start-column="20" selection-end-line="251" selection-end-column="20" />
           <folding>
             <element signature="e#41#77#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Test/server_main.py">
+    <entry file="file://$PROJECT_DIR$/client/windowClasses/loadDialog.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2087">
-          <caret line="113" column="88" selection-start-line="113" selection-start-column="88" selection-end-line="113" selection-end-column="88" />
+        <state>
           <folding>
-            <element signature="e#88#98#0" expanded="true" />
+            <element signature="e#31#72#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Anaconda3/Lib/threading.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="931" selection-start-line="931" selection-end-line="931" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/message/messageResponceParameter.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="13" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Anaconda3/Lib/site-packages/kivy/uix/widget.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="179">
+          <caret line="1433" selection-start-line="1433" selection-end-line="1433" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="1740" selection-start-line="1740" selection-end-line="1740" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/kvfiles/my.kv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="648" selection-start-line="648" selection-end-line="648" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/message/messageStructureParameter.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" selection-start-line="10" selection-end-line="14" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/windowClasses/funcThread.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="36" selection-start-line="6" selection-start-column="32" selection-end-line="6" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/clientModule.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="538">
+          <caret line="46" selection-start-line="46" selection-end-line="46" />
+          <folding>
+            <element signature="e#64#73#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/windowClasses/neiroClassWindow.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" selection-start-line="1" selection-end-line="9" selection-end-column="56" />
+          <folding>
+            <element signature="e#32#73#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Anaconda3/Lib/site-packages/kivy/factory.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="145" selection-start-line="145" selection-end-line="145" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/windowClasses/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="34" selection-start-line="5" selection-start-column="34" selection-end-line="5" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/applicationEnvironment/appEnvironment.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="9" selection-start-column="9" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/windowClasses/smartAppClient.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
+          <folding>
+            <element signature="e#0#24#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/client/windowClasses/reportsWindowDetail.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="18" column="16" selection-start-line="18" selection-start-column="8" selection-end-line="18" selection-end-column="16" />
+          <folding>
+            <element signature="e#54#96#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/client/main_client.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="290">
-          <caret line="774" column="28" selection-start-line="774" selection-start-column="17" selection-end-line="774" selection-end-column="28" />
+        <state relative-caret-position="256">
+          <caret line="491" lean-forward="true" selection-start-line="491" selection-end-line="491" />
           <folding>
             <element signature="e#17#41#0" expanded="true" />
           </folding>
