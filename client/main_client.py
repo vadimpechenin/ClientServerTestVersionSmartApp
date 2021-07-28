@@ -60,13 +60,11 @@ if (koef == 1):
 else:
     Window.size = (1100, 2300)
 
-
-
 #Искусственное заполнение ответа с сервера, нужно для формирования данных для фильтров
 listOfItemsView = 0 #Переменная для обмена сообщениями с сервером в части отчетов
 param_for_filter = 1  #С каким атрибутом работаем
 ifTriggerReport = 0 #Прорисовка и обновление отчета по результатам запроса
-
+fourthTrigger = 0
 #Подключение к серверу (1 точка для подключения)
 #sock = MySocket()
 # Классы для окон
@@ -120,17 +118,6 @@ class ReportsWindow(Screen):
                 messageResponce =  self.sock.get_data()
                 if (messageResponce.message == 'Пределы для фильтров'):
                     listOfItemsView = 1
-                    #pass
-
-                """
-                messageResponce.type_name_list = ['Деталь 1', 'Деталь 2', 'Деталь 3', 'Деталь 4', 'Деталь 5',
-                                                  'Деталь 6']
-                messageResponce.workshop_number_list = ['1', '2', '3', '4', '5', '6']
-                messageResponce.lot_number_list = ['1', '2', '3']
-                messageResponce.imbalance_list = [0, 5]
-                messageResponce.diameter_list = [0, 10]
-                """
-                #listOfItemsView = 1
 
             if (listOfItemsView == 1):
                 # Заполнение текстовых полей
@@ -189,11 +176,6 @@ class ReportsWindow(Screen):
                 # Получение ответа для формирования отчета
                 messageResponce =  self.sock.get_data()
                 if (messageResponce.message == 'Отчет с учетом фильтров'):
-                    """
-                    messageResponce.report_list = [['ID', 'Тип', 'Дата', 'Цех', 'Участок', 'Дисбаланс', 'Диаметр'],
-                                                   [1, 'Деталь 1', '1/1/2020 1:30 PM', '3', '2', 0.2, 5],
-                                                   [10, 'Деталь 1', '10/5/2021 1:30 AM', '3', '2', 0.5, 5]]
-                    """
                     listOfItemsView = 0
                     ifTriggerReport = 1
 
@@ -226,8 +208,8 @@ class ReportsWindow(Screen):
 
     def DataForReportAndDataFromDataBase(self):
         # Функция для формирования запроса и получения ответа по данным для отчета
-        global listOfItemsView
-        global messageParameter
+        global listOfItemsView, ifTriggerReport
+        global messageParameter, messageResponce
         messageParameter.imbalance_list = []
         messageParameter.imbalance_list.append(round(self.ids.slider_d1.value, 2))
         messageParameter.imbalance_list.append(round(self.ids.slider_d2.value, 2))
@@ -235,6 +217,8 @@ class ReportsWindow(Screen):
         messageParameter.diameter_list.append(round(self.ids.slider_d3.value, 2))
         messageParameter.diameter_list.append(round(self.ids.slider_d4.value, 2))
         listOfItemsView = 3
+
+        appEnvironment.MainReportObj.fillData(ifTriggerReport,listOfItemsView, messageResponce)
 
 class FilterWindow(Screen):
     def __init__(self, *args, **kwargs):
@@ -320,141 +304,10 @@ class FilterWindow(Screen):
 
         listOfItemsView = 1
 
-class MainReport(Screen):
-    def __init__(self, *args, **kwargs):
-        super(MainReport, self).__init__(*args, **kwargs)
-
-        Thread(target=self.threadWindowDrawMainReport).start()
-
-    def threadWindowDrawMainReport(self):
-        global messageParameter, messageResponce
-        global ifTriggerReport
-        while True:
-            time.sleep(0.3)
-            if (ifTriggerReport == 1):
-                self.windowDrawMainReport()
-                ifTriggerReport = 0
-
-    def windowDrawMainReport(self):
-        global messageResponce
-        leftGrid1 = GridLayout(cols=len(messageResponce.report_list[0]), spacing=10,
-                               size_hint_y=None)  # , size_hint_y=10, size_hint_x=10)
-        # Убедимся, что высота такая, чтобы было что прокручивать.
-        leftGrid1.bind(minimum_height=leftGrid1.setter('height'), minimum_width=leftGrid1.setter('width'))  #
-        self.toggle = []
-        for i in range(len(messageResponce.report_list)):
-            nasted = []
-            self.toggle.append(nasted)
-            for j in range(len(messageResponce.report_list[0])):
-                nasted.append('')
-        for index in range(len(messageResponce.report_list[0])):
-            if (index == 0):
-                width = 50 * koef
-            else:
-                width = 150 * koef
-
-            self.toggle[0][index] = Label(
-                size_hint_y=None,
-                size_hint_x=None,
-                height=40 * koef,
-                width=width,
-                # ,
-                padding=(10 * koef, 10 * koef),
-                text=str(messageResponce.report_list[0][index]),
-                #color=(1, 1, 1, 1)
-                # text_size=(self.width, None)
-            )
-            #with self.toggle[0][index].canvas.before:
-                #Color(0, 1, 0, 0.25)
-                #Rectangle(pos=self.toggle[0][index].pos, size=self.toggle[0][index].size)
-            leftGrid1.add_widget(self.toggle[0][index])
-
-        for index in range(1, len(messageResponce.report_list)):
-            for index1 in range(len(messageResponce.report_list[0])):
-                if (index1 == 0):
-                    width = 50 * koef
-                else:
-                    width = 150 * koef
-
-                self.toggle[index][index1] = Label(
-                    size_hint_y=None,
-                    size_hint_x=None,
-                    height=40 * koef,
-                    width=width,
-                    # text_size=(self.width, None),
-                    padding=(10 * koef, 10 * koef),
-                    text=str(messageResponce.report_list[index][index1]),
-                    # text_size=(self.width, None)
-                )
-                leftGrid1.add_widget(self.toggle[index][index1])
-            # Убедимся, что высота такая, чтобы было что прокручивать.
-        leftGrid1.bind(minimum_height=leftGrid1.setter('height'), minimum_width=leftGrid1.setter('width'))
-        self.ids.ScrollWindowReportMainid.add_widget(leftGrid1)
-
-    def dellwidget(self):
-        # удаляет все виджеты, которые находяться в another_box
-        global ifTriggerReport, listOfItemsView
-        for i in range(len(self.ids.ScrollWindowReportMainid.children)):
-            self.ids.ScrollWindowReportMainid.remove_widget(self.ids.ScrollWindowReportMainid.children[-1])
-        ifTriggerReport = 0
-        listOfItemsView = 1
-
 # Менеджер перехода между страницами и передачи данных
 class WindowManager(ScreenManager):
     pass
 
-class P(FloatLayout):
-    pass
-
-#Функция для всплывающего окна
-def show_popup():
-    show = P()
-
-    popupWindow = Popup(title="Popup Window", content = show, size_hint=(None,None), size=(400,400))
-
-    popupWindow.open()
-
-class CameraClick(Screen):
-
-    def __init__(self, **kwargs):
-        #send_data = 0
-        super(CameraClick, self).__init__(**kwargs)
-        self.fileName = None
-        self.camera = None
-
-    def initCamera(self):
-        self.camera = self.ids.camera
-        self.camera.resolution = (640, 480)
-        self.camera.keep_ratio = True
-        self.camera.play = False
-        self.camera.allow_stretch = True
-
-    def on_enter(self, *args):
-        self.initCamera()
-
-    def capturePhoto(self):
-        #global send_data
-        '''
-        Function to capture the images and give them the names
-        according to their captured time and date.
-        '''
-        camera = self.ids['camera']
-        #timestr = time.strftime("%Y%m%d_%H%M%S")
-        timestr = time.strftime("%m_%d_%Y_%I_%M_%p")
-        # Изменение для сохранения в папку
-        b = basename('IMG_{}.png')
-        #b = basename('image.jpg')
-        DCIM = join(b) #'DCIM'
-        camera.export_to_png(DCIM.format(timestr))
-        #camera.export_to_png(DCIM)
-        print("Captured")
-        #send_data = 1
-
-
 if __name__ == '__main__':
     Bootstrap.initEnviroment()
-    #Factory.register('LoadDialog', cls=LoadDialog)
-    #directory_kv_files = 'kvfiles'
     Bootstrap.run()
-    #SmartAppClient().load_all_kv_files(directory_kv_files)
-    #SmartAppClient().run()

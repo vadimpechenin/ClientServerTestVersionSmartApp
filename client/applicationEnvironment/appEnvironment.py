@@ -9,3 +9,6 @@ MainWindowObj = None
 ReportsWindowDetailObj = None
 FourthWindowObj = None
 QRWindowObj = None
+
+
+MainReportObj = None

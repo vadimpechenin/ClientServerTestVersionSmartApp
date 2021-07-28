@@ -10,6 +10,7 @@ from client.windowClasses.neiroClassWindow import NeiroClassWindow
 from client.windowClasses.funcThread import FuncThread
 from client.windowClasses.reportsWindowDetail import ReportsWindowDetail
 from client.windowClasses.qrWindow import QRWindow
+from client.windowClasses.mainReport import MainReport
 
 class Bootstrap():
 

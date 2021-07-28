@@ -12,6 +12,7 @@ class ReportsWindowDetail(Screen):
     def __init__(self, *args, **kwargs):
         super(ReportsWindowDetail, self).__init__(*args, **kwargs)
         self.listOfItems = True
+        # Объект - ответ с сервера
         self.messageResponce = None
         self.partName = ''
         appEnvironment.ReportsWindowDetailObj = self
