@@ -5,6 +5,7 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label
 
 from client.applicationEnvironment import appEnvironment
+
 import time
 
 
@@ -20,9 +21,10 @@ class MainReport(Screen):
         appEnvironment.MainReportObj = self
 
     def fillData(self, ifTriggerReport, listOfItemsView, messageResponce):
-        self.ifTriggerReport = ifTriggerReport
-        self.listOfItemsView = listOfItemsView
         self.messageResponce = messageResponce
+        self.listOfItemsView = listOfItemsView
+        self.ifTriggerReport = ifTriggerReport
+
 
     def threadWindowDrawMainReport(self):
         while True:
@@ -91,4 +93,6 @@ class MainReport(Screen):
         for i in range(len(self.ids.ScrollWindowReportMainid.children)):
             self.ids.ScrollWindowReportMainid.remove_widget(self.ids.ScrollWindowReportMainid.children[-1])
         self.ifTriggerReport = 0
-        self.listOfItemsView = 1
+        self.listOfItemsView = 2
+        #self.messageResponce.report_list = []
+        appEnvironment.ReportsWindowObj.fillDataReport(self.listOfItemsView)

@@ -31,8 +31,12 @@ class ReportsWindow(Screen):
         self.listOfItemsView = listOfItemsView
 
     def fillDataFilter(self, listOfItemsView, messageParameter):
-        self.listOfItemsView = listOfItemsView
         self.messageParameter = messageParameter
+        self.listOfItemsView = listOfItemsView
+
+    def fillDataReport(self, listOfItemsView):
+        #self.messageResponce = messageResponce
+        self.listOfItemsView = listOfItemsView
 
     def textInInput(self):
         # Функция для вывода информации в текстовые окна приложения
@@ -152,4 +156,5 @@ class ReportsWindow(Screen):
         self.messageParameter.diameter_list.append(round(self.ids.slider_d3.value, 2))
         self.messageParameter.diameter_list.append(round(self.ids.slider_d4.value, 2))
         self.listOfItemsView = 3
+        time.sleep(0.4)
         appEnvironment.MainReportObj.fillData(self.ifTriggerReport,self.listOfItemsView, self.messageResponce)

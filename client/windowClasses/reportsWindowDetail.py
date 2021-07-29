@@ -94,3 +94,14 @@ class ReportsWindowDetail(Screen):
         self.ids.ButtonScrollWindowReportid.text = 'Нажмите'
         self.messageResponce = None
         self.partName = ''
+
+    def dellwidgetAll(self):
+        # удаляет все виджеты, которые находяться в another_box
+
+        for i in range(len(self.ids.ScrollWindowReportid.children)):
+            self.ids.ScrollWindowReportid.remove_widget(self.ids.ScrollWindowReportid.children[-1])
+        self.ids.ButtonScrollWindowReportid.text = 'Нажмите'
+        self.messageResponce = None
+        self.partName = ''
+        fourthTrigger = 1
+        appEnvironment.FourthWindowObj.fillData(fourthTrigger)

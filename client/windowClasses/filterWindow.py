@@ -13,6 +13,7 @@ class FilterWindow(Screen):
         super(FilterWindow, self).__init__(*args, **kwargs)
         self.listOfItems = True
         self.param_for_filter = 1  #С каким атрибутом работаем
+        self.ciphers_filter = []
         # Объект - ответ с сервера
         self.messageResponce = None
         # Объект - запрос на сервер
@@ -57,27 +58,32 @@ class FilterWindow(Screen):
 
     def changerFilter(self, *args):
         list_button_down = []
-        for i in range(len( self.ciphers_filter)):
-            if self.toggle[i].state == 'down':
-                if self.param_for_filter == 1:
-                    list_button_down.append(self.messageResponce.type_name_list[i])
-                    self.messageParameter.type_name_list.append(self.messageResponce.type_name_list[i])
-                if self.param_for_filter == 2:
-                    list_button_down.append(self.messageResponce.workshop_number_list[i])
-                    self.messageParameter.workshop_number_list.append(self.messageResponce.workshop_number_list[i])
-                if self.param_for_filter == 3:
-                    list_button_down.append(self.messageResponce.lot_number_list[i])
-                    self.messageParameter.lot_number_list.append(self.messageResponce.lot_number_list[i])
-
-        appEnvironment.ReportsWindowObj.fillDataFilter(self.listOfItemsView, self.messageParameter)
-        if (len(list_button_down)==0):
+        if len(self.ciphers_filter)==0:
             title = 'Предупреждение'
-            text='Ничего не выбрано'
+            text = 'Не выведен список'
             self.popupForFilter(title, text)
         else:
-            title = 'Предупреждение'
-            text = 'Выбор сохранен'
-            self.popupForFilter(title, text)
+            for i in range(len(self.ciphers_filter)):
+                if self.toggle[i].state == 'down':
+                    if self.param_for_filter == 1:
+                        list_button_down.append(self.messageResponce.type_name_list[i])
+                        self.messageParameter.type_name_list.append(self.messageResponce.type_name_list[i])
+                    if self.param_for_filter == 2:
+                        list_button_down.append(self.messageResponce.workshop_number_list[i])
+                        self.messageParameter.workshop_number_list.append(self.messageResponce.workshop_number_list[i])
+                    if self.param_for_filter == 3:
+                        list_button_down.append(self.messageResponce.lot_number_list[i])
+                        self.messageParameter.lot_number_list.append(self.messageResponce.lot_number_list[i])
+
+            appEnvironment.ReportsWindowObj.fillDataFilter(self.listOfItemsView, self.messageParameter)
+            if (len(list_button_down)==0):
+                title = 'Предупреждение'
+                text='Ничего не выбрано'
+                self.popupForFilter(title, text)
+            else:
+                title = 'Предупреждение'
+                text = 'Выбор сохранен'
+                self.popupForFilter(title, text)
 
 
 
@@ -98,3 +104,4 @@ class FilterWindow(Screen):
             self.ids.ScrollWindowFilterid.remove_widget(self.ids.ScrollWindowFilterid.children[-1])
 
         self.listOfItemsView = 1
+        appEnvironment.ReportsWindowObj.fillDataFilter(self.listOfItemsView, self.messageParameter)

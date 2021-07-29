@@ -85,7 +85,6 @@ def save_image(messageParameter):
 while True:
     try:
 
-
         sizeOfRequest = helper.readInt()
         print("Размер принимаемого сообщения: " + str(sizeOfRequest))
         messageParameterAsBytes = helper.readBytesArray(sizeOfRequest)
@@ -278,6 +277,7 @@ while True:
 
             helper.writeBytesArray(messageResponceAsBytes)
             print("Ответ отправлен")
+
     except Exception as err:
         print(str(err), '\n')
         break

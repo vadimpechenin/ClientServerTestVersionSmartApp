@@ -35,6 +35,11 @@ class MessageStructure:
         parameter.nameOfImage = ''
         parameter.workshopNumber = ''
         parameter.lotNumber = ''
+        parameter.type_name_list = []
+        parameter.workshop_number_list = []
+        parameter.lot_number_list = []
+        parameter.imbalance_list = []
+        parameter.diameter_list = []
         return parameter
 
     @staticmethod
@@ -44,4 +49,7 @@ class MessageStructure:
         parameter.type_name_list = []
         parameter.workshop_number_list = []
         parameter.lot_number_list = []
+        parameter.imbalance_list = []
+        parameter.diameter_list = []
+        parameter.report_list = []
         return parameter
