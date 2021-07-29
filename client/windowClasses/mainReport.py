@@ -16,8 +16,8 @@ class MainReport(Screen):
         self.messageResponce = None
         self.listOfItemsView = 0 #Переменная для обмена сообщениями с сервером в части отчетов
         self.ifTriggerReport = 0  # Прорисовка и обновление отчета по результатам запроса
-        appEnvironment.MainReportObj = self
         self.koef = appEnvironment.koef
+        appEnvironment.MainReportObj = self
 
     def fillData(self, ifTriggerReport, listOfItemsView, messageResponce):
         self.ifTriggerReport = ifTriggerReport
@@ -88,8 +88,7 @@ class MainReport(Screen):
 
     def dellwidget(self):
         # удаляет все виджеты, которые находяться в another_box
-        global ifTriggerReport, listOfItemsView
         for i in range(len(self.ids.ScrollWindowReportMainid.children)):
             self.ids.ScrollWindowReportMainid.remove_widget(self.ids.ScrollWindowReportMainid.children[-1])
-        ifTriggerReport = 0
-        listOfItemsView = 1
+        self.ifTriggerReport = 0
+        self.listOfItemsView = 1

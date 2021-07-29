@@ -1,5 +1,4 @@
 
-
 from threading import Thread
 # Библиотеки для формирования структуры пересылаемого сообщения
 from message.messageStructure import MessageStructure
