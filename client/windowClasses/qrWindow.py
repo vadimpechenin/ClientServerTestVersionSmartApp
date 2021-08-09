@@ -8,6 +8,7 @@ from kivy.uix.image import Image
 from kivy.core.image import Image as CoreImage
 from kivy.uix.popup import Popup
 from client.windowClasses.loadDialog import LoadDialog
+#from client.windowClasses.fileChoose import FileChoose
 from kivy.uix.button import Button
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.togglebutton import ToggleButton
@@ -87,7 +88,6 @@ class QRWindow(Screen):
     def ImageLoad(self,path, filename):
 
         data = io.BytesIO(open(filename[0], "rb").read())
-        # data = io.BytesIO(open("IMAGE.jpg", "rb").read())
         im = CoreImage(data, ext="png")
         if self.ifTriggerPhotio1==1:
 
@@ -143,13 +143,16 @@ class QRWindow(Screen):
                 self.triggerPhoto1 = 2
             self.booleanPhoto = False
         print(self.triggerPhoto1)
-        content = LoadDialog(load=self.load, cancel=self.dismiss_popup)
-        self._popup = Popup(title="Load file", content=content,
-                            size_hint=(0.9, 0.9))
-        self._popup.open()
+        appEnvironment.FileChooseObj.clear_selection()
+        appEnvironment.FileChooseObj.choose()
+        self.load(appEnvironment.FileChooseObj.selection,appEnvironment.FileChooseObj.selection)
+        #content = LoadDialog(load=self.load, cancel=self.dismiss_popup)
+        #self._popup = Popup(title="Load file", content=content,
+                            #size_hint=(0.9, 0.9))
+        #self._popup.open()
 
     def load(self, path, filename):
-        self.dismiss_popup()
+        #self.dismiss_popup()
         self.ImageLoad(path, filename)
         if (self.ifTriggerPhotio1 == 3) and (self.triggerPhoto1>0):
             self.triggerPhoto1 -=1

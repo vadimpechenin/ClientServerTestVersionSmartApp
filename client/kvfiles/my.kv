@@ -10,6 +10,7 @@ WindowManager:
     LoadDialog:
     FilterWindow:
     MainReport:
+    FileChoose:
 
 #: import TextInput kivy.uix.textinput.TextInput
 
@@ -668,21 +669,5 @@ WindowManager:
                 #Переход окна влево (текущее уходит вправо)
                 root.manager.transition.direction = "right"
 
-<LoadDialog>:
-    BoxLayout:
-        size: root.size
-        pos: root.pos
-        orientation: "vertical"
-        FileChooserListView:
-            id: filechooser
-
-        BoxLayout:
-            size_hint_y: None
-            height: 30
-            Button:
-                text: "Cancel"
-                on_release: root.cancel()
-
-            Button:
-                text: "Load"
-                on_release: root.load(filechooser.path, filechooser.selection)
+<FileChoose>:
+    name: "filechoose"

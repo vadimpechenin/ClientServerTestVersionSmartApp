@@ -6,7 +6,6 @@ from kivy.factory import Factory
 from kivy.core.window import Window
 
 from client.windowClasses.smartAppClient import SmartAppClient
-from client.windowClasses.loadDialog import LoadDialog
 from client.windowClasses.fourthWindow import FourthWindow
 from client.windowClasses.neiroClassWindow import NeiroClassWindow
 from client.windowClasses.funcThread import FuncThread
@@ -15,6 +14,7 @@ from client.windowClasses.qrWindow import QRWindow
 from client.windowClasses.reportsWindow import ReportsWindow
 from client.windowClasses.filterWindow import FilterWindow
 from client.windowClasses.mainReport import MainReport
+from client.windowClasses.fileChoose import FileChoose
 
 from client.windowClasses.windowManager import WindowManager
 from client.windowClasses.mainWindow import MainWindow
@@ -32,7 +32,7 @@ class Bootstrap():
 
         appEnvironment.kv = Builder.load_file("kvfiles/my.kv")
         #appEnvironment.LoadDialogObj = LoadDialog
-        Factory.register('LoadDialog', cls=LoadDialog)
+        #Factory.register('LoadDialog', cls=LoadDialog)
         #directory_kv_files = 'kvfiles'
 
         appEnvironment.SmartAppClientObj = SmartAppClient()

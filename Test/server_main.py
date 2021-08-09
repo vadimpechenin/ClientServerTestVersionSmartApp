@@ -38,22 +38,14 @@ messageResponce = MessageResponceParameter()
 
 #БЛОК КОНСТАНТ
 host = 'localhost'
-#host = '192.168.0.158'
+#host = '192.168.0.151'
+#host = '10.8.0.34'
 port = 54545
 
 BUFFER_LENGTH = 2048
 
 path = 'D:\\PYTHON\\Programms\\Smart_app_UMNIK\\Client_server_version_1\\Test\\'
 
-"""
-image = cv2.imread('D:\\2014spring\\IMG_07_23_2021_10_15_AM.jpg')
-operation_type = 0
-parameters = CheckInCommandHandlerParameter(image, operation_type, '07_23_2021_10_15_AM',
-                                            '6', '3')
-
-result_request = serversmartapp.initFunction(2, parameters)
-print(result_request)
-"""
 
 serversocket = socket.socket()
 

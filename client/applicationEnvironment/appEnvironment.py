@@ -13,3 +13,4 @@ ReportsWindowObj = None
 FilterWindowObj = None
 MainReportObj = None
 WindowManagerObj = None
+FileChooseObj = None
