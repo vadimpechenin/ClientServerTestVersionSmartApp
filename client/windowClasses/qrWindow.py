@@ -7,11 +7,13 @@ from os.path import getsize
 from kivy.uix.image import Image
 from kivy.core.image import Image as CoreImage
 from kivy.uix.popup import Popup
-from client.windowClasses.loadDialog import LoadDialog
-#from client.windowClasses.fileChoose import FileChoose
 from kivy.uix.button import Button
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.togglebutton import ToggleButton
+from kivy.uix.label import Label
+from kivy.uix.textinput import TextInput
+
+import weakref
 
 # Библиотеки для формирования структуры пересылаемого сообщения
 from message.messageStructure import MessageStructure
@@ -19,6 +21,8 @@ from message.messageStructureParameter import MessageStructureParameter
 from message.messageResponceParameter import MessageResponceParameter
 
 from client.applicationEnvironment import appEnvironment
+
+from client.clientModule import MySocket
 
 import cv2
 
@@ -42,6 +46,7 @@ class QRWindow(Screen):
         self.popup1 = None
         self.popup2 = None
         self.popup3 = None
+        self.popup4 = None
 
         self.send_data = 0
         self.code_request0 = 0  # Специальный код, опеределяющий действия на сервере
@@ -58,7 +63,8 @@ class QRWindow(Screen):
 
         appEnvironment.QRWindowObj = self
         self.koef = appEnvironment.koef
-        self.sock = appEnvironment.sock
+        self.PopupGrid = None
+        #self.sock = appEnvironment.sock
 
 
     def allRequest(self):
@@ -164,10 +170,16 @@ class QRWindow(Screen):
         while True:
             time.sleep(0.3)
             if (self.send_data==1):
-                print('Зашел в отправку сообщения')
-                self.sock.send_data(self.messageParameter)
-                self.messageParameter = MessageStructure.ClearObject(self.messageParameter)
-                self.send_data = 2
+                try:
+                    print('Зашел в отправку сообщения')
+                    self.sock = MySocket(host = appEnvironment.host, port = appEnvironment.port)
+                    self.sock.send_data(self.messageParameter)
+                    self.messageParameter = MessageStructure.ClearObject(self.messageParameter)
+                    self.send_data = 2
+                except:
+                    self.popupForSocket(appEnvironment.title, appEnvironment.text)
+                    self.send_data = 0
+
             if (self.send_data == 2):
 
                 self.messageResponce = self.sock.get_data()
@@ -376,3 +388,35 @@ class QRWindow(Screen):
         self.popup3.dismiss()
         self.messageResponce = MessageStructure.ClearObjectResponce(self.messageResponce)
         self.QRPress_base()
+
+    def popupForSocket(self, title, text):
+        PopupGrid = GridLayout(rows=4, size_hint_y=None)
+        PopupGrid.add_widget(Label(text=text))
+
+        host1 = TextInput()
+        PopupGrid.add_widget(host1)#
+        PopupGrid.ids['host1'] = weakref.ref(host1)
+        PopupGrid.ids.host1.text = appEnvironment.host
+        PopupGrid.ids.host1.multiline = True
+
+        port1 = TextInput()
+        PopupGrid.add_widget(port1)  #
+        PopupGrid.ids['port1'] = weakref.ref(port1)
+        PopupGrid.ids.port1.text = str(appEnvironment.port)
+        PopupGrid.ids.port1.multiline = True
+        content = Button(text='Закрыть')
+        PopupGrid.add_widget(content)
+        self.popup4 = Popup(title=title, content=PopupGrid,
+                      auto_dismiss=False, size_hint=(None, None), size=(int(300 * self.koef), int(200 * self.koef)))
+        self.PopupGrid = PopupGrid
+        content.bind(on_press=self.closePopupForSocket)
+        self.popup4.open()
+
+    def closePopupForSocket(self, *args):
+        self.hostAdress()
+        self.popup4.dismiss()
+
+    def hostAdress(self):
+
+        appEnvironment.host = self.PopupGrid.ids.host1.text
+        appEnvironment.port = int(self.PopupGrid.ids.port1.text)

@@ -23,7 +23,7 @@ class Bootstrap():
 
     @staticmethod
     def initEnviroment():
-        appEnvironment.sock = MySocket()
+        #appEnvironment.sock = MySocket()
         appEnvironment.koef = 1
         if (appEnvironment.koef == 1):
             Window.size = (420, 800)

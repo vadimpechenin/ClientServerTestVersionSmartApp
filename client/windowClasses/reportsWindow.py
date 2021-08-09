@@ -8,6 +8,16 @@ from message.messageStructureParameter import MessageStructureParameter
 from message.messageResponceParameter import MessageResponceParameter
 
 from client.applicationEnvironment import appEnvironment
+from client.clientModule import MySocket
+
+
+from kivy.uix.gridlayout import GridLayout
+from kivy.uix.label import Label
+from kivy.uix.textinput import TextInput
+from kivy.uix.button import Button
+from kivy.uix.popup import Popup
+
+import weakref
 
 import time
 
@@ -15,7 +25,7 @@ import time
 class ReportsWindow(Screen):
     def __init__(self, *args, **kwargs):
         super(ReportsWindow, self).__init__(*args, **kwargs)
-        self.sock = appEnvironment.sock
+        #self.sock = appEnvironment.sock
         self.ciphers_filter = []
         Thread(target=self.textInInput).start()
         self.listOfItemsView = 0 #Переменная для обмена сообщениями с сервером в части отчетов
@@ -25,6 +35,7 @@ class ReportsWindow(Screen):
         self.messageParameter = MessageStructureParameter()
         # Объект - ответ с сервера
         self.messageResponce = MessageResponceParameter()
+        self.koef = appEnvironment.koef
         appEnvironment.ReportsWindowObj = self
 
     def fillData(self, listOfItemsView):
@@ -46,12 +57,16 @@ class ReportsWindow(Screen):
                 # Отправка запроса на сервер и получения ответа, заполняющего пределы для фильтров
                 self.messageParameter.code_request0 = 5
                 self.messageParameter.code_request1 = 0
+                try:
+                    print('Зашел в отправку сообщения')
+                    self.sock.send_data(self.messageParameter)
 
-                print('Зашел в отправку сообщения')
-                self.sock.send_data(self.messageParameter)
+                    self.messageParameter = MessageStructure.ClearObject(self.messageParameter)
+                    self.listOfItemsView = 4
+                except:
+                    self.popupForSocket(appEnvironment.title, appEnvironment.text)
+                    self.listOfItemsView = 0
 
-                self.messageParameter = MessageStructure.ClearObject(self.messageParameter)
-                self.listOfItemsView = 4
             if (self.listOfItemsView == 4):
 
                 self.messageResponce =  self.sock.get_data()
@@ -158,3 +173,38 @@ class ReportsWindow(Screen):
         self.listOfItemsView = 3
         time.sleep(0.4)
         appEnvironment.MainReportObj.fillData(self.ifTriggerReport,self.listOfItemsView, self.messageResponce)
+
+    def popupForSocket(self, title, text):
+        PopupGrid = GridLayout(rows=4, size_hint_y=None)
+        PopupGrid.add_widget(Label(text=text))
+
+        host1 = TextInput()
+        PopupGrid.add_widget(host1)  #
+        PopupGrid.ids['host1'] = weakref.ref(host1)
+        PopupGrid.ids.host1.text = appEnvironment.host
+        PopupGrid.ids.host1.multiline = True
+
+        port1 = TextInput()
+        PopupGrid.add_widget(port1)  #
+        PopupGrid.ids['port1'] = weakref.ref(port1)
+        PopupGrid.ids.port1.text = str(appEnvironment.port)
+        PopupGrid.ids.port1.multiline = True
+        content = Button(text='Закрыть')
+        PopupGrid.add_widget(content)
+        self.popup4 = Popup(title=title, content=PopupGrid,
+                            auto_dismiss=False, size_hint=(None, None),
+                            size=(int(300 * self.koef), int(200 * self.koef)))
+        self.PopupGrid = PopupGrid
+        content.bind(on_press=self.closePopupForSocket)
+        self.popup4.open()
+
+    def closePopupForSocket(self, *args):
+        self.hostAdress()
+        self.popup4.dismiss()
+        #https://kivy.org/doc/stable/api-kivy.uix.screenmanager.html
+        appEnvironment.WindowManagerObj.switch_to(appEnvironment.MainWindowObj, direction='right')
+
+    def hostAdress(self):
+
+        appEnvironment.host = self.PopupGrid.ids.host1.text
+        appEnvironment.port = int(self.PopupGrid.ids.port1.text)

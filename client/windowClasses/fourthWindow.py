@@ -11,7 +11,15 @@ from kivy.uix.screenmanager import Screen
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.togglebutton import ToggleButton
 
+from kivy.uix.label import Label
+from kivy.uix.textinput import TextInput
+from kivy.uix.button import Button
+from kivy.uix.popup import Popup
+
+import weakref
+
 from client.applicationEnvironment import appEnvironment
+from client.clientModule import MySocket
 
 class FourthWindow(Screen):
     #Окно для просмотра номенклатуры деталей
@@ -27,7 +35,7 @@ class FourthWindow(Screen):
         self.fourthTrigger = 0 # Переключатель для работы с потоком
         appEnvironment.FourthWindowObj = self
         self.koef = appEnvironment.koef
-        self.sock = appEnvironment.sock
+        #self.sock = appEnvironment.sock
 
     def fillData(self,fourthTriggerOutdoor):
         self.fourthTrigger = fourthTriggerOutdoor
@@ -40,13 +48,17 @@ class FourthWindow(Screen):
                 # Отправка запроса на сервер и получения ответа, заполняющего список номенклатуры деталей
                 self.messageParameter.code_request0 = 0
                 self.messageParameter.code_request1 = 0
+                try:
+                    print('Зашел в отправку сообщения')
+                    self.sock = MySocket(appEnvironment.host, port=appEnvironment.port)
+                    # self.sock.send_data(messageParameter)
+                    self.sock.send_data(self.messageParameter)
 
-                print('Зашел в отправку сообщения')
-                # self.sock.send_data(messageParameter)
-                self.sock.send_data(self.messageParameter)
-
-                self.messageParameter = MessageStructure.ClearObject(self.messageParameter)
-                self.fourthTrigger = 2
+                    self.messageParameter = MessageStructure.ClearObject(self.messageParameter)
+                    self.fourthTrigger = 2
+                except:
+                    self.popupForSocket(appEnvironment.title, appEnvironment.text)
+                    self.fourthTrigger = 0
 
             if (self.fourthTrigger == 2):
                 self.messageResponce = self.sock.get_data()
@@ -113,3 +125,38 @@ class FourthWindow(Screen):
         self.manager.current = 'reportOfItem'
         #Переход окна вправо (текущее уходит влево)
         self.manager.transition.direction = "left"
+
+    def popupForSocket(self, title, text):
+        PopupGrid = GridLayout(rows=4, size_hint_y=None)
+        PopupGrid.add_widget(Label(text=text))
+
+        host1 = TextInput()
+        PopupGrid.add_widget(host1)  #
+        PopupGrid.ids['host1'] = weakref.ref(host1)
+        PopupGrid.ids.host1.text = appEnvironment.host
+        PopupGrid.ids.host1.multiline = True
+
+        port1 = TextInput()
+        PopupGrid.add_widget(port1)  #
+        PopupGrid.ids['port1'] = weakref.ref(port1)
+        PopupGrid.ids.port1.text = str(appEnvironment.port)
+        PopupGrid.ids.port1.multiline = True
+        content = Button(text='Закрыть')
+        PopupGrid.add_widget(content)
+        self.popup4 = Popup(title=title, content=PopupGrid,
+                            auto_dismiss=False, size_hint=(None, None),
+                            size=(int(300 * self.koef), int(200 * self.koef)))
+        self.PopupGrid = PopupGrid
+        content.bind(on_press=self.closePopupForSocket)
+        self.popup4.open()
+
+    def closePopupForSocket(self, *args):
+        self.hostAdress()
+        self.popup4.dismiss()
+        #https://kivy.org/doc/stable/api-kivy.uix.screenmanager.html
+        appEnvironment.WindowManagerObj.switch_to(appEnvironment.MainWindowObj, direction='right')
+
+    def hostAdress(self):
+
+        appEnvironment.host = self.PopupGrid.ids.host1.text
+        appEnvironment.port = int(self.PopupGrid.ids.port1.text)

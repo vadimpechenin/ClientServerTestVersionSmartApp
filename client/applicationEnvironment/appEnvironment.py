@@ -1,6 +1,13 @@
 kv = None
-sock = None
+#sock = None
 koef = 1
+
+#host = '192.168.0.153'
+host = 'localhost'
+port = 54545
+
+title = 'Предупреждение'
+text = 'Не верный IP адрес или не запущен сервер'
 
 LoadDialogObj = None
 SmartAppClientObj = None
