@@ -15,6 +15,7 @@ from client.windowClasses.reportsWindow import ReportsWindow
 from client.windowClasses.filterWindow import FilterWindow
 from client.windowClasses.mainReport import MainReport
 from client.windowClasses.fileChoose import FileChoose
+from client.clientProxy import ClientProxy
 
 from client.windowClasses.windowManager import WindowManager
 from client.windowClasses.mainWindow import MainWindow
@@ -36,6 +37,7 @@ class Bootstrap():
         #directory_kv_files = 'kvfiles'
 
         appEnvironment.SmartAppClientObj = SmartAppClient()
+        appEnvironment.ClientProxyObj = ClientProxy()
 
     @staticmethod
     def run():

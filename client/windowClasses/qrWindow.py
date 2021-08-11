@@ -47,6 +47,7 @@ class QRWindow(Screen):
         self.popup2 = None
         self.popup3 = None
         self.popup4 = None
+        self.popup6 = None
 
         self.send_data = 0
         self.code_request0 = 0  # Специальный код, опеределяющий действия на сервере
@@ -170,11 +171,29 @@ class QRWindow(Screen):
         while True:
             time.sleep(0.3)
             if (self.send_data==1):
+                if appEnvironment.ClientProxyObj.connect():
+                    self.messageResponce = appEnvironment.ClientProxyObj.sendRequest(self.messageParameter)
+                    if self.messageResponce != None:
+                        self.send_data = 0
+                        if (self.messageResponce.message == 'Изображение пришло'):
+                            self.Responce_name_detail_popup()
+                        elif (self.messageResponce.message == 'Список возможных месторасположений детали'):
+                            self.Responce_location_popup()
+                        elif (self.messageResponce.message == 'Изменения внесены'):
+                            self.Responce_name_detail_popup()
+                    else:
+                        self.popupForSocketNone()
+                        self.send_data = 0
+
+
+                else:
+                    self.popupForSocket(appEnvironment.title, appEnvironment.text)
+                    self.send_data = 0
+
+                """
                 try:
-                    if (appEnvironment.sock is not None):
-                        appEnvironment.sock.sock.close()
-                        appEnvironment.sock = None
                     print('Зашел в отправку сообщения')
+
                     appEnvironment.sock = MySocket(host = appEnvironment.host, port = appEnvironment.port)
                 except:
                     self.popupForSocket(appEnvironment.title, appEnvironment.text)
@@ -183,7 +202,7 @@ class QRWindow(Screen):
                     appEnvironment.sock.send_data(self.messageParameter)
                     self.messageParameter = MessageStructure.ClearObject(self.messageParameter)
                     self.send_data = 2
-
+                
 
             if (self.send_data == 2):
 
@@ -196,6 +215,7 @@ class QRWindow(Screen):
                 elif (self.messageResponce.message == 'Изменения внесены'):
                     self.Responce_name_detail_popup()
 
+                 """
     # Блок с всплывающими окнами
     # Включение всплывающего окна
     def btn(self, *args):
@@ -425,3 +445,15 @@ class QRWindow(Screen):
 
         appEnvironment.host = self.PopupGrid.ids.host1.text
         appEnvironment.port = int(self.PopupGrid.ids.port1.text)
+
+    def popupForSocketNone(self):
+        PopupGrid = GridLayout(rows=1, size_hint_y=None)
+        PopupGrid.add_widget(Label(text='Сообщение не отправлено или не принят ответ'))
+        content = Button(text='Закрыть')
+        PopupGrid.add_widget(content)
+        self.popup6 = Popup(title='Ошибка', content=PopupGrid,
+                            auto_dismiss=False, size_hint=(None, None),
+                            size=(int(300 * appEnvironment.koef), int(200 * appEnvironment.koef)))
+
+        content.bind(on_press=self.popup6.dismiss)
+        self.popup6.open()

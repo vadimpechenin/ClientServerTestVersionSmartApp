@@ -1,9 +1,9 @@
 kv = None
-sock = None
+#sock = None
 koef = 1
 
 #host = '192.168.0.153'
-host = '127.0.0.1'
+host = '127.0.0.'
 port = 54545
 
 title = 'Предупреждение'
@@ -21,3 +21,4 @@ FilterWindowObj = None
 MainReportObj = None
 WindowManagerObj = None
 FileChooseObj = None
+ClientProxyObj = None

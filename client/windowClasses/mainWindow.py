@@ -1,6 +1,9 @@
 from kivy.uix.screenmanager import Screen
 from client.applicationEnvironment import appEnvironment
 
+from client.windowClasses.clientProxyParametersWindow import ClientProxyParametersWindow
+from message.clientProxyParameters import ClientProxyParameters
+
 class MainWindow(Screen):
 
     def __init__(self, *args, **kwargs):
@@ -9,7 +12,19 @@ class MainWindow(Screen):
         self.fourthTrigger = 0
         appEnvironment.MainWindowObj = self
 
-
+    def testeMethod(self):
+        parameters= ClientProxyParameters()
+        parameters.HOST = appEnvironment.host
+        parameters.PORT = appEnvironment.port
+        window = ClientProxyParametersWindow()
+        isOK = window.execute(parameters)
+        """
+        if isOK:
+            appEnvironment.host = parameters.HOST
+            appEnvironment.port = parameters.PORT
+        else:
+            t = 1
+        """
     def triggerForServer(self):
         # Метод для изменения переменных, отвечающих за запуск потока общения с сервером
         self.listOfItemsView = 2
