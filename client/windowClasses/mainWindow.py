@@ -17,7 +17,16 @@ class MainWindow(Screen):
         parameters.HOST = appEnvironment.host
         parameters.PORT = appEnvironment.port
         window = ClientProxyParametersWindow()
-        isOK = window.execute(parameters)
+        isOK = window.execute(parameters, self.testeMethodEndCallback)
+
+    def testeMethodEndCallback(self, result, parameters):
+        if result:
+            appEnvironment.host = parameters.HOST
+            appEnvironment.port = parameters.PORT
+        else:
+            ddd = 0
+
+
         """
         if isOK:
             appEnvironment.host = parameters.HOST

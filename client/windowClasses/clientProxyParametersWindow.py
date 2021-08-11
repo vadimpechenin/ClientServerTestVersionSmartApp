@@ -18,22 +18,15 @@ class ClientProxyParametersWindow():
     def __init__(self):
         self.value = ClientProxyParameters()
         self.isOK = False
-        self.operationLock = Lock()
         self.koef = appEnvironment.koef
         self.popup5 = None
+        self.endCallback = None
 
-    def execute(self, clientProxyParameters):
+    def execute(self, clientProxyParameters, endCallback):
         self.value.copyFrom(clientProxyParameters)
+        self.endCallback = endCallback
         self.isOK = False
-        #self.operationLock.acquire()
-        #Thread(target=self.configure).start()
         self.configure()
-        #self.operationLock.acquire()
-        #self.operationLock.release()
-        #if self.isOK:
-        #    clientProxyParameters.copyFrom(self.value)
-
-        #return self.isOK
 
     def configure(self):
         title = 'Параметры сервера'
@@ -66,13 +59,12 @@ class ClientProxyParametersWindow():
         contentClose.bind(on_press=self.okWindow)
         contentCancel.bind(on_press=self.cancelWindow)
         self.popup5.open()
-        #self.operationLock.acquire()
 
 
     def cancelWindow(self, *args):
         self.isOK = False
         self.popup5.dismiss()
-        #self.operationLock.release()
+        self.endCallback(self.isOK, self.value)
 
 
     def okWindow(self, *args):
@@ -80,5 +72,5 @@ class ClientProxyParametersWindow():
         self.value.HOST = self.PopupGrid.ids.host1.text
         self.value.PORT = int(self.PopupGrid.ids.port1.text)
         self.popup5.dismiss()
-        #self.operationLock.release()
+        self.endCallback(self.isOK, self.value)
 

@@ -50,6 +50,22 @@ class FourthWindow(Screen):
                 self.messageParameter.code_request0 = 0
                 self.messageParameter.code_request1 = 0
 
+                if appEnvironment.ClientProxyObj.connect():
+                    self.messageResponce = appEnvironment.ClientProxyObj.sendRequest(self.messageParameter)
+                    self.messageParameter = MessageStructure.ClearObject(self.messageParameter)
+                    if self.messageResponce != None:
+                        if (self.messageResponce.message == 'Список номенклатуры деталей'):
+                            self.fourthTrigger = 0
+                    else:
+                        self.popupForSocketNone()
+                        self.fourthTrigger = 0
+
+
+                else:
+                    self.popupForSocket(appEnvironment.title, appEnvironment.text)
+                    self.fourthTrigger = 0
+
+                """
                 try:
                     if (appEnvironment.sock is not None):
                         appEnvironment.sock.sock.close()
@@ -65,19 +81,36 @@ class FourthWindow(Screen):
 
                     self.messageParameter = MessageStructure.ClearObject(self.messageParameter)
                     self.fourthTrigger = 2
-
+                
 
             if (self.fourthTrigger == 2):
                 self.messageResponce = appEnvironment.sock.get_data()
                 if (self.messageResponce.message == 'Список номенклатуры деталей'):
                     self.fourthTrigger = 0
-
+            """
             if (self.fourthTrigger == 3):
                 # Отправка запроса на сервер и получения ответа, заполняющего отчет для выбранного вида детали
                 self.messageParameter.code_request0 = 7
                 self.messageParameter.code_request1 = 0
 
                 print('Зашел в отправку сообщения')
+                if appEnvironment.ClientProxyObj.connect():
+                    self.messageResponce = appEnvironment.ClientProxyObj.sendRequest(self.messageParameter)
+                    self.messageParameter = MessageStructure.ClearObject(self.messageParameter)
+                    if self.messageResponce != None:
+                        if (self.messageResponce.message == 'Отчет по номенклатуре деталей'):
+                            appEnvironment.ReportsWindowDetailObj.fillData(self.partName, self.messageResponce)
+                            self.fourthTrigger = 0
+                    else:
+                        self.popupForSocketNone()
+                        self.fourthTrigger = 0
+
+
+                else:
+                    self.popupForSocket(appEnvironment.title, appEnvironment.text)
+                    self.fourthTrigger = 0
+
+                """
                 appEnvironment.sock.send_data(self.messageParameter)
 
                 self.messageParameter = MessageStructure.ClearObject(self.messageParameter)
@@ -89,7 +122,7 @@ class FourthWindow(Screen):
                 if (self.messageResponce.message == 'Отчет по номенклатуре деталей'):
                     appEnvironment.ReportsWindowDetailObj.fillData(self.partName, self.messageResponce)
                     self.fourthTrigger = 0
-
+                """
     def ScrollWindow(self):
         if (self.listOfItems==True):
             #self.ids.ScrollWindowid.add_widget(ScrollView(size_hint=[1, 1]))

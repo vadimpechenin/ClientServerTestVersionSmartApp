@@ -58,6 +58,23 @@ class ReportsWindow(Screen):
                 # Отправка запроса на сервер и получения ответа, заполняющего пределы для фильтров
                 self.messageParameter.code_request0 = 5
                 self.messageParameter.code_request1 = 0
+                print('Зашел в отправку сообщения')
+                if appEnvironment.ClientProxyObj.connect():
+                    self.messageResponce = appEnvironment.ClientProxyObj.sendRequest(self.messageParameter)
+                    self.messageParameter = MessageStructure.ClearObject(self.messageParameter)
+                    if self.messageResponce != None:
+                        if (self.messageResponce.message == 'Пределы для фильтров'):
+                            self.listOfItemsView = 1
+                    else:
+                        self.popupForSocketNone()
+                        self.listOfItemsView = 0
+
+
+                else:
+                    self.popupForSocket(appEnvironment.title, appEnvironment.text)
+                    self.listOfItemsView = 0
+
+                """
                 try:
                     if (appEnvironment.sock is not None):
                         appEnvironment.sock.sock.close()
@@ -79,7 +96,7 @@ class ReportsWindow(Screen):
                 self.messageResponce =  appEnvironment.sock.get_data()
                 if (self.messageResponce.message == 'Пределы для фильтров'):
                     self.listOfItemsView = 1
-
+            """
             if (self.listOfItemsView == 1):
                 # Заполнение текстовых полей
                 if len(self.messageParameter.type_name_list) > 0:
@@ -127,6 +144,24 @@ class ReportsWindow(Screen):
                 # Отправка запроса на сервер для получения ответа для формирования отчета
                 self.messageParameter.code_request0 = 6
                 self.messageParameter.code_request1 = 0
+
+                if appEnvironment.ClientProxyObj.connect():
+                    self.messageResponce = appEnvironment.ClientProxyObj.sendRequest(self.messageParameter)
+                    self.messageParameter = MessageStructure.ClearObject(self.messageParameter)
+                    if self.messageResponce != None:
+                        if (self.messageResponce.message == 'Отчет с учетом фильтров'):
+                            self.listOfItemsView = 0
+                            self.ifTriggerReport = 1
+                    else:
+                        self.popupForSocketNone()
+                        self.listOfItemsView = 0
+
+
+                else:
+                    self.popupForSocket(appEnvironment.title, appEnvironment.text)
+                    self.listOfItemsView = 0
+
+                """
                 appEnvironment.sock.send_data(self.messageParameter)
 
                 self.messageParameter = MessageStructure.ClearObject(self.messageParameter)
@@ -139,7 +174,7 @@ class ReportsWindow(Screen):
                 if (self.messageResponce.message == 'Отчет с учетом фильтров'):
                     self.listOfItemsView = 0
                     self.ifTriggerReport = 1
-
+            """
     def ScrollWindowFilterType(self):
         self.param_for_filter = 1
         appEnvironment.FilterWindowObj.fillData(self.param_for_filter, self.messageResponce,
