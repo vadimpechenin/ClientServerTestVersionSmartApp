@@ -37,6 +37,7 @@ class ReportsWindow(Screen):
         self.messageResponce = MessageResponceParameter()
         self.koef = appEnvironment.koef
         appEnvironment.ReportsWindowObj = self
+        self.sock = None
 
     def fillData(self, listOfItemsView):
         self.listOfItemsView = listOfItemsView
@@ -58,18 +59,24 @@ class ReportsWindow(Screen):
                 self.messageParameter.code_request0 = 5
                 self.messageParameter.code_request1 = 0
                 try:
+                    if (appEnvironment.sock is not None):
+                        appEnvironment.sock.sock.close()
+                        appEnvironment.sock = None
                     print('Зашел в отправку сообщения')
-                    self.sock.send_data(self.messageParameter)
-
-                    self.messageParameter = MessageStructure.ClearObject(self.messageParameter)
-                    self.listOfItemsView = 4
+                    appEnvironment.sock = MySocket(host=appEnvironment.host, port=appEnvironment.port)
                 except:
                     self.popupForSocket(appEnvironment.title, appEnvironment.text)
                     self.listOfItemsView = 0
+                else:
+                    appEnvironment.sock.send_data(self.messageParameter)
+
+                    self.messageParameter = MessageStructure.ClearObject(self.messageParameter)
+                    self.listOfItemsView = 4
+
 
             if (self.listOfItemsView == 4):
 
-                self.messageResponce =  self.sock.get_data()
+                self.messageResponce =  appEnvironment.sock.get_data()
                 if (self.messageResponce.message == 'Пределы для фильтров'):
                     self.listOfItemsView = 1
 
@@ -120,7 +127,7 @@ class ReportsWindow(Screen):
                 # Отправка запроса на сервер для получения ответа для формирования отчета
                 self.messageParameter.code_request0 = 6
                 self.messageParameter.code_request1 = 0
-                self.sock.send_data(self.messageParameter)
+                appEnvironment.sock.send_data(self.messageParameter)
 
                 self.messageParameter = MessageStructure.ClearObject(self.messageParameter)
 
@@ -128,7 +135,7 @@ class ReportsWindow(Screen):
 
             if (self.listOfItemsView == 5):
                 # Получение ответа для формирования отчета
-                self.messageResponce =  self.sock.get_data()
+                self.messageResponce =  appEnvironment.sock.get_data()
                 if (self.messageResponce.message == 'Отчет с учетом фильтров'):
                     self.listOfItemsView = 0
                     self.ifTriggerReport = 1

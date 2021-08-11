@@ -11,6 +11,7 @@ class Type(Base):
     type_id = sa.Column(sa.Integer(), primary_key=True)
     type_name = sa.Column(sa.String)
     passport = relationship('Passport', backref='type', lazy=True)  # one to many
+    #nominals = relationship('Nominals', backref='type', uselist=False)
 
     def __repr__(self):
         # для печати строки и отладки

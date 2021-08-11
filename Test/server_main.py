@@ -5,6 +5,7 @@
 """
 import cv2
 import os
+from os.path import getsize
 import numpy as np
 
 #Переменные для начальной инициализации базы данных
@@ -38,6 +39,7 @@ messageResponce = MessageResponceParameter()
 
 #БЛОК КОНСТАНТ
 host = 'localhost'
+host = '127.0.0.1'
 #host = '192.168.0.151'
 #host = '10.8.0.34'
 port = 54545
@@ -47,11 +49,11 @@ BUFFER_LENGTH = 2048
 path = 'D:\\PYTHON\\Programms\\Smart_app_UMNIK\\Client_server_version_1\\Test\\'
 
 
-serversocket = socket.socket()
+serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 serversocket.bind((host, port))
 
-serversocket.listen(1)
+serversocket.listen(3)
 print("Server is listening", '\n')
 
 clientsocket,addr = serversocket.accept()
@@ -161,9 +163,18 @@ while True:
 
         if messageParameter.code_request0 == 7:
             messageResponce.message = 'Отчет по номенклатуре деталей'
-            messageResponce.report_list.append(['ID', 'Дата', 'Цех', 'Участок'])
+            messageResponce.report_list.append(['Дисбаланс', 'Верх допуск дисбаланс', 'Нижний допуск дисбаланс',
+                                                'Диаметр', 'Нижний допуск диаметр', 'Верхний допуск диаметр'])
+            path = result_request[0].pop(0)
             for item in result_request:
                 messageResponce.report_list.append(item)
+
+            file = cv2.imread(path)
+
+            sizeOfImage = getsize(path)
+
+            messageResponce.Images.append(file)
+            messageResponce.sizeOfImages.append(sizeOfImage)
 
             messageResponceAsBytes = MessageStructure.SaveToBytes(messageResponce)
 

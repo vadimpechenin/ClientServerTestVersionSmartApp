@@ -36,6 +36,7 @@ class FourthWindow(Screen):
         appEnvironment.FourthWindowObj = self
         self.koef = appEnvironment.koef
         #self.sock = appEnvironment.sock
+        self.sock = None
 
     def fillData(self,fourthTriggerOutdoor):
         self.fourthTrigger = fourthTriggerOutdoor
@@ -48,20 +49,26 @@ class FourthWindow(Screen):
                 # Отправка запроса на сервер и получения ответа, заполняющего список номенклатуры деталей
                 self.messageParameter.code_request0 = 0
                 self.messageParameter.code_request1 = 0
-                try:
-                    print('Зашел в отправку сообщения')
-                    self.sock = MySocket(appEnvironment.host, port=appEnvironment.port)
-                    # self.sock.send_data(messageParameter)
-                    self.sock.send_data(self.messageParameter)
 
-                    self.messageParameter = MessageStructure.ClearObject(self.messageParameter)
-                    self.fourthTrigger = 2
+                try:
+                    if (appEnvironment.sock is not None):
+                        appEnvironment.sock.sock.close()
+                        appEnvironment.sock = None
+                    print('Зашел в отправку сообщения')
+                    appEnvironment.sock = MySocket(host = appEnvironment.host, port=appEnvironment.port)
                 except:
                     self.popupForSocket(appEnvironment.title, appEnvironment.text)
                     self.fourthTrigger = 0
+                else:
+
+                    appEnvironment.sock.send_data(self.messageParameter)
+
+                    self.messageParameter = MessageStructure.ClearObject(self.messageParameter)
+                    self.fourthTrigger = 2
+
 
             if (self.fourthTrigger == 2):
-                self.messageResponce = self.sock.get_data()
+                self.messageResponce = appEnvironment.sock.get_data()
                 if (self.messageResponce.message == 'Список номенклатуры деталей'):
                     self.fourthTrigger = 0
 
@@ -71,14 +78,13 @@ class FourthWindow(Screen):
                 self.messageParameter.code_request1 = 0
 
                 print('Зашел в отправку сообщения')
-                # self.sock.send_data(messageParameter)
-                self.sock.send_data(self.messageParameter)
+                appEnvironment.sock.send_data(self.messageParameter)
 
                 self.messageParameter = MessageStructure.ClearObject(self.messageParameter)
                 self.fourthTrigger = 4
 
             if (self.fourthTrigger == 4):
-                self.messageResponce = self.sock.get_data()
+                self.messageResponce = appEnvironment.sock.get_data()
 
                 if (self.messageResponce.message == 'Отчет по номенклатуре деталей'):
                     appEnvironment.ReportsWindowDetailObj.fillData(self.partName, self.messageResponce)

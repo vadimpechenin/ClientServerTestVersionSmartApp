@@ -12,6 +12,7 @@ from .characteristic import Characteristic
 from .type import Type
 from .location import Location
 from .passport import Passport
+from .nominals import Nominals
 
 
 class SQL_data_base():
@@ -89,6 +90,28 @@ class SQL_data_base():
                 diameter = random.random() * 10
                 characteristic_object = Characteristic(passport_id=passport_id, imbalance=imbalance, diameter=diameter)
                 self.session.add(characteristic_object)
+            self.session.commit()
+
+        # Создание объектов в таблице Nominals
+        type_id_list = [1, 2, 3, 4, 5, 6]
+        if (self.pl_table[4] == 1):
+            # Добавать в сессию
+            k = 1
+            for type_id in type_id_list:
+                path_to_image = 'D:\\PYTHON\\Programms\\Smart_app_UMNIK\\Photos_of_details\\' + str(k) + '.jpg'
+                imbalance = 0
+                tolerance_imbalance_lower = 0
+                tolerance_imbalance_upper = 1 + random.random() * 2
+                diameter = 5
+                tolerance_diameter_lower = -2 + random.random()
+                tolerance_diameter_upper = 1 + random.random()
+                nominal_object = Nominals(type_id=type_id, path_to_image=path_to_image,
+                                                       imbalance=imbalance, tolerance_imbalance_lower=tolerance_imbalance_lower,
+                                                       tolerance_imbalance_upper=tolerance_imbalance_upper, diameter=diameter,
+                                                       tolerance_diameter_lower=tolerance_diameter_lower,
+                                                       tolerance_diameter_upper=tolerance_diameter_upper)
+                self.session.add(nominal_object)
+                k += 1
             self.session.commit()
 
     def request_of_imbalance(self):
@@ -254,4 +277,22 @@ class SQL_data_base():
             # print(a1)
             ciphers.append(
                 [a1['passport_id'], a1['receipt_date'], a1['workshop_number'], a1['lot_number']])
+        return ciphers
+
+    def data_for_report_nomenclature2(self,parameters):
+        # Финальный список конструкторских параметров для определенного наименования деталей
+        # Текст запроса
+        request_str = "SELECT path_to_image, imbalance, tolerance_imbalance_lower, tolerance_imbalance_upper, \
+                                       diameter, tolerance_diameter_lower, tolerance_diameter_upper\
+                               FROM type \
+                               INNER JOIN nominals USING(type_id) \
+                               WHERE type.type_name IN ('" + str(parameters.type_name) + "');"
+        s4 = self.session.execute(request_str)
+        result_of_query = resultproxy_to_dict(s4)
+        ciphers = []
+        for a1 in result_of_query:
+            # print(a1)
+            ciphers.append(
+                [a1['path_to_image'], a1['imbalance'], a1['tolerance_imbalance_lower'], a1['tolerance_imbalance_upper'],
+                 a1['diameter'], a1['tolerance_diameter_lower'], a1['tolerance_diameter_upper']])
         return ciphers

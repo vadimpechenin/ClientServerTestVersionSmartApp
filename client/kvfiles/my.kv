@@ -7,7 +7,6 @@ WindowManager:
     FourthWindow:
     ReportsWindow:
     ReportsWindowDetail:
-    LoadDialog:
     FilterWindow:
     MainReport:
     FileChoose:
@@ -633,12 +632,13 @@ WindowManager:
     name: "reportOfItem"
     BoxLayout:
         orientation: 'vertical'
-        rows: 3
+        rows: 4
         canvas:
             Rectangle:
                 source: 'kvfiles/4.jpg'
                 size: self.size
                 pos: self.pos
+
         Button:
             id: ButtonScrollWindowReportid
             text: 'Нажмите'
@@ -648,6 +648,10 @@ WindowManager:
             #Обработчик
             on_release:
                 root.windowDraw()
+
+        BoxLayout:
+            id: ImageBoxId2
+            padding: 30, 30, 30, 30
 
         ScrollView:
             id: ScrollWindowReportid

@@ -92,7 +92,7 @@ class QRWindow(Screen):
 
 
     def ImageLoad(self,path, filename):
-
+        data1 = open(filename[0], "rb").read()
         data = io.BytesIO(open(filename[0], "rb").read())
         im = CoreImage(data, ext="png")
         if self.ifTriggerPhotio1==1:
@@ -171,18 +171,23 @@ class QRWindow(Screen):
             time.sleep(0.3)
             if (self.send_data==1):
                 try:
+                    if (appEnvironment.sock is not None):
+                        appEnvironment.sock.sock.close()
+                        appEnvironment.sock = None
                     print('Зашел в отправку сообщения')
-                    self.sock = MySocket(host = appEnvironment.host, port = appEnvironment.port)
-                    self.sock.send_data(self.messageParameter)
-                    self.messageParameter = MessageStructure.ClearObject(self.messageParameter)
-                    self.send_data = 2
+                    appEnvironment.sock = MySocket(host = appEnvironment.host, port = appEnvironment.port)
                 except:
                     self.popupForSocket(appEnvironment.title, appEnvironment.text)
                     self.send_data = 0
+                else:
+                    appEnvironment.sock.send_data(self.messageParameter)
+                    self.messageParameter = MessageStructure.ClearObject(self.messageParameter)
+                    self.send_data = 2
+
 
             if (self.send_data == 2):
 
-                self.messageResponce = self.sock.get_data()
+                self.messageResponce = appEnvironment.sock.get_data()
                 self.send_data = 0
                 if (self.messageResponce.message=='Изображение пришло'):
                     self.Responce_name_detail_popup()

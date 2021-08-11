@@ -9,3 +9,5 @@ class MessageResponceParameter:
         self.imbalance_list = []
         self.diameter_list = []
         self.report_list = []
+        self.Images = []
+        self.sizeOfImages = []

@@ -4,6 +4,11 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.screenmanager import Screen
 from kivy.uix.label import Label
 
+from kivy.uix.image import Image
+from kivy.core.image import Image as CoreImage
+import io
+import cv2
+
 from client.applicationEnvironment import appEnvironment
 
 koef = 1
@@ -24,8 +29,14 @@ class ReportsWindowDetail(Screen):
     def windowDraw(self):
         #global messageResponce
         if (self.listOfItems == True) and (self.messageResponce!=None):
+            img_str = cv2.imencode('.jpg', self.messageResponce.Images[0])[1].tostring()
+            im_bytes = io.BytesIO(img_str)
+
+            im = CoreImage(im_bytes, ext="png")
+            self.ids.ImageBoxId2.add_widget(Image(texture=im.texture))
+
             self.ids.ButtonScrollWindowReportid.text = self.partName
-            leftGrid1 = GridLayout(cols=len(self.messageResponce.report_list[0]), spacing=10, size_hint_y=None)#, size_hint_y=10, size_hint_x=10)
+            leftGrid1 = GridLayout(cols=2, spacing=10, size_hint_y=None)#, size_hint_y=10, size_hint_x=10)
             # Убедимся, что высота такая, чтобы было что прокручивать.
             leftGrid1.bind(minimum_height=leftGrid1.setter('height'), minimum_width=leftGrid1.setter('width'))#
             self.toggle = []
@@ -36,10 +47,7 @@ class ReportsWindowDetail(Screen):
                     nasted.append('')
 
             for index in range(len(self.messageResponce.report_list[0])):
-                if (index == 0):
-                    width = 50*koef
-                else:
-                    width = 150*koef
+                width = 200*koef
 
                 self.toggle[0][index] = Label(
                 size_hint_y=None,
@@ -49,32 +57,20 @@ class ReportsWindowDetail(Screen):
                 #,
                 padding=(10*koef, 10*koef),
                     text=str(self.messageResponce.report_list[0][index]),
-                    #color=(1, 1, 1, 1)
-                    #text_size=(self.width, None)
                 )
-                #with self.toggle[0][index].canvas.before:
-                    #Color(0, 1, 0, 0.25)
-                    #Rectangle(pos=self.toggle[0][index].pos, size=self.toggle[0][index].size)
                 leftGrid1.add_widget(self.toggle[0][index])
 
-            for index in range(1,len(self.messageResponce.report_list)):
-                for index1 in range(len(self.messageResponce.report_list[0])):
-                    if (index1 == 0):
-                        width = 50*koef
-                    else:
-                        width = 150*koef
+                self.toggle[1][index] = Label(
+                size_hint_y=None,
+                size_hint_x=None,
+                height=40*koef,
+                width=width,
+                #,
+                padding=(10*koef, 10*koef),
+                    text=str(self.messageResponce.report_list[1][index]),
+                )
+                leftGrid1.add_widget(self.toggle[1][index])
 
-                    self.toggle[index][index1] = Label(
-                        size_hint_y=None,
-                        size_hint_x=None,
-                        height=40*koef,
-                        width=width,
-                        #text_size=(self.width, None),
-                        padding=(10*koef, 10*koef),
-                        text=str(self.messageResponce.report_list[index][index1]),
-                        #text_size=(self.width, None)
-                    )
-                    leftGrid1.add_widget(self.toggle[index][index1])
             # Убедимся, что высота такая, чтобы было что прокручивать.
             leftGrid1.bind(minimum_height=leftGrid1.setter('height'), minimum_width=leftGrid1.setter('width'))
             self.ids.ScrollWindowReportid.add_widget(leftGrid1)
@@ -83,6 +79,10 @@ class ReportsWindowDetail(Screen):
             # удаляет все виджеты, которые находяться в another_box
             for i in range(len(self.ids.ScrollWindowReportid.children)):
                 self.ids.ScrollWindowReportid.remove_widget(self.ids.ScrollWindowReportid.children[-1])
+
+            for i in range(len(self.ids.ImageBoxId2.children)):
+                self.ids.ImageBoxId2.remove_widget(self.ids.ImageBoxId2.children[-1])
+
             self.listOfItems = True
         #pass
 

@@ -6,5 +6,5 @@ class LoadReportNomenclatureHandler(BaseCommandHandler):
 
     def execute(self, parameters):
         # Запрос к базе данных на получение данных для отчета
-        ciphers = self.data_base.data_for_report_nomenclature(parameters)
+        ciphers = self.data_base.data_for_report_nomenclature2(parameters)
         return ciphers

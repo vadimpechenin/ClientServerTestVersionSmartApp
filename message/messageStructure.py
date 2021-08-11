@@ -52,4 +52,6 @@ class MessageStructure:
         parameter.imbalance_list = []
         parameter.diameter_list = []
         parameter.report_list = []
+        parameter.Images = []
+        parameter.sizeOfImages = []
         return parameter
