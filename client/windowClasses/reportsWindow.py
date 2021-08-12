@@ -244,7 +244,7 @@ class ReportsWindow(Screen):
         self.hostAdress()
         self.popup4.dismiss()
         #https://kivy.org/doc/stable/api-kivy.uix.screenmanager.html
-        appEnvironment.WindowManagerObj.switch_to(appEnvironment.MainWindowObj, direction='right')
+        #appEnvironment.WindowManagerObj.switch_to(appEnvironment.MainWindowObj, direction='right')
 
     def hostAdress(self):
 

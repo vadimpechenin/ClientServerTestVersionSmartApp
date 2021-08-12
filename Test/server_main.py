@@ -165,13 +165,13 @@ while True:
             messageResponce.message = 'Отчет по номенклатуре деталей'
             messageResponce.report_list.append(['Дисбаланс', 'Верх допуск дисбаланс', 'Нижний допуск дисбаланс',
                                                 'Диаметр', 'Нижний допуск диаметр', 'Верхний допуск диаметр'])
-            path = result_request[0].pop(0)
+            path_ = result_request[0].pop(0)
             for item in result_request:
                 messageResponce.report_list.append(item)
 
-            file = cv2.imread(path)
+            file = cv2.imread(path_)
 
-            sizeOfImage = getsize(path)
+            sizeOfImage = getsize(path_)
 
             messageResponce.Images.append(file)
             messageResponce.sizeOfImages.append(sizeOfImage)

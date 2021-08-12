@@ -114,6 +114,7 @@ WindowManager:
                 #Обработчик
                 on_release:
                     #Запуск потока
+                    root.triggerConnection()
                     root.triggerForServerFourth()
                     #Переход на второе окно
                     app.root.current = "fourth"
@@ -131,6 +132,7 @@ WindowManager:
                 #Обработчик
                 on_release:
                     #Запуск потока
+                    root.triggerConnection()
                     root.triggerForServer()
                     #Переход на второе окно
                     app.root.current = "reports"
