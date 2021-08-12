@@ -24,9 +24,16 @@ class MainWindow(Screen):
         self.fourthTrigger = 0
         self.send_data = 0
         self.popup6 = None
+        self.index = 0
         Thread(target=self.testConnection).start()
         self.koef = appEnvironment.koef
         appEnvironment.MainWindowObj = self
+
+    #Проверка нажатия на кнопку
+    def on_press(self, index):
+        flash_display_screen = self.manager.get_screen('flash_display')
+        setattr(flash_display_screen, 'index', index)
+        self.manager.current = 'flash_display'
 
     def testConnection(self):
         while True:
@@ -34,16 +41,24 @@ class MainWindow(Screen):
             if (self.send_data==1):
                 if appEnvironment.ClientProxyObj.connect():
                     self.popupForSocketYes()
+
                     #time.sleep(8)
                     #self.send_data = 0
                 else:
                     self.popupForSocketNone()
                     #time.sleep(8)
+                if (self.index == 1):
+                    self.triggerForServerFourth()
+                elif (self.index == 2):
+                    self.triggerForServer()
+                self.index= 0
                 self.send_data = 0
 
-    def triggerConnection(self):
-        self.send_data = 1
 
+    def triggerConnection(self, index):
+        self.send_data = 1
+        self.index = index
+    """
     def testeMethod(self):
         parameters= ClientProxyParameters()
         parameters.HOST = appEnvironment.host
@@ -59,7 +74,7 @@ class MainWindow(Screen):
             ddd = 0
 
 
-        """
+        
         if isOK:
             appEnvironment.host = parameters.HOST
             appEnvironment.port = parameters.PORT

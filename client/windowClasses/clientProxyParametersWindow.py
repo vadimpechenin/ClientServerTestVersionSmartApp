@@ -21,6 +21,7 @@ class ClientProxyParametersWindow():
         self.koef = appEnvironment.koef
         self.popup5 = None
         self.endCallback = None
+        self.configure()
 
     def execute(self, clientProxyParameters, endCallback):
         self.value.copyFrom(clientProxyParameters)
@@ -58,7 +59,7 @@ class ClientProxyParametersWindow():
         self.PopupGrid = PopupGrid
         contentClose.bind(on_press=self.okWindow)
         contentCancel.bind(on_press=self.cancelWindow)
-        self.popup5.open()
+        #self.popup5.open()
 
 
     def cancelWindow(self, *args):
