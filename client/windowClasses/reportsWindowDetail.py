@@ -6,8 +6,8 @@ from kivy.uix.label import Label
 
 from kivy.uix.image import Image
 from kivy.core.image import Image as CoreImage
-import io
-import cv2
+#import io
+#import cv2
 
 from client.applicationEnvironment import appEnvironment
 
@@ -29,10 +29,18 @@ class ReportsWindowDetail(Screen):
     def windowDraw(self):
         #global messageResponce
         if (self.listOfItems == True) and (self.messageResponce!=None):
-            img_str = cv2.imencode('.jpg', self.messageResponce.Images[0])[1].tostring()
-            im_bytes = io.BytesIO(img_str)
+            # img_str = cv2.imencode('.jpg', self.messageResponce.Images[0])[1].tostring()
+            # im_bytes = io.BytesIO(img_str)
 
-            im = CoreImage(im_bytes, ext="png")
+            #Более продвинутый шаг
+            #img_str = cv2.imencode('.jpg', self.messageResponce.Images[0])[1].tobytes()
+            #im_bytes = io.BytesIO(img_str)
+
+            #Присылаем сразу в байтах
+            im_bytes = self.messageResponce.Images[0]
+
+
+            im = CoreImage(im_bytes, ext="jpg")
             self.ids.ImageBoxId2.add_widget(Image(texture=im.texture))
 
             self.ids.ButtonScrollWindowReportid.text = self.partName
@@ -77,6 +85,7 @@ class ReportsWindowDetail(Screen):
             self.listOfItems = False
         else:
             # удаляет все виджеты, которые находяться в another_box
+            """
             for i in range(len(self.ids.ScrollWindowReportid.children)):
                 self.ids.ScrollWindowReportid.remove_widget(self.ids.ScrollWindowReportid.children[-1])
 
@@ -84,19 +93,10 @@ class ReportsWindowDetail(Screen):
                 self.ids.ImageBoxId2.remove_widget(self.ids.ImageBoxId2.children[-1])
 
             self.listOfItems = True
+            """
+            pass
         #pass
 
-    def dellwidget(self):
-        # удаляет все виджеты, которые находяться в another_box
-
-        for i in range(len(self.ids.ScrollWindowReportid.children)):
-            self.ids.ScrollWindowReportid.remove_widget(self.ids.ScrollWindowReportid.children[-1])
-
-        for i in range(len(self.ids.ImageBoxId2.children)):
-            self.ids.ImageBoxId2.remove_widget(self.ids.ImageBoxId2.children[-1])
-        self.ids.ButtonScrollWindowReportid.text = 'Нажмите'
-        self.messageResponce = None
-        self.partName = ''
 
     def dellwidgetAll(self):
         # удаляет все виджеты, которые находяться в another_box
@@ -111,4 +111,5 @@ class ReportsWindowDetail(Screen):
         self.messageResponce = None
         self.partName = ''
         fourthTrigger = 1
+        self.listOfItems = True
         appEnvironment.FourthWindowObj.fillData(fourthTrigger)

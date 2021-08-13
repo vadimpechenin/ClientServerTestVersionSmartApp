@@ -22,22 +22,15 @@ from message.messageResponceParameter import MessageResponceParameter
 
 from client.applicationEnvironment import appEnvironment
 
-from client.clientModule import MySocket
-
-import cv2
+#import cv2
 
 import time
 
 class QRWindow(Screen):
     # Класс для работы по отсылке фотографий
-    #loadfile = ObjectProperty(None)
-    #text_input = ObjectProperty(None)
-
     def __init__(self, *args, **kwargs):
         super(QRWindow, self).__init__(*args, **kwargs)
-        #self.sock = MySocket()
         Thread(target=self.get_data).start()
-        #t1 = FuncThread(self.get_data).start()
         # Объект - запрос на сервер
         self.messageParameter = MessageStructureParameter()
         # Объект - ответ с сервера
@@ -93,7 +86,6 @@ class QRWindow(Screen):
 
 
     def ImageLoad(self,path, filename):
-        data1 = open(filename[0], "rb").read()
         data = io.BytesIO(open(filename[0], "rb").read())
         im = CoreImage(data, ext="png")
         if self.ifTriggerPhotio1==1:
@@ -112,11 +104,11 @@ class QRWindow(Screen):
 
             self.filename_g.append(filename[0])
 
-        file = cv2.imread(filename[0])
+        #file = cv2.imread(filename[0]) #Библеотека opencv не работает на android
 
         sizeOfImage = getsize(filename[0])
 
-        self.messageParameter.Images.append(file)
+        self.messageParameter.Images.append(data)
         self.messageParameter.sizeOfImages.append(sizeOfImage)
 
 
@@ -185,37 +177,13 @@ class QRWindow(Screen):
                         self.popupForSocketNone()
                         self.send_data = 0
 
-
-                else:
-                    self.popupForSocket(appEnvironment.title, appEnvironment.text)
-                    self.send_data = 0
-
-                """
-                try:
-                    print('Зашел в отправку сообщения')
-
-                    appEnvironment.sock = MySocket(host = appEnvironment.host, port = appEnvironment.port)
-                except:
-                    self.popupForSocket(appEnvironment.title, appEnvironment.text)
-                    self.send_data = 0
-                else:
-                    appEnvironment.sock.send_data(self.messageParameter)
                     self.messageParameter = MessageStructure.ClearObject(self.messageParameter)
-                    self.send_data = 2
-                
 
-            if (self.send_data == 2):
+                else:
+                    self.popupForSocket(appEnvironment.title, appEnvironment.text)
+                    self.send_data = 0
 
-                self.messageResponce = appEnvironment.sock.get_data()
-                self.send_data = 0
-                if (self.messageResponce.message=='Изображение пришло'):
-                    self.Responce_name_detail_popup()
-                elif (self.messageResponce.message=='Список возможных месторасположений детали'):
-                    self.Responce_location_popup()
-                elif (self.messageResponce.message == 'Изменения внесены'):
-                    self.Responce_name_detail_popup()
 
-                 """
     # Блок с всплывающими окнами
     # Включение всплывающего окна
     def btn(self, *args):
@@ -415,21 +383,21 @@ class QRWindow(Screen):
         self.QRPress_base()
 
     def popupForSocket(self, title, text):
-        PopupGrid = GridLayout(rows=4, size_hint_y=None)
-        PopupGrid.add_widget(Label(text=text))
+        PopupGrid = GridLayout(rows=4, size_hint_y=1)
+        PopupGrid.add_widget(Label(text=text,size_hint=(1, 1)))
 
-        host1 = TextInput()
+        host1 = TextInput(size_hint=(1, 1))
         PopupGrid.add_widget(host1)#
         PopupGrid.ids['host1'] = weakref.ref(host1)
         PopupGrid.ids.host1.text = appEnvironment.host
         PopupGrid.ids.host1.multiline = True
 
-        port1 = TextInput()
+        port1 = TextInput(size_hint=(1, 1))
         PopupGrid.add_widget(port1)  #
         PopupGrid.ids['port1'] = weakref.ref(port1)
         PopupGrid.ids.port1.text = str(appEnvironment.port)
         PopupGrid.ids.port1.multiline = True
-        content = Button(text='Закрыть')
+        content = Button(text='Закрыть',size_hint=(1, 1))
         PopupGrid.add_widget(content)
         self.popup4 = Popup(title=title, content=PopupGrid,
                       auto_dismiss=False, size_hint=(None, None), size=(int(300 * self.koef), int(200 * self.koef)))

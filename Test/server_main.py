@@ -44,6 +44,10 @@ host = '127.0.0.1'
 #host = '10.8.0.34'
 port = 54545
 
+from PIL import Image
+
+import io
+
 BUFFER_LENGTH = 2048
 
 path = 'D:\\PYTHON\\Programms\\Smart_app_UMNIK\\Client_server_version_1\\Test\\'
@@ -68,11 +72,15 @@ def save_image(messageParameter):
     global BUFFER_LENGTH
     k = 1
     for j in range(len(messageParameter.Images)):
-        cv2.imwrite('image_server' + str(k) + '.jpg',messageParameter.Images[j])
+        #Преобразование массива байт в объект opencv
+        img = np.array(Image.open(messageParameter.Images[j])).astype('uint8')
+        #t = bytearray(messageParameter.Images[j].read())
+        #file_bytes = np.asarray(bytearray(messageParameter.Images[j].read()), dtype='uint8')
+        #img = cv2.imdecode(img, cv2.IMREAD_COLOR)
+        cv2.imwrite('image_server' + str(k) + '.jpg',img)
         print("Размер принятого изображения: ", messageParameter.sizeOfImages[k-1])
         #time.sleep(0.3)
         k+=1
-    k = 0
 
 
 # Имитатор основного цикла
@@ -170,10 +178,11 @@ while True:
                 messageResponce.report_list.append(item)
 
             file = cv2.imread(path_)
-
+            img_str = cv2.imencode('.jpg', file)[1].tobytes()
+            im_bytes = io.BytesIO(img_str)
             sizeOfImage = getsize(path_)
 
-            messageResponce.Images.append(file)
+            messageResponce.Images.append(im_bytes)
             messageResponce.sizeOfImages.append(sizeOfImage)
 
             messageResponceAsBytes = MessageStructure.SaveToBytes(messageResponce)
