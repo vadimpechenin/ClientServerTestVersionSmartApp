@@ -54,7 +54,8 @@ class NeiroClassWindow(Screen):
 
     def capturePhoto(self):
         global triggerPhoto, ifTriggerPhotio
-        imgTime = time.strftime("%m_%d_%Y_%I_%M_%p")
+        imgTime = time.strftime("%m_%d_%Y_%I_%M_%S_%p") #        imgTime = time.strftime("%m_%d_%Y_%I_%M_%p") #
+
         self.fileName = "IMG_{}.png".format(imgTime)
         self.camera.export_to_png(self.fileName)
         print("Выполнено фотографирование")

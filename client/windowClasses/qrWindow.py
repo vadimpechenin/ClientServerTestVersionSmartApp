@@ -95,8 +95,8 @@ class QRWindow(Screen):
             if (self.messageParameter.code_request0) == 2:
                 reversed_name_of_data = ''
                 reversed_string = ''
-                if (len(filename[0]) >= 19):
-                    for i in range(19):
+                if (len(filename[0]) >= 22):
+                    for i in range(22):
                         reversed_name_of_data = reversed_name_of_data + filename[0][-i - 5]
                     reversed_string = reversed_name_of_data[::-1]
                 self.messageParameter.nameOfImage = reversed_string

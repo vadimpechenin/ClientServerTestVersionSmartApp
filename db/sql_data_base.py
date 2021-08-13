@@ -69,8 +69,8 @@ class SQL_data_base():
             random_second = random.randrange(int_delta)
             return start + timedelta(seconds=random_second)
 
-        d1 = datetime.strptime('1/1/2020 1:30 PM', '%m/%d/%Y %I:%M %p')
-        d2 = datetime.strptime('6/30/2021 4:50 AM', '%m/%d/%Y %I:%M %p')
+        d1 = datetime.strptime('1/1/2020 1:30:40 PM', '%m/%d/%Y %I:%M:%S %p')
+        d2 = datetime.strptime('6/30/2021 4:50:50 AM', '%m/%d/%Y %I:%M:%S %p')
         if (self.pl_table[3] == 1):
             # Добавать в сессию
             for i in range(30):
@@ -140,23 +140,23 @@ class SQL_data_base():
     def updata_for_id(self, id, datetime_noSQL, workshop, lot):
         # Функция для подачи запроса на поиск
         from datetime import datetime
-        d1 = datetime.strptime('1/1/2020 1:30 PM', '%m/%d/%Y %I:%M %p')
+        d1 = datetime.strptime('1/1/2020 1:30:40 PM', '%m/%d/%Y %I:%M:%S %p')
         data_time = ''
         k = 0
         for j in datetime_noSQL:
             if (j == '_') and (k <2):
                 data_time = data_time + '/'
                 k+=1
-            elif (j == '_') and ((k ==2) or (k ==4)):
+            elif (j == '_') and ((k ==2) or (k ==5)):
                 data_time = data_time + ' '
                 k+=1
-            elif (j == '_') and (k ==3):
+            elif (j == '_') and ((k ==3) or (k==4)):
                 data_time = data_time + ':'
                 k+=1
             else:
                 data_time = data_time + j
 
-        data_time_for_recording = datetime.strptime(data_time, '%m/%d/%Y %I:%M %p')
+        data_time_for_recording = datetime.strptime(data_time, '%m/%d/%Y %I:%M:%S %p')
         #r = str(data_time_for_recording)
         # Поиск id расположения детали
         request_str = "SELECT location_id \
