@@ -47,6 +47,7 @@ class MainWindow(Screen):
                 else:
                     self.popupForSocketNone()
                     #time.sleep(8)
+                #appEnvironment.ClientProxyObj.disconnect()
                 if (self.index == 1):
                     self.triggerForServerFourth()
                 elif (self.index == 2):

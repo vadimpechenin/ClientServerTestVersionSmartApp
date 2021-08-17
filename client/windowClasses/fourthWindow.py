@@ -60,34 +60,12 @@ class FourthWindow(Screen):
                         self.popupForSocketNone()
                         self.fourthTrigger = 0
 
-
+                    appEnvironment.ClientProxyObj.disconnect()
                 else:
                     self.popupForSocket(appEnvironment.title, appEnvironment.text)
                     self.fourthTrigger = 0
 
-                """
-                try:
-                    if (appEnvironment.sock is not None):
-                        appEnvironment.sock.sock.close()
-                        appEnvironment.sock = None
-                    print('Зашел в отправку сообщения')
-                    appEnvironment.sock = MySocket(host = appEnvironment.host, port=appEnvironment.port)
-                except:
-                    self.popupForSocket(appEnvironment.title, appEnvironment.text)
-                    self.fourthTrigger = 0
-                else:
 
-                    appEnvironment.sock.send_data(self.messageParameter)
-
-                    self.messageParameter = MessageStructure.ClearObject(self.messageParameter)
-                    self.fourthTrigger = 2
-                
-
-            if (self.fourthTrigger == 2):
-                self.messageResponce = appEnvironment.sock.get_data()
-                if (self.messageResponce.message == 'Список номенклатуры деталей'):
-                    self.fourthTrigger = 0
-            """
             if (self.fourthTrigger == 3):
                 # Отправка запроса на сервер и получения ответа, заполняющего отчет для выбранного вида детали
                 self.messageParameter.code_request0 = 7
@@ -105,7 +83,7 @@ class FourthWindow(Screen):
                         self.popupForSocketNone()
                         self.fourthTrigger = 0
 
-
+                    appEnvironment.ClientProxyObj.disconnect()
                 else:
                     self.popupForSocket(appEnvironment.title, appEnvironment.text)
                     self.fourthTrigger = 0

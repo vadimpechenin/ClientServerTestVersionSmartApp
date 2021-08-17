@@ -178,7 +178,7 @@ class QRWindow(Screen):
                         self.send_data = 0
 
                     self.messageParameter = MessageStructure.ClearObject(self.messageParameter)
-
+                    appEnvironment.ClientProxyObj.disconnect()
                 else:
                     self.popupForSocket(appEnvironment.title, appEnvironment.text)
                     self.send_data = 0

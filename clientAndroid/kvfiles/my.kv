@@ -1,0 +1,705 @@
+# -*- coding: Windows-1251 -*-
+#:import platform kivy.utils.platform
+
+WindowManager:
+    MainWindow:
+    NeiroClassWindow:
+    QRWindow:
+    FourthWindow:
+    ReportsWindow:
+    ReportsWindowDetail:
+    FileChoose:
+    FilterWindow:
+    MainReport:
+
+#: import TextInput kivy.uix.textinput.TextInput
+
+# Одинаковая часть кода
+<Itemlabel@Label>:
+    font_size: '25sp' #scalabel pixels, одинаковые для разных расширений
+    halign: 'left' #Горизонтальное выравнивание
+    valign: 'middle' #Вертикальное выравнивание
+    # Чтобы заработали свойства halign и valign нужно text_size растянуть по размерам самой метки
+    text_size: self.size
+
+<ItemImage@Image>:
+    #size: self.texture_size
+    #size_hint_x: 0.5
+    #size_hint_y: 0.5
+    size_hint : 0.8, 0.8
+    pos_hint: {"right": 1, "center_y": .5}
+
+<ItemButton@Button>:
+    size_hint_y: None
+    height: '90dp'
+    size_hint_x: None
+    width: '250dp'
+    pos_hint: {"center_x": .5, "center_y": .5}
+    #pos_hint: {"x":0.35, "y":0.3}
+
+<ItemBoxLayout@BoxLayout>:
+    padding:50
+
+
+<MainWindow>:
+    name: "main"
+    GridLayout:
+        canvas:
+            Rectangle:
+                source: '4.jpg'
+                size: self.size
+                pos: self.pos
+
+
+        rows: 5
+        BoxLayout:
+
+            size_hint : 1, 0.8
+            Image:
+                padding: 30, 0, 0, 0
+                source: '1.jpg'
+                size_hint : 0.8, 0.8
+                pos_hint: {"right": 1, "center_y": 0.2}
+
+            Image:
+                #left, top, right, bottom
+                padding: 0, 0, 30, 0
+                source: '3.jpg'
+                size: self.texture_size
+                size_hint : 1.5, 1.5
+                pos_hint: {"x": 0, "top": 1}
+
+        # 2 ряд
+        ItemBoxLayout:
+
+            ItemImage:
+                source: '2.jpg'
+
+            ItemButton:
+                background_normal: '5.jpg'
+                background_down: '5_1.jpg'
+                #Обработчик
+                on_release:
+                    #Переход на второе окно
+                    app.root.current = "camera_for_classification"
+                    #Переход окна вправо (текущее уходит влево)
+                    root.manager.transition.direction = "left"
+
+
+        # 3 ряд
+        ItemBoxLayout:
+            ItemImage:
+                source: '2.jpg'
+
+
+            ItemButton:
+                background_normal: '6.jpg'
+                background_down: '6_1.jpg'
+                #Обработчик
+                on_release:
+                    #Переход на второе окно
+                    app.root.current = "camera_for_QR_scanning"
+                    #Переход окна вправо (текущее уходит влево)
+                    root.manager.transition.direction = "left"
+
+        # 4 ряд
+        ItemBoxLayout:
+            ItemImage:
+                source: '2.jpg'
+
+
+            ItemButton:
+                background_normal: '9.jpg'
+                background_down: '9_1.jpg'
+                #Обработчик
+                on_release:
+                    #Запуск потока
+                    root.triggerConnection(1)
+                    #Переход на второе окно
+                    app.root.current = "fourth"
+                    #Переход окна вправо (текущее уходит влево)
+                    root.manager.transition.direction = "left"
+
+        # 5 ряд
+        ItemBoxLayout:
+            ItemImage:
+                source: '2.jpg'
+
+            ItemButton:
+                background_normal: '8.jpg'
+                background_down: '8_1.jpg'
+                #Обработчик
+                on_release:
+                    #Запуск потока
+                    root.triggerConnection(2)
+                    #Переход на второе окно
+                    app.root.current = "reports"
+                    #Переход окна вправо (текущее уходит влево)
+                    root.manager.transition.direction = "left"
+
+
+<NeiroClassWindow>:
+    name: "camera_for_classification"
+
+    BoxLayout:
+        orientation: 'vertical'
+        Camera:
+            id: camera
+            size_hint: (1, 0.8)
+            pos_hint: {"center_x": 0.5, "top": 0.95}
+            canvas.before:
+                PushMatrix
+                Rotate:
+                    angle: -90
+                    origin: self.center
+            canvas.after:
+                PopMatrix
+            #play: False
+
+        ToggleButton:
+            text: 'Начало работы по распознаванию'
+            on_press:
+
+                camera.play = not camera.play
+                root.btn()
+            size_hint_y: None
+            height: '48dp'
+        Button:
+            text: 'Захват изображения для работы'
+            size_hint_y: None
+            height: '48dp'
+            on_press: root.capturePhoto()
+        Button:
+            text: 'Вернуться назад'
+            size_hint_y: None
+            height: '48dp'
+            #Обработчик
+            on_release:
+                #Возвращение в первое окно
+                app.root.current = "main"
+                #Переход окна влево (текущее уходит вправо)
+                root.manager.transition.direction = "right"
+
+<QRWindow>:
+    name: "camera_for_QR_scanning"
+    BoxLayout:
+        orientation: 'vertical'
+        rows: 4
+        canvas:
+            Rectangle:
+                source: '4.jpg'
+                size: self.size
+                pos: self.pos
+
+        BoxLayout:
+            size_hint : 0.5, 0.15
+            Image:
+                padding: 30, 0, 0, 0
+                source: '1.jpg'
+                size_hint : 1, 1
+                pos_hint: {"right": 1, "center_y": 0.2}
+
+            Image:
+                #left, top, right, bottom
+                padding: 0, 0, 30, 0
+                source: '3.jpg'
+                size: self.texture_size
+                size_hint : 1.5, 1.5
+                pos_hint: {"x": 0.5, "top": 1}
+
+        BoxLayout:
+            id: ImageBoxId
+            padding: 30, 30, 30, 30
+
+        GridLayout:
+            orientation: 'lr-tb'#'vertical'
+            cols: 2
+            Button:
+                text: 'Загрузить из папки'
+                size_hint_y: None
+                pos_hint: {"center_x": 0.5, "y": 0.5}
+                height: '96dp'
+                width: '420dp'
+                #Обработчик
+                on_release:
+                    #Функция загрузки фотографии
+                    root.show_load_main()
+            Button:
+                text: 'Переснять'
+                size_hint_y: None
+                pos_hint: {"center_x": 0.5, "y": 0.5}
+                height: '96dp'
+                width: '420dp'
+                #Обработчик
+                on_release:
+                    #Возвращение в первое окно съемки
+                    app.root.current = "camera_for_classification"
+                    #Переход окна влево (текущее уходит вправо)
+                    root.manager.transition.direction = "left"
+            Button:
+                text: 'Сброс'
+                size_hint_y: None
+                pos_hint: {"center_x": 0.5, "y": 0.5}
+                height: '96dp'
+                width: '420dp'
+                #Обработчик
+                on_release:
+                    #Функция стереть фотографию
+                    root.ImageDel()
+            Button:
+                text: 'Отправить данные'
+                size_hint_y: None
+                pos_hint: {"center_x": 0.5, "y": 0.5}
+                height: '96dp'
+                width: '420dp'
+                #Обработчик
+                on_release:
+                    #Функция стереть фотографию
+                    root.ImageSent()
+        Button:
+            text: 'Вернуться назад'
+            size_hint_y: None
+            height: '48dp'
+            width: '420dp'
+            #Обработчик
+            on_release:
+                #Возвращение в первое окно
+                app.root.current = "main"
+                #Переход окна влево (текущее уходит вправо)
+                root.manager.transition.direction = "right"
+<FileChoose>:
+    name: "filechoose"
+    id: my_widget
+
+    BoxLayout:
+        orientation: 'vertical'
+        #size: root.width, root.height
+        size_hint: 1, 1
+
+        padding: 50
+        spacing: 20
+
+        Image:
+            id: my_image
+            size_hint_y: 1
+            size_hint_x: 1
+            pos_hint_x: 0.5
+            pos_hint_y: 0.5
+            source: ""
+
+        FileChooserListView:
+            id: filechooser
+            size_hint_y: 1
+            size_hint_x: 1
+            rootpath: '/storage/emulated/0/' if platform == 'android' else '/'
+            #rootpath: '/storage/emulated/0/'
+            on_selection: my_widget.selected(filechooser.selection)
+
+        Button:
+            text: 'Вернуться назад'
+            size_hint_y: 0.3
+            height: '48dp'
+            #Обработчик
+            on_release:
+                #Очистка экрана выбора катинки
+                root.dellwidget()
+                #Переход на второе окно
+                app.root.current = "camera_for_QR_scanning"
+                #Переход окна вправо (текущее уходит влево)
+                root.manager.transition.direction = "right"
+
+<FourthWindow>:
+    name: "fourth"
+    BoxLayout:
+        orientation: 'vertical'
+        rows: 4
+        canvas:
+            Rectangle:
+                source: '4.jpg'
+                size: self.size
+                pos: self.pos
+
+        BoxLayout:
+            size_hint : 1, 1
+            Image:
+                padding: 30, 0, 0, 0
+                source: '1.jpg'
+                size_hint : 1, 1
+                pos_hint: {"right": 1, "center_y": 0.2}
+
+            Image:
+                #left, top, right, bottom
+                padding: 0, 0, 30, 0
+                source: '9.jpg'
+                size: self.texture_size
+                size_hint : 1.5, 1.5
+                pos_hint: {"x": 0, "top": 1}
+
+        ScrollView:
+            id: ScrollWindowid
+            size_hint: (1, 1)
+            do_scroll_x: False
+            do_scroll_y: True
+
+
+        Button:
+            id: Scrollbuttonid
+            text: 'Просмотреть номенклатуру'
+            size_hint_y: None
+            pos_hint: {"center_x": 0.5, "y": 0}
+            height: '48dp'
+            width: '420dp'
+            #Обработчик
+            on_release:
+                #Вызывает окно из main.py
+                root.ScrollWindow()
+
+        Button:
+            text: 'Вернуться назад'
+            size_hint_y: None
+            pos_hint: {"center_x": 0.5, "y": 0}
+            height: '48dp'
+            width: '420dp'
+            #Обработчик
+            on_release:
+                #Возвращение в первое окно
+                app.root.current = "main"
+                #Переход окна влево (текущее уходит вправо)
+                root.manager.transition.direction = "right"
+
+<ReportsWindowDetail>:
+    name: "reportOfItem"
+    BoxLayout:
+        orientation: 'vertical'
+        rows: 4
+        canvas:
+            Rectangle:
+                source: '4.jpg'
+                size: self.size
+                pos: self.pos
+
+        Button:
+            id: ButtonScrollWindowReportid
+            text: 'Нажмите'
+            size_hint_y: None
+            height: '48dp'
+            width: '420dp'
+            #Обработчик
+            on_release:
+                root.windowDraw()
+
+        BoxLayout:
+            id: ImageBoxId2
+            padding: 30, 30, 30, 30
+
+        ScrollView:
+            id: ScrollWindowReportid
+            size_hint: (1, 1)
+            do_scroll_x: False
+            do_scroll_y: True
+
+
+        Button:
+            text: 'Вернуться назад'
+            size_hint_y: None
+            height: '48dp'
+            width: '420dp'
+            #Обработчик
+            on_release:
+                root.dellwidgetAll()
+                root.dellwidgetAll()
+                #Возвращение в первое окно
+                app.root.current = "fourth"
+                #Переход окна влево (текущее уходит вправо)
+                root.manager.transition.direction = "right"
+
+<ReportsWindow>:
+    name: "reports"
+    BoxLayout:
+        orientation: 'vertical'
+        rows: 7
+        canvas:
+            Rectangle:
+                source: '4.jpg'
+                size: self.size
+                pos: self.pos
+
+        BoxLayout:
+
+            size_hint : 1, 1
+            Image:
+                padding: 30, 0, 0, 0
+                source: '1.jpg'
+                size_hint : 1, 1
+                pos_hint: {"right": 1, "center_y": 0.2}
+
+            Image:
+                #left, top, right, bottom
+                padding: 0, 0, 30, 0
+                source: '3.jpg'
+                size: self.texture_size
+                size_hint : 1.5, 1.5
+                pos_hint: {"x": 0, "top": 1}
+
+        BoxLayout:
+            cols: 3
+
+            Itemlabel:
+                text: 'Тип детали'
+
+            TextInput:
+                id: text_input1
+                font_size: '45sp'
+                multiline: True
+                font_size: 15
+                #Фильтрация неправильного ввода
+                #input_type: 'number'
+                #input_filter: 'int'
+
+            Button:
+                text: 'Выбрать'
+                size_hint_y: None
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                height: '48dp'
+                width: '420dp'
+                #Обработчик
+                on_release:
+                    #Переход на второе окно
+                    #app.root.current = "filterOfItem"
+                    root.ScrollWindowFilterType()
+
+        BoxLayout:
+            cols: 3
+
+            Itemlabel:
+                text: 'Цех'
+
+            TextInput:
+                id: text_input2
+                font_size: '45sp'
+                multiline: True
+                font_size: 15
+                #Фильтрация неправильного ввода
+                #input_type: 'number'
+                #input_filter: 'int'
+
+            Button:
+                text: 'Выбрать'
+                size_hint_y: None
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                height: '48dp'
+                width: '420dp'
+                #Обработчик
+                on_release:
+                    #Переход на второе окно
+                    root.ScrollWindowFilterWorkshop()
+
+        BoxLayout:
+            cols: 3
+
+            Itemlabel:
+                text: 'Участок'
+
+            TextInput:
+                id: text_input3
+                font_size: '45sp'
+                multiline: True
+                font_size: 15
+                #Фильтрация неправильного ввода
+                #input_type: 'number'
+                #nput_filter: 'int'
+
+            Button:
+                text: 'Выбрать'
+                size_hint_y: None
+                pos_hint: {"center_x": 0.5, "center_y": 0.5}
+                height: '48dp'
+                width: '420dp'
+                #Обработчик
+                on_release:
+                    #Переход на второе окно
+                    root.ScrollWindowFilterLot()
+
+        BoxLayout:
+            Itemlabel:
+                text: 'Дисбаланс'
+            GridLayout:
+                cols: 2
+                Itemlabel:
+                    id:label1
+                    text: '0'
+
+                Slider:
+                    id: slider_d1
+                    #min: 0
+                    #max: 2.5
+                    on_value: label1.text = str(round(self.value,2))
+                    orientation: 'horizontal'
+
+                Itemlabel:
+                    id:label2
+                    text: '5'
+
+                Slider:
+                    id: slider_d2
+                    #min: 2.5
+                    #max: 5
+                    on_value: label2.text = str(round(self.value,2))
+                    orientation: 'horizontal'
+
+        BoxLayout:
+            Itemlabel:
+                text: 'Диаметр отверстия'
+            GridLayout:
+                cols: 2
+                Itemlabel:
+                    id:label3
+                    text: '0'
+
+                Slider:
+                    id: slider_d3
+                    #min: 0
+                    #max: 5
+                    on_value: label3.text = str(round(self.value,2))
+                    orientation: 'horizontal'
+
+                Itemlabel:
+                    id:label4
+                    text: '10'
+
+                Slider:
+                    id: slider_d4
+                    #min: 5
+                    #max: 10
+                    on_value: label4.text = str(round(self.value,2))
+                    #str(int(self.value))
+                    orientation: 'horizontal'
+
+
+        Button:
+            text: 'Загрузить отчет по детали'
+            size_hint_y: None
+            pos_hint: {"center_x": 0.5, "y": 0.5}
+            height: '48dp'
+            width: '420dp'
+            #Обработчик
+            on_release:
+                #Функция для запроса и формирования данных для отчета
+                root.DataForReportAndDataFromDataBase()
+                #Петеход к окну отчета
+                app.root.current = "mainReport"
+                #Переход окна вправо (текущее уходит влево)
+                root.manager.transition.direction = "left"
+
+        Button:
+            text: 'Вернуться назад'
+            size_hint_y: None
+            height: '48dp'
+            width: '420dp'
+            #Обработчик
+            on_release:
+                #Возвращение в первое окно
+                app.root.current = "main"
+                #Переход окна влево (текущее уходит вправо)
+                root.manager.transition.direction = "right"
+
+<FilterWindow>:
+    name: "filterOfItem"
+    BoxLayout:
+        orientation: 'vertical'
+        rows: 4
+        canvas:
+            Rectangle:
+                source: '4.jpg'
+                size: self.size
+                pos: self.pos
+
+        BoxLayout:
+            size_hint : 1, 1
+            Image:
+                padding: 30, 0, 0, 0
+                source: '1.jpg'
+                size_hint : 1, 1
+                pos_hint: {"right": 1, "center_y": 0.2}
+
+            Image:
+                #left, top, right, bottom
+                padding: 0, 0, 30, 0
+                source: '9.jpg'
+                size: self.texture_size
+                size_hint : 1.5, 1.5
+                pos_hint: {"x": 0, "top": 1}
+
+        ScrollView:
+            id: ScrollWindowFilterid
+            size_hint: (1, 1)
+            do_scroll_x: False
+            do_scroll_y: True
+
+        Button:
+            text: 'Загрузить'
+            size_hint_y: None
+            height: '48dp'
+            width: '420dp'
+            #Обработчик
+            on_release:
+                root.dellwidgetfilter()
+                root.ScrollWindowFilter()
+
+        Button:
+            id: ButtonScrollWindowReportid
+            text: 'Выбрать'
+            size_hint_y: None
+            height: '48dp'
+            width: '420dp'
+            #Обработчик
+            on_release:
+                root.changerFilter()
+
+
+        Button:
+            id: ButtonBacktracking
+            text: 'Вернуться назад'
+            size_hint_y: None
+            height: '48dp'
+            width: '420dp'
+            #Обработчик
+            on_release:
+                root.dellwidgetfilter()
+                #Возвращение в первое окно
+                app.root.current = "reports"
+                #Переход окна влево (текущее уходит вправо)
+                root.manager.transition.direction = "right"
+                #app.root.textInInput()
+
+<MainReport>:
+    name: "mainReport"
+    BoxLayout:
+        orientation: 'vertical'
+        rows: 2
+        canvas:
+            Rectangle:
+                source: '4.jpg'
+                size: self.size
+                pos: self.pos
+
+        ScrollView:
+            id: ScrollWindowReportMainid
+            size_hint: (1, 1)
+            do_scroll_x: False
+            do_scroll_y: True
+
+
+        Button:
+            text: 'Вернуться назад'
+            size_hint_y: None
+            height: '48dp'
+            width: '420dp'
+            #Обработчик
+            on_release:
+                root.dellwidget()
+                #Возвращение в первое окно
+                app.root.current = "reports"
+                #Переход окна влево (текущее уходит вправо)
+                root.manager.transition.direction = "right"
+

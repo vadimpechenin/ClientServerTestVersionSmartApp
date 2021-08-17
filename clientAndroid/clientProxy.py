@@ -1,7 +1,7 @@
 import socket
 from threading import Lock
-from client.clientModule import MySocket
-from client.applicationEnvironment import appEnvironment
+from clientModule import MySocket
+from applicationEnvironment import appEnvironment
 from common.socketHelper import SocketHelper
 
 from kivy.uix.popup import Popup
@@ -20,8 +20,8 @@ class ClientProxy():
         self.popup5 = None
         self.koef = appEnvironment.koef
         self.PopupGrid = None
-        # self.isConnected = False
-        # pass
+        #self.isConnected = False
+        #pass
 
     def connect(self):
         if self.isConnected():
@@ -37,7 +37,6 @@ class ClientProxy():
         if self.isConnected:
             self.sock.sock.close()
             self.sock = None
-
 
     def isConnected(self):
         return self.sock != None
