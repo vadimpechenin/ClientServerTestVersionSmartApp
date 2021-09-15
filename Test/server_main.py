@@ -73,6 +73,10 @@ def save_image(messageParameter):
         #t = bytearray(messageParameter.Images[j].read())
         #file_bytes = np.asarray(bytearray(messageParameter.Images[j].read()), dtype='uint8')
         #img = cv2.imdecode(img, cv2.IMREAD_COLOR)
+
+        # Преобразование цвета от PIL (в случае использования версии с телефона)
+        img = cv2.cvtColor(img, cv2.COLOR_RGB2BGR)
+
         cv2.imwrite('image_server' + str(k) + '.jpg',img)
         print("Размер принятого изображения: ", messageParameter.sizeOfImages[k-1])
         #time.sleep(0.3)
